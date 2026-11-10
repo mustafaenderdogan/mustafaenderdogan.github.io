@@ -1,9 +1,9 @@
 /* Mustafa Ender Doğan — İş Analizi Portfolyosu · zihin.js
    "Bir analistin zihni": açılışın arka planında video gibi döngüde oynayan soluk canvas animasyonu.
    Belirsizlik → soru → bağlantı → yapı → akış, ~16 sn döngü. Harici kütüphane yok.
-   Açık zemine göre koyu mavi tonlarda çizilir; adın ve tanıtım metninin bittiği yerden başlar, yazının arkasına düşmez.
+   Açık zemine göre koyu mavi tonlarda, sütun başlıkları olmadan çizilir; açılışın ortasında, yazının arkasında oynar.
    Ekran dışındayken ve sekme gizliyken durur; "hareketi azalt" tercihinde düzenli kareyi sabit gösterir.
-   Metnin sağında yeterli yer yoksa (dar dizüstü, tablet, telefon) çizilmez. */
+   Telefonda (760 pikselden dar) çizilmez; site.css tuvali gizler. */
 (function () {
   "use strict";
   var cv = document.getElementById("zihinCanvas");
@@ -37,36 +37,30 @@
     nodes.forEach(function (b, j) { if (b.col === a.col + 1 && rnd() < 0.42) edges.push([i, j, rnd()]); });
   });
 
-  // W, H: tuval; X0..X0+XW ve Y0..Y0+YH: animasyonun oynadığı sağ taraftaki alan
-  var W = 0, H = 0, dpr = 1, on = false, heads = [], X0 = 0, XW = 0, Y0 = 0, YH = 0, FS = 13, NH = 28;
+  // W, H: tuval; X0..X0+XW ve Y0..Y0+YH: animasyonun oynadığı, yatayda ortalanmış alan
+  var W = 0, H = 0, dpr = 1, on = false, X0 = 0, XW = 0, Y0 = 0, YH = 0, FS = 13, NH = 28;
   function font(s, w) { return w + " " + s + "px Figtree, system-ui, sans-serif"; }
   function layout() {
     var cr = cv.getBoundingClientRect();
     W = cr.width; H = cr.height;
-    // animasyon alanı, adın ve tanıtım metninin bittiği yerden başlar; metnin arkasına düşmez
-    var right = 0;
-    [].forEach.call(cv.parentNode.querySelectorAll("h1, .intro-role, .intro-lead"), function (el) {
-      right = Math.max(right, el.getBoundingClientRect().right - cr.left);
-    });
-    X0 = right + 40; XW = W - X0 - 16;
-    on = W >= 760 && XW >= 430 && H > 0;
+    // animasyon alanı yatayda ortalı; çok geniş ekranda 1180 pikselle sınırlı
+    XW = Math.min(W * 0.9, 1180); X0 = (W - XW) / 2;
+    on = W >= 760 && H > 0;
     if (!on) { if (cv.width) ctx.clearRect(0, 0, cv.width, cv.height); return; }
     dpr = Math.min(window.devicePixelRatio || 1, 2);
     cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    Y0 = H * 0.12; YH = H * 0.80;
-    FS = XW < 520 ? 11.5 : XW < 640 ? 12.5 : 13.5; NH = FS < 12 ? 24 : FS < 13 ? 26 : 28;
+    Y0 = H * 0.10; YH = H * 0.80;
+    FS = XW < 800 ? 12.5 : 13.5; NH = FS < 13 ? 26 : 28;
     ctx.font = font(FS, 500);
-    nodes.forEach(function (n) { n.w = ctx.measureText(n.t).width + (FS < 12 ? 16 : 20); });
-    heads = [];
-    var top = Y0 + YH * 0.04, bottom = Y0 + YH;
+    nodes.forEach(function (n) { n.w = ctx.measureText(n.t).width + 20; });
+    // düzenli hâlde her sütunun düğümleri alanın yüksekliğine eşit aralıkla dizilir (başlık yok)
     var colW = XW / COLS.length;
     COLS.forEach(function (c, ci) {
       var cx = X0 + colW * ci + colW / 2;
-      heads.push({ t: c, x: cx, y: top });
       var list = nodes.filter(function (n) { return n.col === ci; });
-      var gap = (bottom - top - 36) / Math.max(list.length, 1);
-      list.forEach(function (n, k) { n.ox = cx; n.oy = top + 38 + gap * k + gap / 2 - 8; });
+      var gap = YH / Math.max(list.length, 1);
+      list.forEach(function (n, k) { n.ox = cx; n.oy = Y0 + gap * k + gap / 2; });
     });
   }
   function ease(t) { return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
@@ -123,15 +117,6 @@
       n.x = cx + (n.ox - cx) * org; n.y = cy + (n.oy - cy) * org;
     });
 
-    // sütun başlıkları
-    if (org > 0.01) {
-      ctx.font = font(FS < 12 ? 10.5 : 11.5, 700);
-      heads.forEach(function (h) {
-        ctx.fillStyle = rgba(BLUE, org * 0.9);
-        ctx.fillText(h.t.toLocaleUpperCase("tr-TR"), h.x, h.y);
-      });
-    }
-
     // bağlantılar ve akış nabzı
     var pulse = seg(p, 0.66, 0.90);
     edges.forEach(function (e) {
@@ -171,13 +156,6 @@
       ctx.fillText(n.t, n.x, n.y + 1);
     });
 
-    // sol kenar: metne doğru yumuşak geçiş
-    ctx.save();
-    ctx.globalCompositeOperation = "destination-in";
-    var fade = ctx.createLinearGradient(X0 - 30, 0, X0 + 50, 0);
-    fade.addColorStop(0, "rgba(0,0,0,0)"); fade.addColorStop(1, "rgba(0,0,0,1)");
-    ctx.fillStyle = fade; ctx.fillRect(0, 0, W, H);
-    ctx.restore();
   }
 
   var running = false, visible = false, raf = 0, t0 = performance.now();
