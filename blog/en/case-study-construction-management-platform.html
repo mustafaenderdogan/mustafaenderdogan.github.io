@@ -3,21 +3,21 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Case Study: Work Management Platform for Construction</title>
-  <meta name="description" content="Subcontractor documents, timesheets, site stock, quote comparison and tablet field reports in one system. The decisions behind our Work Management Platform: role-based screens, 138 API endpoints, 269 automated tests on every release and an in-browser demo." />
+  <title>A work management platform for construction and contracting firms</title>
+  <meta name="description" content="Our Work Management Platform brings subcontractor documents, timesheets, site stock, quote comparison and tablet field reports into one system. This article covers the decisions behind it: role-based screens, 138 API endpoints, 269 automated tests on every release and an in-browser demo." />
   <link rel="canonical" href="https://mustafaenderdogan.github.io/blog/en/case-study-construction-management-platform.html" />
   <meta name="robots" content="index, follow" />
 
-  <meta property="og:title" content="Case Study: A Work Management Platform for Construction" />
-  <meta property="og:description" content="Subcontractor documents, timesheets, site stock, quote comparison and tablet field reports in one system. The decisions behind our Work Management Platform: role-based screens, 138 API endpoints, 269 automated tests on every release and an in-browser demo." />
+  <meta property="og:title" content="A work management platform for construction and contracting firms" />
+  <meta property="og:description" content="Our Work Management Platform brings subcontractor documents, timesheets, site stock, quote comparison and tablet field reports into one system. This article covers the decisions behind it: role-based screens, 138 API endpoints, 269 automated tests on every release and an in-browser demo." />
   <meta property="og:type" content="article" />
   <meta property="og:url" content="https://mustafaenderdogan.github.io/blog/en/case-study-construction-management-platform.html" />
   <meta property="og:image" content="https://mustafaenderdogan.github.io/assets/img/og-portfolyo.png" />
   <meta property="og:locale" content="en_US" />
   <meta property="og:site_name" content="Mustafa Ender Doğan — İş Analizi Portfolyosu" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Case Study: A Work Management Platform for Construction" />
-  <meta name="twitter:description" content="Subcontractor documents, timesheets, site stock, quote comparison and tablet field reports in one system. The decisions behind our Work Management Platform: role-based screens, 138 API endpoints, 269 automated tests on every release and an in-browser demo." />
+  <meta name="twitter:title" content="A work management platform for construction and contracting firms" />
+  <meta name="twitter:description" content="Our Work Management Platform brings subcontractor documents, timesheets, site stock, quote comparison and tablet field reports into one system. This article covers the decisions behind it: role-based screens, 138 API endpoints, 269 automated tests on every release and an in-browser demo." />
   <meta name="twitter:image" content="https://mustafaenderdogan.github.io/assets/img/og-portfolyo.png" />
 
   <link rel="alternate" hreflang="tr" href="https://mustafaenderdogan.github.io/blog/vaka-insaat-is-yonetim-platformu.html" />
@@ -28,8 +28,8 @@
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "Case Study: A Work Management Platform for Construction",
-  "description": "Subcontractor documents, timesheets, site stock, quote comparison and tablet field reports in one system. The decisions behind our Work Management Platform: role-based screens, 138 API endpoints, 269 automated tests on every release and an in-browser demo.",
+  "headline": "A work management platform for construction and contracting firms",
+  "description": "Our Work Management Platform brings subcontractor documents, timesheets, site stock, quote comparison and tablet field reports into one system. This article covers the decisions behind it: role-based screens, 138 API endpoints, 269 automated tests on every release and an in-browser demo.",
   "image": "https://mustafaenderdogan.github.io/assets/img/og-portfolyo.png",
   "datePublished": "2026-10-09",
   "dateModified": "2026-10-09",
@@ -62,7 +62,7 @@
     {
       "@type": "ListItem",
       "position": 3,
-      "name": "Case study: Work Management Platform",
+      "name": "Work management platform case study",
       "item": "https://mustafaenderdogan.github.io/blog/en/case-study-construction-management-platform.html"
     }
   ]
@@ -103,13 +103,13 @@
   <main id="icerik" class="section blog-page">
     <div class="container">
       <nav class="breadcrumb" aria-label="breadcrumb">
-        <a href="/en/">Home</a><span>›</span><a href="./">Blog</a><span>›</span><span>Case study: Work Management Platform</span>
+        <a href="/en/">Home</a><span>›</span><a href="./">Blog</a><span>›</span><span>Work management platform case study</span>
       </nav>
 
       <article class="article">
         <header class="article-head">
-          <span class="tag">Case study · Construction</span>
-          <h1>Case Study: A Work Management Platform for Construction</h1>
+          <span class="tag">Construction case study</span>
+          <h1>A work management platform for construction and contracting firms</h1>
           <div class="article-meta">
             <time datetime="2026-10-09">October 9, 2026</time>
             <span>5 min read</span>
@@ -117,49 +117,49 @@
         </header>
 
         <div class="article-body">
-<p>In construction and contracting, information usually lives in three places: spreadsheets, messaging groups and the site manager's notebook. Has a subcontractor worker's safety certificate expired? How much rebar is left at the Kartal site? What did we pay for the same material last month? The answers exist, but finding them takes a chain of phone calls.</p>
+<p>In construction and contracting, information usually sits in spreadsheets, messaging groups and the site manager's notebook. Questions such as whether a subcontractor worker's safety certificate has expired, how much rebar is left at the Kartal site or what was paid for the same material last month all have answers, but finding them takes a chain of phone calls.</p>
 
           <p>The Work Management Platform (İYP in Turkish) is a web application I built to bring that information into one system. This article explains what I built and why.</p>
 
-          <h2>Scope: four jobs, one screen</h2>
+          <h2>Scope</h2>
           <ul>
             <li><strong>Subcontractor documents:</strong> subcontractor workers' documents and whether they're cleared to enter the site. Workers with missing documents are flagged on the timesheet.</li>
             <li><strong>Site stock:</strong> stock, material consumption and cost per site.</li>
             <li><strong>Quote comparison:</strong> a new quote is instantly compared with past purchase prices for the same material.</li>
             <li><strong>Field reports:</strong> reports from a tablet, with photos and location.</li>
           </ul>
-          <p>I kept the scope deliberately narrow. Instead of an "ERP that does everything", a system that does well the four jobs that waste the most time on site.</p>
+          <p>I kept the scope narrow on purpose. I wasn't trying to build an ERP that does everything; the aim was to do the four jobs that waste the most time on site, and to do them well.</p>
 
           <h2>Role-based screens</h2>
-          <p>A site manager and a board member seeing the same screen makes both their jobs harder. In the platform, every user sees the screens for their role. The demo has seven sample accounts: company administrator, HR and administration, two site managers responsible for different sites, purchasing and warehouse, field staff, and read-only management.</p>
-          <p>Field staff enter reports on a tablet but can't edit them; a site manager only sees the sites they're responsible for; purchasing manages stock, suppliers and quotes; management sees read-only summaries. Permissions are enforced on the server, not in the interface, and part of the automated test suite checks exactly that: a role can't reach through the API what it can't see on screen, and one company's data is isolated from another's.</p>
+          <p>If a site manager and a board member see the same screen, both find it harder to do their jobs. So in the platform every user sees the screens for their own role. The demo has seven sample accounts: company administrator, HR and administration, two site managers responsible for different sites, purchasing and warehouse, field staff, and read-only management.</p>
+          <p>Field staff can enter reports on a tablet but can't edit them. A site manager sees only the sites they're responsible for. Purchasing manages stock, suppliers and quotes, and management sees read-only summaries. Permissions are enforced on the server, and some of the automated tests verify exactly that: a role can't use the API to reach data it can't see on screen, and one company's data stays isolated from another's.</p>
 
-          <h2>Timesheets, and making peace with Excel</h2>
-          <p>On site, timesheets usually live in Excel and are copied into payroll by hand at month end. In the platform, the timesheet is a table per project and month: tap a cell to record the day (worked, leave, sick, overtime), or fill today for everyone at once. HR approves and closes the month; a closed month can only be reopened with a reason. At month end, an Excel export goes to payroll.</p>
-          <p>Rather than ignore Excel, I chose to work with it: employee and material lists can be imported from a ready-made Excel template. A preview is shown before import, and invalid or duplicate rows are left out.</p>
+          <h2>Timesheets and Excel</h2>
+          <p>On site, timesheets are usually kept in Excel and copied into payroll by hand at the end of the month. In the platform, the timesheet is a table for each project and month. You tap a cell to record the day (worked, leave, sick, overtime), or fill in today for everyone at once. HR approves and closes the month, and a closed month can only be reopened with a reason. At month end, payroll gets an Excel export.</p>
+          <p>Rather than ignore Excel, I chose to work with it. Employee and material lists can be imported from a ready-made Excel template. You see a preview first, and invalid or duplicate rows are left out.</p>
 
           <h2>Data and security</h2>
-          <p>Subcontractor and staff records include sensitive fields such as national ID numbers and IBANs. These are stored encrypted; only authorised users can reveal them on the person's record, and every reveal is logged. Two-factor authentication is available at login. When a data subject request arrives, the person's details, documents, timesheets and a record of who accessed their data can be prepared as a single file. The company administrator can export all data as Excel and JSON at any time; the data belongs to the company, not the system.</p>
+          <p>Subcontractor and staff records include sensitive fields such as national ID numbers and IBANs. These fields are stored encrypted. Only an authorised user can reveal them on a person's record, and every reveal is logged. Two-factor authentication is available at login. When a data subject request comes in, the person's details, documents and timesheets, along with a record of who accessed their data, can be prepared as a single file. Because the data belongs to the company, the company administrator can export all of it as Excel and JSON at any time.</p>
 
-          <h2>A system that grows through tests</h2>
-          <p>The platform has 138 API endpoints, and 269 automated tests run on every release. These numbers aren't a boast but a necessity: in areas such as stock, cost and document compliance, the price of a bug is paid on site. When a new feature is added, a machine checks every time that existing calculations still hold, so making changes stops being scary.</p>
+          <h2>Automated tests</h2>
+          <p>The platform has 138 API endpoints, and 269 automated tests run on every release. Having that many tests is a necessity, because in areas such as stock, cost and document compliance, the price of a bug is paid on site. Whenever a new feature is added, the tests check that existing calculations still hold, so making changes is nothing to be afraid of.</p>
 
           <h2>Why does the demo run in the browser?</h2>
-          <p>The best way to explain business software is to let people use it. But you can't demo with real data, and setting up a server for every visitor is an unnecessary cost. So I built the <a href="../../isyonetim/">platform demo</a> (interface in Turkish) to run in the browser:</p>
+          <p>I think the best way to explain business software is to let people use it. A demo can't use real data, though, and setting up a server for every visitor would be an unnecessary cost. So I built the <a href="../../isyonetim/">platform demo</a> (interface in Turkish) to run in the browser:</p>
           <ul>
-            <li>It uses the real interface; an in-browser demo API takes the place of the server.</li>
-            <li>The data is entirely synthetic: no real national ID numbers, IBANs or email addresses.</li>
-            <li>Each role logs in with one click and no password; "Reset demo" returns everything to its starting state.</li>
-            <li>Changes a visitor makes stay in their own browser.</li>
+            <li>It uses the real interface, with an in-browser demo API in place of the server.</li>
+            <li>The data is entirely synthetic, with no real national ID numbers, IBANs or email addresses.</li>
+            <li>Each role logs in with one click and no password, and "Reset demo" puts everything back the way it was.</li>
+            <li>Any changes you make stay in your own browser.</li>
           </ul>
-          <p>This approach makes a fully working product experience possible even on static hosting.</p>
+          <p>This way the whole product can be tried out, even on static hosting.</p>
 
           <h2>Lessons from this project</h2>
           <ul>
-            <li><strong>Start narrow.</strong> Picking the few jobs that waste the most time on site creates value faster than a broad but half-finished system.</li>
-            <li><strong>Put the role at the centre of the design.</strong> A screen that shows everyone everything helps no one.</li>
-            <li><strong>Enforce permissions on the server.</strong> Hiding things in the interface isn't security.</li>
-            <li><strong>Write tests from day one.</strong> For calculations like cost and stock, automated tests are the only safe way to grow the system.</li>
+            <li><strong>Starting narrow</strong> works better, in my view. Picking the few jobs that waste the most time on site pays off sooner than a broad but half-finished system.</li>
+            <li>The design should <strong>start from the user's role</strong>, because a screen that shows everyone everything ends up helping no one.</li>
+            <li>Permissions have to be <strong>enforced on the server</strong>. Hiding something in the interface isn't security.</li>
+            <li>For calculations like cost and stock, <strong>write the tests from day one</strong>. Automated tests are the only safe way to grow the system.</li>
           </ul>
         </div>
 
@@ -171,7 +171,7 @@
 
         <nav class="article-nav">
           <a href="./">← All articles</a>
-          <a href="ai-in-motor-insurance-claims.html">Next: AI in Motor Insurance Claims →</a>
+          <a href="ai-in-motor-insurance-claims.html">Next: Preparing motor insurance claim files with AI</a>
         </nav>
       </article>
     </div>

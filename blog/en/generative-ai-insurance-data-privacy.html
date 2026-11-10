@@ -3,21 +3,21 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Generative AI in Insurance: Data Privacy Before the Model</title>
-  <meta name="description" content="A technical checklist for insurers and agencies using language models with claims and policy data: masking, special-category data, cross-border transfer, storage and audit trails. Written with Turkey&#x27;s KVKK in mind." />
+  <title>Technical privacy measures for generative AI in insurance</title>
+  <meta name="description" content="A technical checklist I wrote for insurers and agencies that want to use language models with claims and policy data. It covers masking, special-category data, cross-border transfer, storage and audit trails, with Turkey&#x27;s KVKK in mind." />
   <link rel="canonical" href="https://mustafaenderdogan.github.io/blog/en/generative-ai-insurance-data-privacy.html" />
   <meta name="robots" content="index, follow" />
 
-  <meta property="og:title" content="Generative AI in Insurance and Data Privacy: Before the Data Reaches the Model" />
-  <meta property="og:description" content="A technical checklist for insurers and agencies using language models with claims and policy data: masking, special-category data, cross-border transfer, storage and audit trails. Written with Turkey&#x27;s KVKK in mind." />
+  <meta property="og:title" content="Technical privacy measures for generative AI in insurance" />
+  <meta property="og:description" content="A technical checklist I wrote for insurers and agencies that want to use language models with claims and policy data. It covers masking, special-category data, cross-border transfer, storage and audit trails, with Turkey&#x27;s KVKK in mind." />
   <meta property="og:type" content="article" />
   <meta property="og:url" content="https://mustafaenderdogan.github.io/blog/en/generative-ai-insurance-data-privacy.html" />
   <meta property="og:image" content="https://mustafaenderdogan.github.io/assets/img/og-portfolyo.png" />
   <meta property="og:locale" content="en_US" />
   <meta property="og:site_name" content="Mustafa Ender Doğan — İş Analizi Portfolyosu" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Generative AI in Insurance and Data Privacy: Before the Data Reaches the Model" />
-  <meta name="twitter:description" content="A technical checklist for insurers and agencies using language models with claims and policy data: masking, special-category data, cross-border transfer, storage and audit trails. Written with Turkey&#x27;s KVKK in mind." />
+  <meta name="twitter:title" content="Technical privacy measures for generative AI in insurance" />
+  <meta name="twitter:description" content="A technical checklist I wrote for insurers and agencies that want to use language models with claims and policy data. It covers masking, special-category data, cross-border transfer, storage and audit trails, with Turkey&#x27;s KVKK in mind." />
   <meta name="twitter:image" content="https://mustafaenderdogan.github.io/assets/img/og-portfolyo.png" />
 
   <link rel="alternate" hreflang="tr" href="https://mustafaenderdogan.github.io/blog/sigortada-yapay-zeka-kvkk.html" />
@@ -28,8 +28,8 @@
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "Generative AI in Insurance and Data Privacy: Before the Data Reaches the Model",
-  "description": "A technical checklist for insurers and agencies using language models with claims and policy data: masking, special-category data, cross-border transfer, storage and audit trails. Written with Turkey's KVKK in mind.",
+  "headline": "Technical privacy measures for generative AI in insurance",
+  "description": "A technical checklist I wrote for insurers and agencies that want to use language models with claims and policy data. It covers masking, special-category data, cross-border transfer, storage and audit trails, with Turkey's KVKK in mind.",
   "image": "https://mustafaenderdogan.github.io/assets/img/og-portfolyo.png",
   "datePublished": "2026-10-09",
   "dateModified": "2026-10-09",
@@ -62,7 +62,7 @@
     {
       "@type": "ListItem",
       "position": 3,
-      "name": "AI and Data Privacy",
+      "name": "AI and data privacy",
       "item": "https://mustafaenderdogan.github.io/blog/en/generative-ai-insurance-data-privacy.html"
     }
   ]
@@ -103,13 +103,13 @@
   <main id="icerik" class="section blog-page">
     <div class="container">
       <nav class="breadcrumb" aria-label="breadcrumb">
-        <a href="/en/">Home</a><span>›</span><a href="./">Blog</a><span>›</span><span>AI and Data Privacy</span>
+        <a href="/en/">Home</a><span>›</span><a href="./">Blog</a><span>›</span><span>AI and data privacy</span>
       </nav>
 
       <article class="article">
         <header class="article-head">
-          <span class="tag">Insurance · Privacy</span>
-          <h1>Generative AI in Insurance and Data Privacy: Before the Data Reaches the Model</h1>
+          <span class="tag">Insurance and privacy</span>
+          <h1>Technical privacy measures for generative AI in insurance</h1>
           <div class="article-meta">
             <time datetime="2026-10-09">October 9, 2026</time>
             <span>5 min read</span>
@@ -117,45 +117,45 @@
         </header>
 
         <div class="article-body">
-<p>AI projects at insurers tend to slow down at the same point. The technical team wants to try reading claim notifications with a language model; legal and information security, quite rightly, ask "where does this data go?" That question isn't asked to stop the project but to design it properly, and most of the answer lies in the architecture.</p>
+<p>AI projects at insurers tend to slow down at the same point. The technical team wants to try reading claim notifications with a language model, and legal and information security ask, quite rightly, "where does this data go?" That question is part of designing the project properly, and most of the answer lies in the architecture.</p>
 
-          <p>This article isn't legal advice; work with your legal and data protection officers on any real project. The examples refer to Turkey's personal data protection law (KVKK), which is close in spirit to the GDPR. What follows is a checklist of the technical measures you can take before data reaches the model and after it does.</p>
+          <p>This article is not legal advice. On any real project, make sure you work with your legal and data protection officers. The examples refer to Turkey's personal data protection law (KVKK), which was modeled on EU data protection law. Below is my checklist of the technical measures you can take before the data reaches the model and after it does.</p>
 
           <h2>1. Draw the data flow first</h2>
-          <p>"We use AI" isn't enough. Show on a single page which data goes to which component, from the moment a claim enters the system until it's archived:</p>
+          <p>Saying "we use AI" isn't enough. Show on a single page which data goes to which component, from the moment a claim enters the system until it is archived. The diagram should answer these questions:</p>
           <ul>
             <li>Where does the data come from? (messaging apps, email, web forms, call centre notes)</li>
             <li>Where is it stored, and who can access it?</li>
             <li>What exactly is the text sent to the language model? Do images and PDFs go too?</li>
             <li>Does the model provider store the data or use it for training? What does the contract say?</li>
           </ul>
-          <p>This diagram clarifies the design and gives you the basis for updating your privacy notice and data inventory.</p>
+          <p>The diagram makes the design clearer, and you can use it as the basis for updating your privacy notice and data inventory.</p>
 
           <h2>2. Mask personal data before it reaches the model</h2>
           <p>To understand a claim, the model doesn't need the policyholder's phone number, national ID or IBAN. These fields can be detected in a rule-based layer and replaced with placeholders before the text is sent:</p>
           <ul>
-            <li>national ID → <code>[ID]</code>, phone → <code>[PHONE]</code>, IBAN → <code>[IBAN]</code>, email → <code>[EMAIL]</code></li>
-            <li>names and addresses too, where needed.</li>
+            <li>The national ID number becomes <code>[ID]</code>, the phone number <code>[PHONE]</code>, the IBAN <code>[IBAN]</code> and the email address <code>[EMAIL]</code>.</li>
+            <li>Names and addresses are masked too, where needed.</li>
           </ul>
-          <p>Masking should be deterministic: regular expressions and validation rules (such as the check digits of a Turkish ID number), not an instruction asking the model to "mask this". The real values stay in your system, and tasks such as policy matching are done on your side with those values.</p>
-          <p>Some fields need separate thought. A policy or certificate number matters for a claim and can be linked to a person or sole trader indirectly. Does the model really need to see the number, or should matching happen on your side? Decide field by field.</p>
+          <p>Masking should be deterministic, built on regular expressions and validation rules (such as the check digits of a Turkish ID number). Don't rely on telling the model to "mask this". The real values stay in your system, and tasks such as policy matching are done on your side with those values.</p>
+          <p>Fields such as the policy or insurance certificate number need more thought. The number matters for the claim, but it can also be linked indirectly to a person or a sole trader. Does the model really need to see it, or should the matching happen on your side? Decide this field by field.</p>
 
-          <h2>3. Images and documents: convert to text first</h2>
-          <p>Delivery receipts, survey reports and copies of ID documents can contain signatures and ID numbers. Instead of sending them as images to an AI service, converting them to text on your own server (OCR) and running them through the same masking layer shrinks the exposed data considerably. The model only sees masked text.</p>
+          <h2>3. Convert images and documents to text first</h2>
+          <p>Delivery receipts, survey reports and copies of ID documents can contain signatures and ID numbers. If you convert them to text on your own server (OCR) and run that text through the same masking layer, instead of sending the images to an AI service, you expose considerably less data. The model then sees only masked text.</p>
 
-          <h2>4. Special-category data: an injury is health data</h2>
-          <p>A point often missed in claims: "the other driver was injured and taken to hospital" contains health data. KVKK, like the GDPR, gives health data extra protection as a special category. In practice:</p>
+          <h2>4. Treat injury information as health data</h2>
+          <p>Something often missed in claims is that a sentence like "the other driver was injured and taken to hospital" contains health data. KVKK, like the GDPR, gives health data extra protection as a special category. In practice, this means:</p>
           <ul>
             <li>the purpose of processing injury information (for example, prioritising the file) should be clearly defined,</li>
             <li>medical details (diagnosis, treatment) shouldn't go to the model unless necessary,</li>
             <li>access to these fields should be limited to a narrower group of roles.</li>
           </ul>
 
-          <h2>5. Cross-border transfer: start switched off</h2>
-          <p>Many popular language model services run outside the country where the data was collected. KVKK's rules on transfers abroad changed in 2024, redefining adequacy decisions, appropriate safeguards such as standard contracts, and exceptional cases. Which route fits you is a legal assessment.</p>
-          <p>What you can do technically is turn that decision into a switch in the system: use of models hosted abroad starts disabled per insurer or agency and is enabled once the legal review is complete. While it's off, the system should keep working with a locally hosted model or with rule-based steps only.</p>
+          <h2>5. Start with cross-border transfer switched off</h2>
+          <p>Many popular language model services run outside the country where the data was collected. KVKK's rules on transfers abroad changed in 2024, and the amendment redefined the rules on adequacy decisions, appropriate safeguards such as standard contracts, and the narrow exceptions that apply only to occasional transfers. Which route fits your situation is a legal assessment.</p>
+          <p>On the technical side, you can turn that decision into a switch in the system. Use of models hosted abroad starts disabled per insurer or agency and is enabled once the legal review is complete. While the switch is off, the system should keep working with a model hosted in-country or with rule-based steps only.</p>
 
-          <h2>6. Storage: encrypted, separated and time-limited</h2>
+          <h2>6. Storage</h2>
           <ul>
             <li><strong>Encryption:</strong> claim text and personal fields should be encrypted at field level in the database.</li>
             <li><strong>Separation:</strong> in a system serving several insurers or agencies, each tenant's data should be kept apart, and that separation verified by automated tests.</li>
@@ -163,16 +163,16 @@
           </ul>
 
           <h2>7. Audit trail and explainability</h2>
-          <p>Being able to show later what the AI suggested on a file and what the handler did with it matters for internal audit and for any request from the data subject. Store every suggestion with the model used, the prompt version and the masked input. Write status changes to a record that can't be altered afterwards.</p>
+          <p>Being able to show later what the AI suggested on a file, and what the handler did with that suggestion, matters for internal audit and for any request from the data subject. So every suggestion should be stored along with the model used, the prompt version and the masked input. Status changes on the file should go to a record that can't be altered afterwards.</p>
 
           <h2>8. The limit on automated decisions</h2>
-          <p>KVKK gives individuals the right to object when a result against them arises solely from automated analysis, similar to the GDPR's provisions on automated decision-making. That's a strong reason for decisions with consequences, such as rejection or payment, to be made by a person with a written reason. AI prepares and suggests; an authorised person decides.</p>
+          <p>KVKK gives individuals the right to object when the automated analysis of their data alone produces a result against them. That's a strong reason for decisions with consequences, such as rejection or payment, to be made by a person with a written reason. My own preference is to leave preparation and suggestions to the AI and keep the decision with an authorised person.</p>
 
           <h2>Quick checklist</h2>
           <ol>
             <li>Is the data flow diagram ready?</li>
             <li>Are ID, phone, IBAN and email masked before reaching the model?</li>
-            <li>Do images go to OCR and masking first, not to the model?</li>
+            <li>Do images go through OCR and masking before they reach the model?</li>
             <li>Is health data handled separately?</li>
             <li>Can the use of models hosted abroad be switched off per insurer?</li>
             <li>Are personal fields encrypted and separated per tenant?</li>
@@ -181,18 +181,18 @@
           </ol>
 
           <h2>Conclusion</h2>
-          <p>Data protection law isn't an obstacle to AI in insurance; it's the frame of a good architecture. When masking, local OCR, cross-border transfer off by default and traceable suggestions are designed in from the start, the conversation with legal and security moves from "why we can't" to "under which conditions we can".</p>
+          <p>In my view, data protection law sets the frame for a good AI architecture in insurance. When these measures are designed in from the start, the conversation with legal and security moves from "why we can't" to "under which conditions we can".</p>
         </div>
 
         <div class="article-cta">
-          <h3>How was this checklist applied in the cases?</h3>
-          <p>I wrote masking, audit trail and field minimisation decisions as business rules and requirements in the cargo claims and bancassurance case studies. See an example flow in the <a href="../../hasarai/">HasarAI demo</a> (interface in Turkish).</p>
+          <h3>How I applied this checklist in the case studies</h3>
+          <p>I wrote masking, audit trail and field minimisation decisions as business rules and requirements in the cargo claims and bancassurance case studies. You can see an example flow in the <a href="../../hasarai/">HasarAI demo</a> (the interface is in Turkish).</p>
           <a class="btn btn-primary" href="../../analiz/bankasurans.html">Read the bancassurance case (TR)</a>
         </div>
 
         <nav class="article-nav">
           <a href="./">← All articles</a>
-          <a href="case-study-hasarai.html">Next: Case study: HasarAI →</a>
+          <a href="case-study-hasarai.html">Next: Design decisions behind HasarAI, a cargo claims assistant</a>
         </nav>
       </article>
     </div>

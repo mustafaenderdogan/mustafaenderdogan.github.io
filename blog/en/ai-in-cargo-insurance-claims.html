@@ -3,21 +3,21 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AI in Cargo Claims: What to Automate, What to Keep Human</title>
-  <meta name="description" content="Document chains, carrier notice deadlines and recovery limits in cargo claims: what to hand to AI, and what belongs to rules and the claims handler." />
+  <title>AI and rules engines in cargo insurance claims</title>
+  <meta name="description" content="This piece covers document chains, carrier notice deadlines and recovery limits in cargo claims. AI can read the documents, but deadline and limit calculations belong to a rules engine, and decisions to the claims handler." />
   <link rel="canonical" href="https://mustafaenderdogan.github.io/blog/en/ai-in-cargo-insurance-claims.html" />
   <meta name="robots" content="index, follow" />
 
-  <meta property="og:title" content="AI in Cargo Insurance Claims: What to Automate and What to Keep Human" />
-  <meta property="og:description" content="Document chains, carrier notice deadlines and recovery limits in cargo claims: what to hand to AI, and what belongs to rules and the claims handler." />
+  <meta property="og:title" content="AI and rules engines in cargo insurance claims" />
+  <meta property="og:description" content="This piece covers document chains, carrier notice deadlines and recovery limits in cargo claims. AI can read the documents, but deadline and limit calculations belong to a rules engine, and decisions to the claims handler." />
   <meta property="og:type" content="article" />
   <meta property="og:url" content="https://mustafaenderdogan.github.io/blog/en/ai-in-cargo-insurance-claims.html" />
   <meta property="og:image" content="https://mustafaenderdogan.github.io/assets/img/og-portfolyo.png" />
   <meta property="og:locale" content="en_US" />
   <meta property="og:site_name" content="Mustafa Ender Doğan — İş Analizi Portfolyosu" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="AI in Cargo Insurance Claims: What to Automate and What to Keep Human" />
-  <meta name="twitter:description" content="Document chains, carrier notice deadlines and recovery limits in cargo claims: what to hand to AI, and what belongs to rules and the claims handler." />
+  <meta name="twitter:title" content="AI and rules engines in cargo insurance claims" />
+  <meta name="twitter:description" content="This piece covers document chains, carrier notice deadlines and recovery limits in cargo claims. AI can read the documents, but deadline and limit calculations belong to a rules engine, and decisions to the claims handler." />
   <meta name="twitter:image" content="https://mustafaenderdogan.github.io/assets/img/og-portfolyo.png" />
 
   <link rel="alternate" hreflang="tr" href="https://mustafaenderdogan.github.io/blog/nakliyat-hasar-surecinde-yapay-zeka.html" />
@@ -28,8 +28,8 @@
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "AI in Cargo Insurance Claims: What to Automate and What to Keep Human",
-  "description": "Document chains, carrier notice deadlines and recovery limits in cargo claims: what to hand to AI, and what belongs to rules and the claims handler.",
+  "headline": "AI and rules engines in cargo insurance claims",
+  "description": "This piece covers document chains, carrier notice deadlines and recovery limits in cargo claims. AI can read the documents, but deadline and limit calculations belong to a rules engine, and decisions to the claims handler.",
   "image": "https://mustafaenderdogan.github.io/assets/img/og-portfolyo.png",
   "datePublished": "2026-10-10",
   "dateModified": "2026-10-10",
@@ -62,7 +62,7 @@
     {
       "@type": "ListItem",
       "position": 3,
-      "name": "AI in Cargo Claims",
+      "name": "AI in cargo claims",
       "item": "https://mustafaenderdogan.github.io/blog/en/ai-in-cargo-insurance-claims.html"
     }
   ]
@@ -103,13 +103,13 @@
   <main id="icerik" class="section blog-page">
     <div class="container">
       <nav class="breadcrumb" aria-label="breadcrumb">
-        <a href="/en/">Home</a><span>›</span><a href="./">Blog</a><span>›</span><span>AI in Claims</span>
+        <a href="/en/">Home</a><span>›</span><a href="./">Blog</a><span>›</span><span>AI in cargo claims</span>
       </nav>
 
       <article class="article">
         <header class="article-head">
-          <span class="tag">Insurance · AI</span>
-          <h1>AI in Cargo Insurance Claims: What to Automate and What to Keep Human</h1>
+          <span class="tag">Insurance and AI</span>
+          <h1>AI and rules engines in cargo insurance claims</h1>
           <div class="article-meta">
             <time datetime="2026-10-10">October 10, 2026</time>
             <span>7 min read</span>
@@ -117,64 +117,64 @@
         </header>
 
         <div class="article-body">
-<p>In a cargo claim, money is usually lost in two places: documents that don't agree with each other, and deadlines that pass unnoticed. The consignee opens the cartons three days after delivery, finds water damage and tells the exporter; the exporter writes to the insurer a week later. By then the written notice period against the carrier may already have expired. The value of the file lies less in the damage itself than in getting this chain right.</p>
+<p>Money in a cargo claim is usually lost through documents that don't agree with each other or deadlines that pass unnoticed. The consignee opens the cartons three days after delivery, finds water damage and tells the exporter, who writes to the insurer a week later. By then the period for written notice to the carrier may already have run out. So the value of the file depends less on the damage itself than on getting this chain right.</p>
 
-          <p>Generative AI is genuinely useful for this preparation work. But "let's put AI into cargo claims" says little on its own. The risk differs at each step, and so does the role AI can safely play. This article walks through the cargo claims process step by step: what can be delegated and what must stay with the claims handler.</p>
+          <p>This kind of preparation is where generative AI really helps. Even so, "let's put AI into cargo claims" isn't much of a plan on its own, since the risk differs from step to step and so does the role AI can safely play. For each step below I ask the same question: does this work belong to AI, to a rules engine or to the claims handler?</p>
 
-          <h2>The core principle: reading by the model, arithmetic by rules, decisions by people</h2>
-          <p>A cargo file contains three kinds of work, and each has a different rightful owner:</p>
+          <h2>Three kinds of work in a cargo file</h2>
+          <p>A cargo file involves three kinds of work, and I think each needs a different owner:</p>
           <ul>
-            <li><strong>Reading and classifying (AI):</strong> extracting transport mode, package count, gross weight, delivery date and whether a reservation was noted at delivery from the notice and the documents. Documents are often scanned and in English; language models are strong here.</li>
-            <li><strong>Calculating (rules engine):</strong> notice deadlines, time bars, the carrier's liability limit and the recovery potential. These are defined by international conventions and are deterministic; they are not left to AI.</li>
+            <li><strong>Reading and classifying (AI):</strong> extracting the transport mode, package count, gross weight, delivery date and any reservation noted at delivery from the notice and the documents. The documents are often scanned and in English, which is the kind of material language models handle well.</li>
+            <li><strong>Calculating (rules engine):</strong> notice deadlines, time bars, the carrier's liability limit and the recovery potential. International conventions define these, and because the calculations are deterministic they are not left to AI.</li>
             <li><strong>Deciding (authorised person):</strong> cover, declinature, payment approval, recovery and litigation.</li>
           </ul>
-          <p>This boundary should be written into the system itself. A workflow in which only an authorised user can decline or approve payment, with a written reason, removes the possibility of "the model decided by mistake".</p>
+          <p>The workflow has to enforce this split. When declining a claim or approving a payment is open only to an authorised user, and only with a written reason, the model has no way of making that decision by mistake.</p>
 
-          <h2>1. First notice: structuring the shipment</h2>
-          <p>A cargo claim usually arrives as an email or a broker's letter: route, goods, how many packages are damaged, when they were delivered, what was written on the delivery receipt. A language model can turn this into a structured shipment record. Two things matter:</p>
+          <h2>1. First notice and the shipment record</h2>
+          <p>A cargo claim usually arrives as an email or a letter from the broker, covering the route, the goods, how many packages are damaged, when they were delivered and what was written on the delivery receipt. A language model can turn that into a structured shipment record. Two points need care here:</p>
           <ol>
-            <li><strong>Force the output into a schema.</strong> Transport mode, type of loss, dates and figures must fit defined types; non-conforming answers are rejected and re-requested. Information that isn't in the text stays empty rather than invented.</li>
-            <li><strong>Ask targeted questions for missing essentials.</strong> "How was the cargo carried?", "On what date was it delivered to the consignee?" Without these two, no deadline can be calculated. Files still incomplete after two or three rounds go to a handler.</li>
+            <li><strong>Hold the output to a schema.</strong> Transport mode, type of loss, dates and figures have to fit defined types, and an answer that doesn't is rejected and requested again. If something isn't in the text, the model shouldn't guess it, and the field stays empty.</li>
+            <li><strong>Ask targeted questions for missing essentials.</strong> "How was the cargo carried?" and "On what date was it delivered to the consignee?" need answers, because without those two no deadline can be calculated. A file still incomplete after two or three rounds goes to a handler.</li>
           </ol>
 
-          <h2>2. The document chain: is the same number the same everywhere?</h2>
-          <p>The commercial invoice, packing list, transport document (CMR, bill of lading or air waybill), delivery receipt and survey report all describe the same shipment. AI classifies the documents and reads the fields; rules do the comparison:</p>
+          <h2>2. The document chain</h2>
+          <p>The commercial invoice, packing list, transport document (CMR, bill of lading or air waybill), delivery receipt and survey report all describe the same shipment, so the same figure should read the same on each of them. AI classifies the documents and reads the fields, and rules do the comparison:</p>
           <ul>
             <li>Is the package count the same on the invoice, packing list and transport document? A lower count on the delivery receipt is evidence of the loss itself.</li>
             <li>Does gross weight differ between documents beyond a small tolerance?</li>
             <li>Are container and seal numbers identical on the bill of lading and the delivery receipt? An intact seal with missing contents suggests the shortage arose at loading.</li>
             <li>Does the bill of lading say "said to contain" or "shipper's load and count"? If so, the carrier may have limited its responsibility for the contents.</li>
           </ul>
-          <p>A mismatch is a finding, not a decision. The system says "there is a 60 kg difference"; the handler decides whether it is a weighing difference or something to investigate.</p>
+          <p>What these checks produce are findings. The system notes, for example, "there is a 60 kg difference", and the handler decides whether that is a weighing difference or something to investigate.</p>
 
-          <h2>3. The deadline calendar: the most expensive mistake</h2>
-          <p>The first condition for preserving rights against the carrier is timely written notice, and the periods depend on the transport regime:</p>
+          <h2>3. The deadline calendar</h2>
+          <p>In my view, a missed deadline is the most expensive mistake in a cargo file. Preserving rights against the carrier starts with written notice given in time, and the periods depend on the transport regime:</p>
           <ul>
-            <li><strong>Road (CMR):</strong> for apparent damage a reservation at delivery; for non-apparent damage written notice within 7 days of delivery, Sundays and public holidays excepted. If missed, the goods are presumed delivered in good condition and the burden of proof shifts.</li>
-            <li><strong>Sea (Hague-Visby):</strong> 3 days for non-apparent damage, again with a presumption as the consequence.</li>
-            <li><strong>Air (Montreal):</strong> 14 days for damage, with a harsher consequence: without a timely complaint, no action lies against the carrier.</li>
+            <li><strong>Road (CMR):</strong> apparent damage calls for a reservation at delivery. For non-apparent damage, written notice is due within 7 days of delivery, Sundays and public holidays excepted. If that is missed, the goods are presumed, until proven otherwise, to have been delivered in good condition, and the burden of proof shifts to the claimant (the consignee, or the insurer by subrogation).</li>
+            <li><strong>Sea (Hague-Visby / Turkish Commercial Code):</strong> 3 days for non-apparent damage. Missing it again leads to a presumption.</li>
+            <li><strong>Air (Montreal):</strong> 14 days for damage. The consequence is harsher here, because without a timely complaint no action lies against the carrier.</li>
           </ul>
-          <p>This calendar is the rules engine's job, not AI's. Date arithmetic, the destination country's holiday calendar and "how many working days are left" must be deterministic, and a file two working days from the deadline should automatically move to the human-priority queue. Time bars (typically one year for road and sea, two for air) belong on the same calendar.</p>
+          <p>The calendar belongs entirely to the rules engine. Date arithmetic, the destination country's holiday calendar and the count of working days left must all be deterministic, and a file two working days from its deadline should move to the human-priority queue automatically. The deadlines for bringing an action go on the same calendar: typically a one-year time bar for road and sea, and a two-year period for air after which the right itself is extinguished. The deadlines and limits in this article are not legal advice and have not been reviewed by a lawyer.</p>
 
-          <h2>4. Recovery estimate: what is the limit, what is the potential?</h2>
-          <p>After paying the claim, the insurer seeks recovery from the carrier, but the carrier's liability is limited: 8.33 SDR per kilogram gross under CMR, the higher of 666.67 SDR per package or 2 SDR per kilogram for sea carriage, and 26 SDR per kilogram by air. The recovery potential is the lower of the loss amount and that limit.</p>
-          <p>This calculation, too, belongs to rules, with decimal precision and a dated SDR rate; the rate and rule version should be stored on the file. AI's role here is not arithmetic but drafting the notice to the carrier from the file's fields. The draft always goes out with the handler's approval.</p>
+          <h2>4. Estimating recovery</h2>
+          <p>Once the claim is paid, the insurer seeks recovery from the carrier, whose liability is limited. Under CMR the limit is 8.33 SDR per kilogram of gross weight. For sea carriage it is 666.67 SDR per package or 2 SDR per kilogram, whichever is higher, and by air it is 26 SDR per kilogram. The recovery potential is the lower of the loss amount and that limit.</p>
+          <p>This calculation also belongs to the rules, with decimal precision and a dated SDR rate, and the rate and rule version should be stored on the file. Where AI helps here is in drafting the notice to the carrier from the fields in the file. The draft only goes out once the handler has approved it.</p>
 
-          <h2>5. Cover and transfer of risk: an opinion, not a decision</h2>
-          <p>The cause of loss can be matched against the policy clause: rainwater is covered under ICC (A) but not under (B) or (C). The Incoterms rule of the sale matters too: under FCA or FOB, risk passes to the buyer at loading; if the damage occurred afterwards, the exporter's insurable interest is in question. These checks speed up the handler, but their output must always be a preliminary opinion with clause references. Without a reference, the result stays "uncertain".</p>
+          <h2>5. Cover and transfer of risk</h2>
+          <p>The cause of loss can be matched against the policy clauses. Rainwater, for instance, is covered under ICC (A) but not under (B) or (C). The Incoterms rule of the sale matters as well. Under FOB, risk passes to the buyer once the goods are on board the vessel, and under FCA once they are handed over to the carrier, so if the damage happened after that point, the exporter's insurable interest is open to question. These checks speed up the handler's work, but their output should always be a preliminary opinion with clause references. Without a reference, the result stays "uncertain".</p>
 
-          <h2>Make every suggestion traceable</h2>
-          <p>In an AI-assisted claims process, auditability is not a feature to add later. At a minimum, record:</p>
+          <h2>Recording calculations and suggestions</h2>
+          <p>Auditability is something to build into an AI-assisted claims process from day one. For a cargo file, record at least:</p>
           <ul>
             <li>which model and prompt version produced each suggestion,</li>
             <li>which rule version and which rate date each deadline and limit calculation used,</li>
             <li>whether the handler accepted, rejected or corrected each suggestion, and every status change on the file.</li>
           </ul>
 
-          <h2>Rules belong in configuration, not code</h2>
-          <p>Periods, limits, holiday calendars, document lists and clause mappings vary between insurers and change over time. They should live in versioned rule sets, be approved by counsel, and every file should record which version processed it.</p>
+          <h2>Keeping the rules up to date</h2>
+          <p>Periods, limits, holiday calendars, document lists and clause mappings vary between insurers and change over time. They belong in versioned rule sets approved by counsel, and every file should record which version processed it.</p>
 
-          <h2>How to measure it</h2>
+          <h2>What to measure in a pilot</h2>
           <p>Four numbers make a good start for a cargo pilot:</p>
           <ol>
             <li>Share of timely written notices to carriers (before / after),</li>
@@ -182,21 +182,21 @@
             <li>Number of follow-ups caused by missing documents,</li>
             <li>Recovery potential versus recovery actually collected.</li>
           </ol>
-          <p>Keep the pilot small: one transport mode, a few dozen anonymised closed files. In closed files, the answer to "which deadline was missed, which recovery was never attempted" is usually the most convincing result.</p>
+          <p>Keep the pilot small, with one transport mode and a few dozen anonymised closed files. With closed files, finding out which deadline was missed and which recovery was never attempted is usually the most convincing result.</p>
 
-          <h2>Conclusion</h2>
-          <p>AI is most valuable in cargo claims when it turns a scattered, multilingual document pack into a readable file. Deadlines and limits belong to rules; cover and payment decisions belong to people. A system that draws this line correctly from the start reduces lost rights and stands up to audit.</p>
+          <h2>Where to start</h2>
+          <p>If only one piece could go into the first release of a cargo project, I would pick the deadline calendar. It needs no AI and can be tested on closed files straight away. The AI steps, such as reading documents and drafting the notice to the carrier, can be added once the calendar works correctly.</p>
         </div>
 
         <div class="article-cta">
           <h3>How does this look in a case study?</h3>
-          <p>Notice deadlines and carrier liability limits by transport regime, together with the limits of AI, are collected in the cargo claims analysis. The <a href="../../hasarai/">HasarAI demo</a> tests it with synthetic data (interface in Turkish).</p>
+          <p>I collected the notice deadlines and carrier liability limits for each transport regime in the cargo claims analysis, together with the points where AI has to stop. The <a href="../../hasarai/">HasarAI demo</a> tests that analysis with synthetic data (interface in Turkish).</p>
           <a class="btn btn-primary" href="../../analiz/hasarai.html">Review the analysis (TR)</a>
         </div>
 
         <nav class="article-nav">
           <a href="./">← All articles</a>
-          <a href="generative-ai-insurance-data-privacy.html">Next: Generative AI and Data Privacy in Insurance →</a>
+          <a href="generative-ai-insurance-data-privacy.html">Next: Technical privacy measures for generative AI in insurance</a>
         </nav>
       </article>
     </div>

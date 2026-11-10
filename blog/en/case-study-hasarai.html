@@ -3,21 +3,21 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>HasarAI Case Study: From Cargo Document Pack to Review-Ready File</title>
-  <meta name="description" content="Design decisions behind HasarAI, our cargo claims assistant: document chain checks, rules-engine deadlines and recovery limits, privacy masking." />
+  <title>Design decisions behind HasarAI, a cargo claims assistant</title>
+  <meta name="description" content="HasarAI, the cargo claims assistant I built, checks the document chain, calculates deadlines and recovery limits in a rules engine and masks personal data. Here I explain why." />
   <link rel="canonical" href="https://mustafaenderdogan.github.io/blog/en/case-study-hasarai.html" />
   <meta name="robots" content="index, follow" />
 
-  <meta property="og:title" content="Case Study: HasarAI — From a Cargo Document Pack to a Review-Ready File" />
-  <meta property="og:description" content="Design decisions behind HasarAI, our cargo claims assistant: document chain checks, rules-engine deadlines and recovery limits, privacy masking." />
+  <meta property="og:title" content="Design decisions behind HasarAI, a cargo claims assistant" />
+  <meta property="og:description" content="HasarAI, the cargo claims assistant I built, checks the document chain, calculates deadlines and recovery limits in a rules engine and masks personal data. Here I explain why." />
   <meta property="og:type" content="article" />
   <meta property="og:url" content="https://mustafaenderdogan.github.io/blog/en/case-study-hasarai.html" />
   <meta property="og:image" content="https://mustafaenderdogan.github.io/assets/img/og-portfolyo.png" />
   <meta property="og:locale" content="en_US" />
   <meta property="og:site_name" content="Mustafa Ender Doğan — İş Analizi Portfolyosu" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Case Study: HasarAI — From a Cargo Document Pack to a Review-Ready File" />
-  <meta name="twitter:description" content="Design decisions behind HasarAI, our cargo claims assistant: document chain checks, rules-engine deadlines and recovery limits, privacy masking." />
+  <meta name="twitter:title" content="Design decisions behind HasarAI, a cargo claims assistant" />
+  <meta name="twitter:description" content="HasarAI, the cargo claims assistant I built, checks the document chain, calculates deadlines and recovery limits in a rules engine and masks personal data. Here I explain why." />
   <meta name="twitter:image" content="https://mustafaenderdogan.github.io/assets/img/og-portfolyo.png" />
 
   <link rel="alternate" hreflang="tr" href="https://mustafaenderdogan.github.io/blog/vaka-hasarai.html" />
@@ -28,8 +28,8 @@
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "Case Study: HasarAI — From a Cargo Document Pack to a Review-Ready File",
-  "description": "Design decisions behind HasarAI, our cargo claims assistant: document chain checks, rules-engine deadlines and recovery limits, privacy masking.",
+  "headline": "Design decisions behind HasarAI, a cargo claims assistant",
+  "description": "HasarAI, the cargo claims assistant I built, checks the document chain, calculates deadlines and recovery limits in a rules engine and masks personal data. Here I explain why.",
   "image": "https://mustafaenderdogan.github.io/assets/img/og-portfolyo.png",
   "datePublished": "2026-10-09",
   "dateModified": "2026-10-10",
@@ -62,7 +62,7 @@
     {
       "@type": "ListItem",
       "position": 3,
-      "name": "Case study: HasarAI",
+      "name": "HasarAI case study",
       "item": "https://mustafaenderdogan.github.io/blog/en/case-study-hasarai.html"
     }
   ]
@@ -103,13 +103,13 @@
   <main id="icerik" class="section blog-page">
     <div class="container">
       <nav class="breadcrumb" aria-label="breadcrumb">
-        <a href="/en/">Home</a><span>›</span><a href="./">Blog</a><span>›</span><span>Case study: HasarAI</span>
+        <a href="/en/">Home</a><span>›</span><a href="./">Blog</a><span>›</span><span>HasarAI case study</span>
       </nav>
 
       <article class="article">
         <header class="article-head">
-          <span class="tag">Case study · Insurance</span>
-          <h1>Case Study: HasarAI — From a Cargo Document Pack to a Review-Ready File</h1>
+          <span class="tag">Insurance case study</span>
+          <h1>Design decisions behind HasarAI, a cargo claims assistant</h1>
           <div class="article-meta">
             <time datetime="2026-10-09">October 9, 2026</time>
             <span>5 min read</span>
@@ -117,44 +117,44 @@
         </header>
 
         <div class="article-body">
-<p>HasarAI is a cargo (goods in transit) claims assistant I built for insurers, brokers and surveyors. Its purpose in one sentence: turn a scattered document pack into a review-ready file whose deadlines and recovery potential are known. Rather than promoting the product, this article explains the decisions I made while designing it and why.</p>
+<p>HasarAI is a cargo (goods in transit) claims assistant I built for insurers, brokers and surveyors. It takes the scattered pack of documents that comes with a cargo claim and turns it into a file that is ready for review, with the deadlines and recovery potential already known. In this article I go through the decisions I made while designing it and the reasons behind them.</p>
 
-          <h2>The problem: many documents, little time</h2>
-          <p>In a cargo file the handler's real job is to assess cover and loss. But the file starts with a series of problems: the notice arrives by email, often in English; the invoice, packing list, transport document and delivery receipt come from different people on different days; package counts or weights don't agree. Meanwhile the written notice period against the carrier is only a few days. This preparation is repetitive, rule-bound and mostly about reading text, while deadline and limit arithmetic is pure rules.</p>
+          <h2>The problem</h2>
+          <p>In a cargo claim, the handler's real job is to assess cover and the loss. Before the file gets to that point, though, there is a series of problems to deal with. The notice arrives by email, often in English. The invoice, packing list, transport document and delivery receipt come from different people on different days, and the package counts or weights don't agree across documents. On top of that, the window for written notice to the carrier is only a few days. Most of this preparation is repetitive, rule-bound reading, and working out deadlines and limits is pure rules.</p>
 
-          <h2>Design principle: reading by AI, arithmetic by rules, decisions by people</h2>
-          <p>The first decision was what the system will not do. HasarAI never declines a claim or approves payment, and it never uses a language model to calculate deadlines, limits or amounts. A file moves from Notice → Awaiting documents → Under review → Survey → Awaiting approval → Payment approved → Closed; declinature and payment approval can only be done by an authorised person with a written reason.</p>
+          <h2>Design principle</h2>
+          <p>The first decision was what the system would not do. HasarAI never declines a claim or approves a payment, and it never uses a language model to calculate deadlines, limits or amounts. The AI is there to read the documents. The rules engine does the arithmetic, and a person makes the decisions. A file moves through these statuses in order: Notice, Awaiting documents, Under review, Survey, Awaiting approval, Payment approved and Closed. Only an authorised person can decline a claim or approve a payment, and only with a written reason.</p>
 
-          <h2>1. First notice: the shipment record</h2>
-          <p>From a Turkish or English notice the system extracts the type of loss, transport mode, transport document number, route, package count, gross weight, damaged portion, delivery date and whether a reservation was noted at delivery. The model's answer must fit a defined schema; anything not in the text stays empty. If the transport mode or delivery date is missing, a targeted question goes to the insured; files still incomplete after three rounds go to a handler.</p>
+          <h2>1. First notice and the shipment record</h2>
+          <p>From a notice in Turkish or English, the system extracts the type of loss, transport mode, transport document number, route, package count, gross weight, damaged portion, delivery date and whether a reservation was noted at delivery. The model's answer has to fit a defined schema, and anything that isn't in the text is left empty. If the transport mode or delivery date is missing, the insured gets a targeted question. A file that is still incomplete after three rounds goes to a handler.</p>
 
-          <h2>2. The document chain: the same number everywhere</h2>
-          <p>Documents are not sent to the model as images: they are first converted to text and masked on the server, then classified. The documents required for the transport mode and type of loss are listed. Package counts, gross weights, container and seal numbers are compared across documents, and a shortage in the delivery tally is shown as a separate finding. A "said to contain" clause on the bill of lading is caught by a rule-based second check even if the model misses it.</p>
+          <h2>2. Checking the document chain</h2>
+          <p>Documents don't go to the model as images. They are converted to text and masked on the server first, and then classified. The system lists the documents required for the transport mode and type of loss, and checks that package counts, gross weights, container and seal numbers are the same on every document. A shortage in the delivery tally is shown as a separate finding. If the bill of lading has a "said to contain" clause, a rule-based second check catches it even when the model misses it.</p>
 
-          <h2>3. The deadline calendar: in the rules engine</h2>
-          <p>Notice deadlines and time bars are calculated per regime (CMR, Hague-Visby, Montreal). Under CMR, public holidays of the destination country are excluded; for a country without a calendar only Sundays are excluded and a warning is added to the file. A file two working days from the deadline, or past it, moves to the human-priority queue. Deadlines are recalculated every morning so priorities stay current.</p>
+          <h2>3. Deadline calendar</h2>
+          <p>The rules engine works out the notice deadline and the time bar for each regime (CMR, Hague-Visby, Montreal). Under CMR, public holidays in the destination country are left out of the count. For a country with no holiday calendar, only Sundays are left out and the file gets a warning. A file that is two working days from its deadline, or already past it, moves to the human-priority queue. Deadlines are recalculated every morning, so the priorities stay current.</p>
 
-          <h2>4. Recovery estimate: dated rate, decimal precision</h2>
-          <p>The carrier's liability limit is calculated in SDR from the damaged kilograms or packages and converted with a dated rate entered by the handler. The recovery potential is the lower of the loss amount and the limit. If an air notice was missed, the potential is zero; for road and sea the file notes that the burden of proof has shifted. Every estimate is stored as a separate record with its rule version and rate date.</p>
+          <h2>4. Recovery estimate</h2>
+          <p>The carrier's liability limit is calculated in SDR from the damaged kilograms or packages, then converted at a dated exchange rate that the handler enters. The arithmetic is done with decimal precision. The recovery potential is the lower of the loss amount and the limit. For air cargo, a missed notice deadline means the potential is zero. For road and sea, the file records that the burden of proof has shifted to the insured. Every estimate is stored as a separate record with its rule version and rate date.</p>
 
-          <h2>5. Data protection: masking and external AI off by default</h2>
-          <p>National ID numbers, tax numbers, phone numbers, IBANs and email addresses are masked by a rule-based layer before any text reaches the model, English documents included. Insured details are encrypted at rest. Use of AI services hosted abroad starts switched off per insurer. I cover this in detail in <a href="generative-ai-insurance-data-privacy.html">Generative AI and Data Privacy in Insurance</a>.</p>
+          <h2>5. Data protection and masking</h2>
+          <p>Before any text reaches the model, a rule-based layer masks national ID numbers, tax numbers, phone numbers, IBANs and email addresses, in English documents too. Insured details are encrypted at rest. AI services hosted abroad are switched off by default for each insurer. I go into this in more detail in a separate article on <a href="generative-ai-insurance-data-privacy.html">generative AI and data privacy in insurance</a>.</p>
 
           <h2>6. Traceability and rules</h2>
-          <p>Every AI suggestion is stored with its model and prompt version, every calculation with its rule version; handlers' accept, reject and edit decisions are measured; every status change is written to an immutable audit log. Periods, limits, holiday calendars and document lists are not hard-coded; they live in versioned rule sets per insurer, designed to be signed off by counsel.</p>
+          <p>Every AI suggestion is stored with the model and prompt version that produced it, and every calculation with its rule version. Handlers' decisions to accept, reject or edit a suggestion are measured, and every status change is written to an audit log that can't be altered. Periods, limits, holiday calendars and document lists aren't hard-coded. They sit in versioned rule sets for each insurer, designed to be signed off by counsel.</p>
 
-          <h2>Why does the demo run in the browser?</h2>
-          <p>The <a href="../../hasarai/">HasarAI demo</a> (interface in Turkish) runs entirely in the browser on synthetic data; nothing is sent to a server. Visitors can pick one of three scenarios (wet cartons, a container short-landed, an air shipment with a missed deadline) or enter their own regime, delivery date and damaged weight to see the deadline calendar and recovery limit.</p>
+          <h2>The in-browser demo</h2>
+          <p>The <a href="../../hasarai/">HasarAI demo</a> (interface in Turkish) runs entirely in your browser on synthetic data, and nothing is sent to a server. You can pick one of three scenarios (wet cartons, a container short-landed, an air shipment with a missed deadline), or enter the regime, delivery date and damaged weight of your own file to see its deadline calendar and recovery limit.</p>
 
           <h2>What's next</h2>
-          <p>The next two modules are a cover pre-check that matches the policy clause with the cause of loss and the Incoterms transfer of risk, and HasarAI Verify, a second pair of eyes on survey reports: counted packages against the transport document, cause of loss and its basis, packing assessment and consistency of the depreciation calculation. Here too the output is a finding; the decision stays with people.</p>
+          <p>Two modules come next. One is a cover pre-check that matches the policy clause against the cause of loss and the Incoterms transfer of risk. The other is HasarAI Verify, a second pair of eyes on survey reports. It will check the counted packages against the transport document, the cause of loss and its basis, the packing assessment and the consistency of the depreciation calculation. These modules will also produce findings only, and the decision will stay with a person.</p>
 
           <h2>Lessons from this case</h2>
           <ul>
-            <li><strong>Draw the line first.</strong> What AI will not do is a more important design decision than what it will.</li>
-            <li><strong>Don't let the model do the arithmetic.</strong> Numbers with legal consequences, such as deadlines and limits, should be calculated by versioned, traceable rules.</li>
-            <li><strong>Don't leave critical signals to a single model.</strong> A rule-based second check for clauses like "said to contain" is cheap and effective.</li>
-            <li><strong>You can't improve what you don't measure.</strong> Timely-notice rate and suggestion acceptance rate are the most honest indicators of whether the system helps.</li>
+            <li>Settle <strong>what the AI will not do</strong> before anything else. To me that is a more important design decision than what it will do.</li>
+            <li><strong>Numbers with legal consequences</strong>, such as deadlines and limits, shouldn't be left to the model. They should be calculated by versioned, traceable rules.</li>
+            <li>Don't rely on a single model for <strong>important signals</strong>. For a clause like "said to contain", a rule-based second check is cheap and effective.</li>
+            <li>The most honest indicators of whether the system really helps are <strong>the timely-notice rate and the suggestion acceptance rate</strong>.</li>
           </ul>
         </div>
 
@@ -166,7 +166,7 @@
 
         <nav class="article-nav">
           <a href="./">← All articles</a>
-          <a href="case-study-construction-management-platform.html">Next: Case study: Construction Management Platform →</a>
+          <a href="case-study-construction-management-platform.html">Next: A work management platform for construction and contracting firms</a>
         </nav>
       </article>
     </div>
