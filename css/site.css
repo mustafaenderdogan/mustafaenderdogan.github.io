@@ -1,7 +1,7 @@
 /* ===================================================================
    Mustafa Ender Doğan — İş Analizi Portfolyosu · site.css
    Sade, açık zeminli tek stil dosyası: ana sayfa, analiz sayfaları,
-   "Nasıl çalışırım", gizlilik, 404, İngilizce özet ve blog.
+   "Süreç ve yöntem", gizlilik, 404, İngilizce özet ve blog.
    Demolar kendi stillerini kullanır.
    =================================================================== */
 
@@ -76,80 +76,68 @@ body.menu-open { overflow: hidden; }
 .ft-nav a:hover { color: var(--ink); text-decoration: underline; }
 
 /* ===================================================================
-   Ana sayfa: özgeçmiş düzeni (solda bölüm adı, sağda içerik)
+   Ana sayfa: kısa tanıtım, analiz kartları, demolar, hakkımda
    =================================================================== */
-.intro { padding-block: clamp(56px, 9vw, 112px) clamp(40px, 6vw, 72px); }
+.intro { padding-block: clamp(56px, 8vw, 104px) clamp(36px, 5vw, 56px); }
 .intro h1 { font-size: clamp(40px, 6.2vw, 66px); line-height: 1.04; letter-spacing: -.028em; }
 .intro-role { margin-top: 14px; font-size: clamp(19px, 2vw, 22px); font-weight: 500; color: var(--ink); }
 .intro-lead { margin-top: 10px; font-size: clamp(18px, 1.7vw, 20px); color: var(--ink-2); max-width: 36em; }
 .intro-links { margin-top: 28px; display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; }
 .intro-links a:not(.btn) { font-weight: 500; }
 
-/* Bölüm çizgisi metin hizasında: kenar boşluğuna taşmasın diye kenarlık yerine zemin çizgisi */
-.sec { display: grid; grid-template-columns: var(--label) minmax(0, 1fr); gap: 8px var(--gap); padding-block: clamp(32px, 4.5vw, 52px); background: linear-gradient(var(--rule), var(--rule)) no-repeat center top / calc(100% - 2 * var(--pad)) 1px; scroll-margin-top: calc(var(--hd) + 8px); }
-.sec-h { font-size: 16px; line-height: 1.5; padding-top: 1px; }
-.sec-b { min-width: 0; max-width: 740px; }
-.sec-b > p + p { margin-top: 14px; }
-.sec-b > p { color: var(--ink); }
-.sec-note { color: var(--ink-2); }
+/* Bölüm: çizgi metin hizasında (kenarlık yerine zemin çizgisi) */
+.blk { padding-block: clamp(40px, 5.5vw, 64px); background: linear-gradient(var(--rule), var(--rule)) no-repeat center top / calc(100% - 2 * var(--pad)) 1px; scroll-margin-top: var(--hd); }
+.blk h2 { font-size: clamp(24px, 2.6vw, 30px); line-height: 1.2; letter-spacing: -.015em; }
+.blk-hd { max-width: 46em; margin-bottom: 24px; }
+.blk-hd p { margin-top: 8px; color: var(--ink-2); }
+.blk-s h2 { font-size: 22px; }
+.blk-s > p { margin-top: 8px; color: var(--ink-2); max-width: 46em; }
+.blk-s > .blk-act { margin-top: 18px; }
 
-/* Deneyim ve eğitim satırları */
+/* Analiz kartları (2x2) ve demolar (3'lü): kartın tamamı tıklanır, bağlantı adı başlıktır */
+.cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.card, .demo { position: relative; display: flex; flex-direction: column; border: 1px solid var(--rule); border-radius: 8px; background: var(--paper); transition: border-color .15s ease; }
+.card { gap: 8px; padding: 22px 24px 20px; }
+.card:hover, .demo:hover { border-color: var(--accent); }
+.card h3 a, .demo h3 a { color: var(--ink); text-decoration: none; }
+.card h3 a::after, .demo h3 a::after { content: ""; position: absolute; inset: 0; border-radius: 8px; }
+.card h3 a:focus-visible, .demo h3 a:focus-visible { outline: none; }
+.card h3 a:focus-visible::after, .demo h3 a:focus-visible::after { outline: 2px solid var(--accent); outline-offset: 2px; }
+.card:hover h3 a, .demo:hover h3 a { color: var(--accent); }
+.card-k { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; font-size: 14px; color: var(--muted); }
+.card-tag { font-size: 12px; font-weight: 600; line-height: 1.4; padding: 1px 8px; border: 1px solid #C3CBD5; border-radius: 4px; color: var(--ink-2); }
+.card h3 { font-size: 20px; line-height: 1.3; letter-spacing: -.01em; }
+.card p { color: var(--ink-2); }
+.card .card-m { margin-top: auto; padding-top: 12px; border-top: 1px solid var(--rule); font-size: 15px; color: var(--ink); }
+.card .card-a, .demo .card-a { font-weight: 600; color: var(--accent); }
+
+.demos { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.demo { gap: 6px; padding: 10px 10px 18px; }
+.demo img { width: 100%; height: auto; aspect-ratio: 5 / 3; object-fit: cover; object-position: left top; border-radius: 4px; border: 1px solid var(--rule); background: var(--wash); margin-bottom: 8px; }
+.demo h3, .demo p { padding-inline: 8px; }
+.demo h3 { font-size: 18px; line-height: 1.3; }
+.demo p { font-size: 15px; color: var(--ink-2); }
+.demo .card-a { margin-top: auto; padding-top: 6px; }
+
+/* Hakkımda: solda deneyim ve eğitim, sağda uzmanlık */
+.about { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 28px 56px; align-items: start; }
 .cv { list-style: none; }
-.cv li { display: grid; grid-template-columns: 206px minmax(0, 1fr); gap: 4px 24px; padding-block: 14px; border-top: 1px solid var(--rule); }
+.cv li { display: flex; flex-direction: column; gap: 1px; padding-block: 12px; border-top: 1px solid var(--rule); }
 .cv li:first-child { border-top: 0; padding-top: 0; }
-.cv-d { font-size: 15px; color: var(--muted); font-variant-numeric: tabular-nums; padding-top: 2px; white-space: nowrap; }
-.cv-t { display: block; font-weight: 600; color: var(--ink); }
-.cv-o { display: block; color: var(--ink-2); }
+.cv-d { font-size: 14px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.cv-t { font-weight: 600; color: var(--ink); }
+.cv-o { color: var(--ink-2); }
+.about-side h3 { font-size: 16px; }
+.about-side p { margin-top: 4px; color: var(--ink-2); }
+.about-side p + h3 { margin-top: 20px; }
 
-/* Uzmanlık */
-.skills { display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: 10px 24px; }
-.skills dt { font-weight: 600; color: var(--ink); }
-.skills dd { color: var(--ink-2); }
-
-/* Örnek çalışmalar */
-.sec-intro { color: var(--ink-2); }
-.work { display: grid; grid-template-columns: minmax(0, 1fr) 176px; gap: 8px 28px; align-items: start; padding-block: 24px; border-top: 1px solid var(--rule); }
-.work h3 { font-size: 20px; line-height: 1.3; letter-spacing: -.01em; }
-.work h3 a { color: var(--ink); text-decoration: none; }
-.work h3 a:hover { color: var(--accent); text-decoration: underline; text-decoration-thickness: 2px; }
-.work p { color: var(--ink-2); margin-top: 6px; }
-.work-meta { font-size: 15px; color: var(--muted) !important; margin-top: 2px !important; }
-.work-links { display: flex; flex-wrap: wrap; gap: 4px 22px; margin-top: 10px !important; }
-.work-links a { font-weight: 600; display: inline-block; padding-block: 4px; }
-.work-img { width: 176px; aspect-ratio: 4 / 3; object-fit: cover; object-position: left top; border: 1px solid var(--rule); border-radius: 6px; background: var(--wash); }
-.work-lead { display: block; border-top: 0; padding-top: 20px; }
-.work-fig { margin-top: 18px; border: 1px solid var(--rule); border-radius: 8px; padding: clamp(6px, 1.2vw, 12px); background: var(--paper); }
-.work-fig svg { width: 100%; height: auto; }
-.work-fig figcaption { font-size: 14px; color: var(--muted); padding: 8px 6px 2px; }
-.work-out { font-size: 16px; }
-.work-out b { color: var(--ink); font-weight: 600; }
-.work-sub { margin-top: 28px; padding-top: 24px; border-top: 1px solid var(--rule); }
-.work-sub h3 { font-size: 17px; }
-.work-sub p { color: var(--ink-2); margin-top: 2px; }
-.work-sub + .work { border-top: 0; padding-top: 16px; }
-
-/* Yazılar */
-.posts { list-style: none; border-top: 1px solid var(--rule); }
-.posts li { display: flex; justify-content: space-between; align-items: baseline; gap: 6px 20px; padding-block: 12px; border-bottom: 1px solid var(--rule); }
-.posts a { color: var(--ink); font-weight: 500; text-decoration: none; }
-.posts a:hover { color: var(--accent); text-decoration: underline; }
-.posts span { font-size: 14px; color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
-.more { margin-top: 14px; }
-.more a { font-weight: 600; }
-
-@media (max-width: 760px) {
-  .sec { grid-template-columns: 1fr; gap: 14px; }
-  .sec-h { font-size: 20px; }
-  .cv li { grid-template-columns: 1fr; gap: 2px; }
-  .skills { grid-template-columns: 1fr; gap: 2px; }
-  .skills dd + dt { margin-top: 10px; }
-  .work { grid-template-columns: minmax(0, 1fr) 88px; gap: 6px 16px; }
-  .work-img { width: 88px; aspect-ratio: 1; }
-  .posts li { flex-direction: column; gap: 2px; }
+@media (max-width: 860px) {
+  .cards, .demos, .about { grid-template-columns: 1fr; }
+  .card { padding: 18px 18px 16px; }
 }
 
 /* ===================================================================
-   Analiz sayfaları, "Nasıl çalışırım", gizlilik, 404, İngilizce özet
+   Analiz sayfaları, "Süreç ve yöntem", gizlilik, 404, İngilizce özet
    =================================================================== */
 .az-hero { padding-block: clamp(40px, 6vw, 72px) clamp(20px, 3vw, 32px); }
 .az-hero > img, .az-hero-shade { display: none; }

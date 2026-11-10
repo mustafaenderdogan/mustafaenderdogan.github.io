@@ -68,9 +68,10 @@
   <div class="wrap hd-in">
     <a href="/" class="brand" aria-label="Mustafa Ender Doğan, ana sayfa">Mustafa Ender Doğan</a>
     <nav class="hd-nav" aria-label="Ana menü">
-      <a href="/#calismalar">Çalışmalar</a>
+      <a href="/#analizler">Analizler</a>
+      <a href="/#demolar">Demolar</a>
+      <a href="/surec-ve-yontem.html">Süreç ve yöntem</a>
       <a href="/#hakkimda">Hakkımda</a>
-      <a href="/nasil-calisirim.html">Nasıl çalışırım</a>
       <a href="/blog/">Yazılar</a>
       <a href="/en/" lang="en" hreflang="en">EN</a>
       <a href="https://www.linkedin.com/in/mustafa-ender-do%C4%9Fan-02273b30/" class="hd-li" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a>
@@ -81,9 +82,10 @@
 
 <div class="menu" id="menu" hidden>
   <nav class="menu-nav" aria-label="Mobil menü">
-    <a href="/#calismalar">Çalışmalar</a>
+    <a href="/#analizler">Analizler</a>
+    <a href="/#demolar">Demolar</a>
+    <a href="/surec-ve-yontem.html">Süreç ve yöntem</a>
     <a href="/#hakkimda">Hakkımda</a>
-    <a href="/nasil-calisirim.html">Nasıl çalışırım</a>
     <a href="/blog/">Yazılar</a>
     <a href="/en/" lang="en" hreflang="en">English</a>
     <a href="https://www.linkedin.com/in/mustafa-ender-do%C4%9Fan-02273b30/" class="hd-li" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a>
@@ -97,131 +99,105 @@
     <p class="intro-lead">Sigorta ve bankasürans projelerinde 10 yılı aşkın iş analizi deneyimi; iş birimleri ile teknoloji ekipleri arasında köprü.</p>
     <p class="intro-links">
       <a class="btn" href="https://www.linkedin.com/in/mustafa-ender-do%C4%9Fan-02273b30/" target="_blank" rel="noopener">LinkedIn profili <span aria-hidden="true">↗</span></a>
-      <a href="#calismalar">Örnek çalışmalar</a>
+      <a href="#analizler">Analiz çalışmaları</a>
+      <a href="#demolar">Demolar</a>
     </p>
   </section>
 
-  <section class="sec wrap" id="hakkimda" aria-labelledby="hakkimdaT">
-    <h2 class="sec-h" id="hakkimdaT">Hakkımda</h2>
-    <div class="sec-b">
+  <section class="blk wrap" id="analizler" aria-labelledby="analizlerT">
+    <div class="blk-hd">
+      <h2 id="analizlerT">Analiz çalışmaları</h2>
+      <p>Her analiz aynı sırayla yazıldı: problem, paydaş ve yetki, süreç, iş kuralları, gereksinimler, user story'ler, kapsam dışı, riskler ve hedef ölçütler.</p>
+    </div>
+    <div class="cards">
+      <article class="card">
+        <p class="card-k">Sigorta <span class="card-tag">Temsili vaka</span></p>
+        <h3><a href="/analiz/bankasurans.html">Bankasürans entegrasyonu</a></h3>
+        <p>Banka ile anlaşmalı sigorta şirketi arasında teklif, poliçe, zeyil/iptal ve tahsilat verisinin aktarımı ve mutabakatı.</p>
+        <p class="card-m">24 iş kuralı, 21 alanlık veri eşleme, 13 UAT senaryosu</p>
+        <p class="card-a" aria-hidden="true">Analizi oku</p>
+      </article>
+      <article class="card">
+        <p class="card-k">Sigorta</p>
+        <h3><a href="/analiz/hasarai.html">Nakliyat hasar dosyası</a></h3>
+        <p>Üç taşıma rejiminde ihbar süresi ve rücu limiti kuralları; yapay zekânın neyi yapmayacağını çizen sınırlar.</p>
+        <p class="card-m">22 iş kuralı, 8 gereksinim, 6 user story</p>
+        <p class="card-a" aria-hidden="true">Analizi oku</p>
+      </article>
+      <article class="card">
+        <p class="card-k">Hukuk</p>
+        <h3><a href="/analiz/buro.html">Hukuk bürosu yönetimi</a></h3>
+        <p>Adli tatili hesaba katan süre kuralları, dilekçe onay akışı ve rol yetkileri.</p>
+        <p class="card-m">25 iş kuralı, 6 rol, 26 rakip ürün karşılaştırması</p>
+        <p class="card-a" aria-hidden="true">Analizi oku</p>
+      </article>
+      <article class="card">
+        <p class="card-k">İnşaat</p>
+        <h3><a href="/analiz/isyonetim.html">İnşaat iş yönetimi</a></h3>
+        <p>Taşeron belgeleri, puantaj, stok ve saha raporu; rol bazlı yetkiler.</p>
+        <p class="card-m">34 iş kuralı, 22 gereksinim, 7 rol</p>
+        <p class="card-a" aria-hidden="true">Analizi oku</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="blk wrap" id="demolar" aria-labelledby="demolarT">
+    <div class="blk-hd">
+      <h2 id="demolarT">Demoları deneyin</h2>
+      <p>Okumak yerine denemek isteyenler için: üç analiz, tarayıcıda çalışan birer demoyla sınandı. Veriler kurgusaldır.</p>
+    </div>
+    <div class="demos">
+      <article class="demo">
+        <img src="/assets/img/v2/ui-hasarai-3.webp" alt="" width="1200" height="724" loading="lazy" />
+        <h3><a href="/hasarai/">HasarAI</a></h3>
+        <p>Nakliyat hasar dosyası: belge zinciri kontrolü, ihbar süreleri ve SDR bazlı rücu limiti.</p>
+        <p class="card-a" aria-hidden="true">Demoyu aç</p>
+      </article>
+      <article class="demo">
+        <img src="/assets/img/v2/ui-buro-emsal.webp" alt="" width="1200" height="723" loading="lazy" />
+        <h3><a href="/buro/">Büro</a></h3>
+        <p>Hukuk bürosu: dosya, süre, duruşma, müvekkil ve masraf takibi.</p>
+        <p class="card-a" aria-hidden="true">Demoyu aç</p>
+      </article>
+      <article class="demo">
+        <img src="/assets/img/v2/ui-iyp.webp" alt="" width="1200" height="723" loading="lazy" />
+        <h3><a href="/isyonetim/">İYP</a></h3>
+        <p>İnşaat ve taahhüt: taşeron ve belge takibi, stok, teklif karşılaştırma ve saha raporu.</p>
+        <p class="card-a" aria-hidden="true">Demoyu aç</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="blk blk-s wrap" id="lab" aria-labelledby="labT">
+    <h2 id="labT">Lab</h2>
+    <p>İş analizi dışında, boş zamanımda yaptığım küçük uygulamalar: <a href="https://greendigitalstudio.com/deniz/" target="_blank" rel="noopener">Deniz Durumu</a>, <a href="https://greendigitalstudio.com/rivalboard/" target="_blank" rel="noopener">Rivalboard</a>, <a href="https://greendigitalstudio.com/market/" target="_blank" rel="noopener">Market İndirimleri</a> ve <a href="https://greendigitalstudio.com/lab/oyun/" target="_blank" rel="noopener">Ritim oyunu</a>. Uygulamalar greendigitalstudio.com'da yayında; bağlantılar yeni sekmede açılır.</p>
+  </section>
+
+  <section class="blk wrap" id="hakkimda" aria-labelledby="hakkimdaT">
+    <div class="blk-hd">
+      <h2 id="hakkimdaT">Hakkımda</h2>
       <p>Hacettepe Üniversitesi Aktüerya Bilimleri mezunuyum. Ekspertiz firmalarında hasar ve CRM entegrasyonu analistliğiyle başladım; Vakıf Emeklilik'te ürün yönetiminde kıdemli iş analisti, ardından Softtech'in bankasürans ekibinde kıdemli iş analisti ve Scrum Master olarak çalıştım.</p>
-      <p>Bir işi iş biriminin diliyle dinleyip teknoloji ekibinin diliyle yazıyorum: süreç, kural, veri eşleme, servis sözleşmesi ve test senaryosu. Önce paydaşı ve kuralı yazar, kapsam dışını açıkça belirtirim; analizi bir test senaryosuyla ya da çalışan bir demoyla sınarım.</p>
     </div>
-  </section>
-
-  <section class="sec wrap" id="deneyim" aria-labelledby="deneyimT">
-    <h2 class="sec-h" id="deneyimT">Deneyim</h2>
-    <div class="sec-b">
-      <ol class="cv">
-        <li><span class="cv-d">Eylül 2019 – Aralık 2025</span><div><b class="cv-t">Kıdemli İş Analisti &amp; Scrum Master</b><span class="cv-o">Softtech A.Ş., Bankasürans Ekibi</span></div></li>
-        <li><span class="cv-d">Haziran 2017 – Eylül 2019</span><div><b class="cv-t">Kıdemli İş Analisti</b><span class="cv-o">Vakıf Emeklilik A.Ş., Ürün Yönetimi</span></div></li>
-        <li><span class="cv-d">Aralık 2014 – Mayıs 2017</span><div><b class="cv-t">İş Analisti, Hasar &amp; CRM Entegrasyonu</b><span class="cv-o">Dolen Ekspertiz ve Ekol Ekspertiz, Ankara</span></div></li>
+    <div class="about">
+      <ol class="cv" aria-label="Deneyim ve eğitim">
+        <li><span class="cv-d">Eylül 2019 – Aralık 2025</span><b class="cv-t">Kıdemli İş Analisti &amp; Scrum Master</b><span class="cv-o">Softtech A.Ş., Bankasürans Ekibi</span></li>
+        <li><span class="cv-d">Haziran 2017 – Eylül 2019</span><b class="cv-t">Kıdemli İş Analisti</b><span class="cv-o">Vakıf Emeklilik A.Ş., Ürün Yönetimi</span></li>
+        <li><span class="cv-d">Aralık 2014 – Mayıs 2017</span><b class="cv-t">İş Analisti, Hasar &amp; CRM Entegrasyonu</b><span class="cv-o">Dolen Ekspertiz ve Ekol Ekspertiz, Ankara</span></li>
+        <li><span class="cv-d">2013</span><b class="cv-t">Aktüerya Bilimleri</b><span class="cv-o">Hacettepe Üniversitesi</span></li>
       </ol>
-    </div>
-  </section>
-
-  <section class="sec wrap" id="egitim" aria-labelledby="egitimT">
-    <h2 class="sec-h" id="egitimT">Eğitim</h2>
-    <div class="sec-b">
-      <ul class="cv">
-        <li><span class="cv-d">2013</span><div><b class="cv-t">Aktüerya Bilimleri</b><span class="cv-o">Hacettepe Üniversitesi</span></div></li>
-      </ul>
-    </div>
-  </section>
-
-  <section class="sec wrap" id="uzmanlik" aria-labelledby="uzmanlikT">
-    <h2 class="sec-h" id="uzmanlikT">Uzmanlık</h2>
-    <div class="sec-b">
-      <dl class="skills">
-        <dt>Alan</dt><dd>Bankasürans; hayat ve elementer sigortalar; BES</dd>
-        <dt>Entegrasyon</dt><dd>Üçüncü taraf sigorta şirketleriyle sistem entegrasyonu ve ortak veri altyapısı; REST/SOAP ve Kafka entegrasyon analizi</dd>
-        <dt>Veri</dt><dd>Veri modeli ve kaynak-hedef eşleme; SQL ve PL/SQL (Oracle)</dd>
-        <dt>Test</dt><dd>Test senaryoları ve UAT (Postman, SoapUI)</dd>
-        <dt>Yöntem</dt><dd>BPMN; Scrum (50+ sprint, 20 kişilik ekipte Scrum Master); RPA; LLM destekli analiz ve dokümantasyon</dd>
-      </dl>
-    </div>
-  </section>
-
-  <section class="sec wrap" id="calismalar" aria-labelledby="calismalarT">
-    <h2 class="sec-h" id="calismalarT">Örnek çalışmalar</h2>
-    <div class="sec-b">
-      <p class="sec-intro">Her analiz aynı sırayla yazıldı: problem, paydaş ve yetki, süreç, numaralı iş kuralları, gereksinimler, user story'ler, kapsam dışı, riskler ve hedef ölçütler.</p>
-
-      <article class="work work-lead">
-        <h3><a href="/analiz/bankasurans.html">Bankasürans poliçe entegrasyonu analizi</a></h3>
-        <p class="work-meta">Temsili vaka: benzer projelerdeki deneyimime dayanır; kurum adları ve veriler kurgusaldır.</p>
-        <figure class="work-fig"><!--SVG:mini--><svg class="mini" viewBox="0 0 560 352" role="img" aria-labelledby="mini-t mini-d" xmlns="http://www.w3.org/2000/svg"><title id="mini-t">Bankasürans entegrasyonu: üç veri yolu</title><desc id="mini-d">Banka kanalı teklif ve poliçeyi REST ile sigorta şirketinden çevrim içi alır; sigorta şirketindeki zeyil ve iptaller olay olarak Kafka üzerinden banka sistemlerine dakikalar içinde ulaşır; günün tüm hareketleri her gece T-1 dosyasıyla ortak veri alanına yüklenir ve sabah mutabakatı yapılır.</desc><rect class="mn-bg" x="0" y="0" width="560" height="352" rx="14"/><text class="mn-h" x="24" y="34">BANKA</text><text class="mn-h" x="214" y="34">ENTEGRASYON</text><text class="mn-h" x="404" y="34">SİGORTA ŞİRKETİ</text><rect class="mn-box" x="24" y="52" width="150" height="60" rx="10"/><text class="mn-t" x="40" y="78">Banka kanalı</text><text class="mn-s" x="40" y="97">şube · mobil</text><rect class="mn-box" x="24" y="146" width="150" height="60" rx="10"/><text class="mn-t" x="40" y="172">Banka sistemleri</text><text class="mn-s" x="40" y="191">CRM · komisyon</text><rect class="mn-box" x="24" y="240" width="150" height="60" rx="10"/><text class="mn-t" x="40" y="266">Ortak veri alanı</text><text class="mn-s" x="40" y="285">mutabakat</text><rect class="mn-box mn-mid" x="214" y="52" width="150" height="60" rx="10"/><text class="mn-t" x="230" y="78">API ağ geçidi</text><text class="mn-s" x="230" y="97">REST · idempotent</text><rect class="mn-box mn-mid" x="214" y="146" width="150" height="60" rx="10"/><text class="mn-t" x="230" y="172">Kafka</text><text class="mn-s" x="230" y="191">police-olaylari.v1</text><rect class="mn-box mn-mid" x="214" y="240" width="150" height="60" rx="10"/><text class="mn-t" x="230" y="266">T-1 yükleyici</text><text class="mn-s" x="230" y="285">kontrol toplamı</text><rect class="mn-box" x="404" y="52" width="132" height="248" rx="10"/><text class="mn-t" x="420" y="78">Poliçe sistemi</text><text class="mn-s" x="420" y="98">teklif · poliçe</text><text class="mn-s" x="420" y="116">zeyil · iptal</text><text class="mn-s" x="420" y="134">tahsilat</text><defs><marker id="mini-a" viewBox="0 0 10 10" refX="9.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#4A5565"/></marker></defs><line class="mn-ar" x1="176" y1="82" x2="212" y2="82" marker-end="url(#mini-a)" marker-start="url(#mini-a)"/><line class="mn-ar" x1="366" y1="82" x2="402" y2="82" marker-end="url(#mini-a)" marker-start="url(#mini-a)"/><line class="mn-ar" x1="404" y1="176" x2="366" y2="176" marker-end="url(#mini-a)"/><line class="mn-ar" x1="214" y1="176" x2="176" y2="176" marker-end="url(#mini-a)"/><line class="mn-ar" x1="404" y1="270" x2="366" y2="270" marker-end="url(#mini-a)"/><line class="mn-ar" x1="214" y1="270" x2="176" y2="270" marker-end="url(#mini-a)"/><text class="mn-l" x="24" y="330">Çevrim içi: saniyeler · Olay: dakikalar · Dosya: her gece (T-1)</text></svg><!--/SVG:mini--><figcaption>Üç veri yolu: teklif ve poliçe için çevrim içi servis (REST), zeyil ve iptal için olay (Kafka), günün tüm hareketleri için gece dosyası (T-1) ve sabah mutabakatı.</figcaption></figure>
-        <p>Banka kanalı ile anlaşmalı sigorta şirketi arasında teklif, poliçe, zeyil/iptal ve tahsilat verisinin analizi.</p>
-        <p class="work-out"><b>Çıktılar:</b> BPMN ile mevcut ve hedef süreç, ER veri modeli, 21 alanlık kaynak-hedef eşleme, REST ve Kafka sözleşmesi, Oracle SQL ile mutabakat kontrolleri, 13 senaryolu UAT planı.</p>
-        <p class="work-links"><a href="/analiz/bankasurans.html">Analizi oku</a><a href="/nasil-calisirim.html">Bu vakadan türetilen sprint planı</a></p>
-      </article>
-
-      <article class="work">
-        <div>
-          <h3><a href="/analiz/hasarai.html">Nakliyat hasar dosyası analizi</a></h3>
-          <p>Üç taşıma rejiminde ihbar süresi ve rücu limiti kuralları; yapay zekânın neyi yapmayacağını çizen sınırlar. Analiz, kurgusal veriyle çalışan bir demoyla sınandı.</p>
-          <p class="work-links"><a href="/analiz/hasarai.html">Analizi oku</a><a href="/hasarai/">Demoyu aç</a></p>
-        </div>
-        <img class="work-img" src="/assets/img/v2/ui-hasarai-3.webp" alt="HasarAI demo ekranı: nakliyat dosyası" loading="lazy" />
-      </article>
-
-      <div class="work-sub">
-        <h3>Aynı yöntem, farklı alan</h3>
-        <p>Sigorta dışındaki iki alanda aynı analiz sırası; ikisi de kurgusal veriyle çalışan bir demoyla sınandı.</p>
+      <div class="about-side">
+        <h3>Uzmanlık</h3>
+        <p>Bankasürans; hayat ve elementer sigortalar; BES. Üçüncü taraf sigorta şirketleriyle sistem entegrasyonu ve ortak veri altyapısı; REST/SOAP ve Kafka entegrasyon analizi. Veri modeli ve kaynak-hedef eşleme; SQL ve PL/SQL (Oracle). Test senaryoları ve UAT (Postman, SoapUI). BPMN, RPA, LLM destekli analiz ve dokümantasyon.</p>
+        <h3>Scrum</h3>
+        <p>50+ sprint, 20 kişilik ekipte Scrum Master. Backlog, sprint planı ve ekip anlaşmalarını <a href="/surec-ve-yontem.html">Süreç ve yöntem</a> sayfasında anlattım.</p>
       </div>
-
-      <article class="work">
-        <div>
-          <h3><a href="/analiz/buro.html">Hukuk bürosu yönetimi analizi</a></h3>
-          <p>Adli tatili hesaba katan süre kuralları, dilekçe onay akışı, altı rolün yetki sınırları ve 26 rakip ürünle karşılaştırma.</p>
-          <p class="work-links"><a href="/analiz/buro.html">Analizi oku</a><a href="/buro/">Demoyu aç</a></p>
-        </div>
-        <img class="work-img" src="/assets/img/v2/ui-buro-emsal.webp" alt="Büro demo ekranı: maskelenmiş sorguyla emsal karar arama" loading="lazy" />
-      </article>
-
-      <article class="work">
-        <div>
-          <h3><a href="/analiz/isyonetim.html">İnşaat ve taahhüt iş yönetimi analizi</a></h3>
-          <p>Taşeron belgeleri, puantaj, stok ve saha raporu; yedi rolün yetkileri ve kural envanteri.</p>
-          <p class="work-links"><a href="/analiz/isyonetim.html">Analizi oku</a><a href="/isyonetim/">Demoyu aç</a></p>
-        </div>
-        <img class="work-img" src="/assets/img/v2/ui-iyp.webp" alt="İş Yönetim Platformu demo ekranı: genel bakış" loading="lazy" />
-      </article>
     </div>
   </section>
 
-  <section class="sec wrap" id="lab" aria-labelledby="labT">
-    <h2 class="sec-h" id="labT">Lab</h2>
-    <div class="sec-b">
-      <p class="sec-note">İş analizi dışında, boş zamanımda yaptığım küçük uygulamalar: <a href="https://greendigitalstudio.com/deniz/" target="_blank" rel="noopener">Deniz Durumu</a>, <a href="https://greendigitalstudio.com/rivalboard/" target="_blank" rel="noopener">Rivalboard</a>, <a href="https://greendigitalstudio.com/market/" target="_blank" rel="noopener">Market İndirimleri</a> ve <a href="https://greendigitalstudio.com/lab/oyun/" target="_blank" rel="noopener">Ritim oyunu</a>. Uygulamalar greendigitalstudio.com'da yayında; bağlantılar yeni sekmede açılır.</p>
-    </div>
-  </section>
-
-  <section class="sec wrap" id="calisma" aria-labelledby="calismaT">
-    <h2 class="sec-h" id="calismaT">Nasıl çalışırım</h2>
-    <div class="sec-b">
-      <p>Backlog'u nasıl hazırladığımı, iki haftalık bir sprinti nasıl planladığımı, Definition of Ready ve Done listelerimi ve üçüncü taraf bağımlılıklarını nasıl yönettiğimi bankasürans vakasından türetilmiş temsili örneklerle anlattım.</p>
-      <p class="more"><a href="/nasil-calisirim.html">Nasıl çalıştığımı oku</a></p>
-    </div>
-  </section>
-
-  <section class="sec wrap" id="yazilar" aria-labelledby="yazilarT">
-    <h2 class="sec-h" id="yazilarT">Yazılar</h2>
-    <div class="sec-b">
-      <ul class="posts">
-        <li><a href="/blog/nakliyat-hasar-surecinde-yapay-zeka.html">Nakliyat Hasar Sürecinde Yapay Zeka: Neyi Otomatikleştirmeli, Neyi İnsanda Bırakmalı?</a></li>
-        <li><a href="/blog/sigortada-yapay-zeka-kvkk.html">Sigortada Üretken Yapay Zeka ve KVKK: Veri Modele Gitmeden Önce</a></li>
-      </ul>
-      <p class="more"><a href="/blog/">Tüm yazılar</a></p>
-    </div>
-  </section>
-
-  <section class="sec wrap" id="iletisim" aria-labelledby="iletisimT">
-    <h2 class="sec-h" id="iletisimT">İletişim</h2>
-    <div class="sec-b">
-      <p>LinkedIn üzerinden mesaj gönderebilirsiniz.</p>
-      <p class="more"><a href="https://www.linkedin.com/in/mustafa-ender-do%C4%9Fan-02273b30/" target="_blank" rel="noopener">LinkedIn profili <span aria-hidden="true">↗</span></a></p>
-    </div>
+  <section class="blk blk-s wrap" id="iletisim" aria-labelledby="iletisimT">
+    <h2 id="iletisimT">İletişim</h2>
+    <p>LinkedIn üzerinden mesaj gönderebilirsiniz.</p>
+    <p class="blk-act"><a class="btn" href="https://www.linkedin.com/in/mustafa-ender-do%C4%9Fan-02273b30/" target="_blank" rel="noopener">LinkedIn profili <span aria-hidden="true">↗</span></a></p>
   </section>
 </main>
 
