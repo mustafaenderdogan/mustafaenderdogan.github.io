@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HasarAI demosu: nakliyat hasar dosyası · Mustafa Ender Doğan</title>
+  <meta name="description" content="Nakliyat hasar analizini sınamak için hazırlanmış demo: belge zinciri kontrolü, CMR, deniz ve hava ihbar süreleri, SDR bazlı rücu limiti. Karar insanda; veriler kurgusal." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://mustafaenderdogan.github.io/hasarai/" />
+
+  <meta property="og:title" content="HasarAI — Nakliyat hasar dosyası için yapay zeka asistanı" />
+  <meta property="og:description" content="Belge zinciri kontrolü, CMR / Lahey-Visby / Montreal ihbar süreleri ve taşıyıcıya rücu tahmini. Karar insanda, hazırlık yapay zekada." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://mustafaenderdogan.github.io/hasarai/" />
+  <meta property="og:image" content="https://mustafaenderdogan.github.io/assets/img/og-portfolyo.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Mustafa Ender Doğan — İş Analizi Portfolyosu" />
+  <meta property="og:locale" content="tr_TR" />
+  <meta property="og:site_name" content="Mustafa Ender Doğan — İş Analizi Portfolyosu" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="HasarAI — Nakliyat hasar dosyası için yapay zeka asistanı" />
+  <meta name="twitter:description" content="Belge zinciri kontrolü, taşıyıcıya ihbar süreleri ve rücu tahmini. Karar insanda." />
+  <meta name="twitter:image" content="https://mustafaenderdogan.github.io/assets/img/og-portfolyo.png" />
+  <meta name="theme-color" content="#f3f1ec" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "SoftwareApplication",
+        "name": "HasarAI",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Web",
+        "url": "https://mustafaenderdogan.github.io/hasarai/",
+        "image": "https://mustafaenderdogan.github.io/assets/img/og-portfolyo.png",
+        "inLanguage": "tr",
+        "description": "Nakliyat (emtia taşıma) hasar analizini sınamak için hazırlanmış demo: fatura, çeki listesi, taşıma belgesi ve teslim tutanağının çapraz kontrolü, taşıyıcıya ihbar ve zamanaşımı takvimi, rücu limiti hesabı. Karar insanda kalır; veriler kurgusaldır.",
+        "featureList": [
+          "Nakliyat belge zinciri kontrolü: kap adedi, brüt ağırlık, konteyner ve mühür",
+          "CMR, Lahey-Visby ve Montreal rejimlerine göre ihbar ve zamanaşımı takvimi",
+          "SDR bazlı taşıyıcı sorumluluk limiti ve rücu potansiyeli",
+          "Kişisel veri maskeleme ve alan şifreleme (KVKK)",
+          "Durum geçişleri ve değiştirilemez denetim kaydı"
+        ],
+        "creator": { "@type": "Person", "name": "Mustafa Ender Doğan", "url": "https://mustafaenderdogan.github.io/" }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Portfolyo", "item": "https://mustafaenderdogan.github.io/" },
+          { "@type": "ListItem", "position": 2, "name": "Nakliyat vakası", "item": "https://mustafaenderdogan.github.io/analiz/hasarai.html" },
+          { "@type": "ListItem", "position": 3, "name": "HasarAI demosu", "item": "https://mustafaenderdogan.github.io/hasarai/" }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <link rel="icon" href="/assets/favicon.svg?v=1" type="image/svg+xml" />
+  <link href="/assets/fonts/hasarai.css?v=1" rel="stylesheet" />
+  <style>
+    /* HasarAI · "hasar dosyası" teması (2026-10-10): kâğıt zemin, mürekkep, tek sinyal rengi */
+    :root {
+      --paper: #f3f1ec; --paper-2: #eae7df; --sheet: #fcfbf8; --ink: #121417; --ink-2: #3b4048; --ink-3: #6b707a;
+      --rule: #d9d5ca; --rule-2: #c4bfb1;
+      --signal: #d9481f; --signal-ink: #a8330f; --signal-bg: #fbe4da;
+      --blue: #1f3d63; --blue-bg: #e1e8f1; --amber: #8a5a00; --amber-bg: #f6e7c4;
+      --maxw: 1200px; --pad: clamp(18px, 5vw, 56px);
+      --sans: "Archivo", system-ui, sans-serif; --mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--paper); color: var(--ink); font-family: var(--sans); font-size: 16px; line-height: 1.6;
+           -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+    h1, h2, h3 { font-family: var(--sans); font-stretch: 78%; font-weight: 800; letter-spacing: -0.02em; line-height: 0.98; }
+    a { color: inherit; }
+    .container { max-width: var(--maxw); margin: 0 auto; padding-inline: var(--pad); width: 100%; }
+    .section { padding-block: clamp(64px, 9vw, 120px); border-top: 1px solid var(--rule); }
+    .label { font: 500 12px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--signal-ink); margin-bottom: 18px;
+             display: flex; align-items: center; gap: 10px; }
+    .label::before { content: ""; width: 22px; height: 2px; background: var(--signal); }
+    .section-title { font-size: clamp(34px, 5.6vw, 64px); max-width: 16ch; }
+    .lead { color: var(--ink-2); font-size: clamp(16px, 1.8vw, 19px); max-width: 640px; margin-top: 20px; }
+    .muted { color: var(--ink-3); }
+    .small { font-size: 13px; }
+
+    .btn { display: inline-flex; align-items: center; gap: 10px; font: 700 15px/1 var(--sans); padding: 15px 22px; min-height: 48px;
+           border-radius: 4px; cursor: pointer; border: 1.5px solid var(--ink); text-decoration: none; color: var(--ink); background: transparent;
+           position: relative; overflow: hidden; isolation: isolate; transition: color .35s ease; }
+    .btn::before { content: ""; position: absolute; inset: 0; z-index: -1; background: var(--ink); transform: scaleX(0); transform-origin: left; transition: transform .4s cubic-bezier(.2,.7,.2,1); }
+    .btn:hover { color: var(--paper); } .btn:hover::before { transform: scaleX(1); }
+    .btn-primary { background: var(--signal); border-color: var(--signal); color: #fff; }
+    .btn-primary::before { background: var(--ink); } .btn-primary:hover { border-color: var(--ink); }
+    .btn-ghost { background: transparent; }
+    .btn-sm { font-size: 13px; padding: 9px 14px; min-height: 38px; border-width: 1px; }
+    .btn:focus-visible, button:focus-visible, textarea:focus-visible, summary:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
+
+    /* Üst çubuk */
+    .nav { position: sticky; top: 0; z-index: 50; background: rgba(243,241,236,.92); backdrop-filter: blur(10px); border-bottom: 1px solid var(--rule); }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 14px; min-height: 60px; }
+    .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .brand b { font-weight: 800; font-stretch: 85%; font-size: 20px; letter-spacing: -0.02em; }
+    .brand b span { color: var(--signal); }
+    .brand small { font: 500 11px var(--mono); color: var(--ink-3); border-left: 1px solid var(--rule-2); padding-left: 12px; letter-spacing: .06em; }
+    .nav-links { display: flex; gap: 4px; font-size: 14px; font-weight: 600; }
+    .nav-links a { text-decoration: none; padding: 10px 12px; border-radius: 4px; color: var(--ink-2); }
+    .nav-links a:hover { color: var(--ink); background: var(--paper-2); }
+    @media (max-width: 760px) { .nav-links .hide-sm { display: none; } .brand small { display: none; } }
+
+    /* Açılış */
+    .hero { padding-block: clamp(48px, 8vw, 104px) clamp(48px, 7vw, 88px); }
+    .hero-grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); gap: clamp(32px, 5vw, 72px); align-items: center; }
+    @media (max-width: 960px) { .hero-grid { grid-template-columns: minmax(0, 1fr); } }
+    .hero h1 { font-size: clamp(44px, 7.4vw, 104px); font-stretch: 72%; font-weight: 850; letter-spacing: -0.03em; }
+    .hero h1 em { font-style: normal; color: var(--signal); }
+    .hero .lead strong { color: var(--ink); }
+    .hero-cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+    .demo-note { display: flex; gap: 10px; align-items: flex-start; margin-top: 26px; font-size: 13px; color: var(--ink-3); max-width: 520px; }
+    .demo-note svg { flex: none; margin-top: 2px; }
+
+    .dossier { position: relative; padding: 18px 10px 30px 18px; }
+    .sheet { background: var(--sheet); border: 1px solid var(--rule-2); border-radius: 3px; box-shadow: 0 1px 0 var(--rule), 0 28px 50px -30px rgba(18,20,23,.45);
+             position: relative; font-size: 14px; }
+    .sheet.back { position: absolute; inset: 0 22px 18px 0; transform: rotate(-3deg); box-shadow: none; background: var(--paper-2); }
+    .sheet.front { transform: rotate(1.2deg); }
+    .sheet-head { display: flex; justify-content: space-between; gap: 10px; padding: 16px 18px 12px; border-bottom: 2px solid var(--ink); font: 600 11px/1.3 var(--mono); letter-spacing: .1em; }
+    .sheet-head b { font-weight: 600; }
+    .sheet-row { display: grid; grid-template-columns: 110px minmax(0,1fr); gap: 12px; padding: 10px 18px; border-bottom: 1px solid var(--rule); }
+    .sheet-row span { font: 500 11px/1.6 var(--mono); color: var(--ink-3); text-transform: uppercase; letter-spacing: .06em; }
+    .sheet-row strong { font-weight: 600; }
+    .sheet-foot { padding: 12px 18px 76px; font: 12px/1.6 var(--mono); color: var(--ink-2); }
+    .sheet-foot mark, .pii { background: var(--ink); color: var(--sheet); border-radius: 2px; padding: 0 4px; font-weight: 600; }
+    .stamp { position: absolute; right: 16px; bottom: 16px; transform: rotate(-8deg); border: 2.5px solid var(--signal); color: var(--signal);
+             font: 800 15px/1 var(--sans); font-stretch: 80%; letter-spacing: .08em; text-transform: uppercase; padding: 9px 12px; border-radius: 4px;
+             background: rgba(252,251,248,.85); }
+    .stamp small { display: block; font: 500 9px var(--mono); letter-spacing: .08em; margin-top: 4px; }
+
+    .facts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin-top: clamp(48px, 7vw, 88px); border-top: 2px solid var(--ink); }
+    @media (max-width: 860px) { .facts { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    .fact { padding: 20px 20px 4px 0; border-right: 1px solid var(--rule); }
+    .fact + .fact { padding-left: 20px; }
+    .fact:last-child { border-right: 0; }
+    @media (max-width: 860px) { .fact:nth-child(2) { border-right: 0; } .fact:nth-child(3) { padding-left: 0; } .fact:nth-child(n+3) { border-top: 1px solid var(--rule); } }
+    .fact b { display: block; font-size: clamp(30px, 3.6vw, 44px); font-weight: 850; font-stretch: 75%; letter-spacing: -0.02em; line-height: 1; }
+    .fact span { display: block; color: var(--ink-2); font-size: 14px; margin-top: 8px; }
+
+    /* Demo */
+    .demo-sec { background: var(--paper-2); }
+    .demo { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 20px; margin-top: 44px; align-items: start; }
+    @media (max-width: 960px) { .demo { grid-template-columns: minmax(0, 1fr); } }
+    .panel { background: var(--sheet); border: 1px solid var(--rule-2); border-radius: 4px; padding: 0; min-width: 0; }
+    .panel-body { padding: clamp(16px, 2.2vw, 22px); }
+    .panel h3 { font-size: 15px; font-stretch: 90%; font-weight: 750; letter-spacing: 0; line-height: 1.2; display: flex; align-items: center; gap: 12px;
+                padding: 14px clamp(16px, 2.2vw, 22px); border-bottom: 1px solid var(--rule); }
+    .step-no { font: 600 11px/1 var(--mono); color: var(--sheet); background: var(--ink); border-radius: 2px; padding: 5px 7px; }
+    .flow { display: grid; gap: 16px; }
+    .tabs { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+    .tab { font: 600 13px var(--sans); color: var(--ink-2); background: transparent; border: 1px solid var(--rule-2); border-radius: 3px; padding: 9px 12px; cursor: pointer; min-height: 40px; }
+    .tab:hover { border-color: var(--ink); color: var(--ink); }
+    .tab[aria-selected="true"] { color: var(--sheet); background: var(--ink); border-color: var(--ink); }
+    textarea { width: 100%; min-height: 176px; resize: vertical; background: var(--paper); color: var(--ink); border: 1px solid var(--rule-2);
+               border-radius: 3px; padding: 14px; font: 15px/1.6 var(--sans); margin-top: 6px; }
+    .hint { font-size: 12.5px; color: var(--ink-3); margin-top: 10px; }
+    .masked { font: 13px/1.75 var(--mono); background: var(--paper); border: 1px dashed var(--rule-2); border-radius: 3px; padding: 14px;
+              color: var(--ink-2); white-space: pre-wrap; overflow-wrap: anywhere; }
+    .fields { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); border-top: 1px solid var(--rule); border-left: 1px solid var(--rule); }
+    .field { border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule); padding: 10px 12px; min-width: 0; }
+    .field small { display: block; font: 500 10.5px var(--mono); color: var(--ink-3); letter-spacing: .08em; text-transform: uppercase; }
+    .field strong { font-size: 15px; font-weight: 650; overflow-wrap: anywhere; }
+    .field.missing { background: var(--amber-bg); }
+    .field.missing strong { color: var(--amber); }
+    .badges { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+    .badge { display: inline-flex; align-items: center; gap: 6px; font: 600 11.5px var(--mono); letter-spacing: .04em; text-transform: uppercase;
+             border-radius: 3px; padding: 6px 9px; border: 1.5px solid; }
+    .badge.ok { color: var(--blue); border-color: var(--blue); background: var(--blue-bg); }
+    .badge.warn { color: var(--amber); border-color: #c99a3a; background: var(--amber-bg); }
+    .badge.danger { color: var(--signal-ink); border-color: var(--signal); background: var(--signal-bg); }
+    .question { border: 1px solid var(--rule-2); border-left: 4px solid var(--blue); background: var(--paper); border-radius: 3px; padding: 12px 14px; margin-top: 14px; font-size: 14.5px; }
+    .question small { font: 500 11px var(--mono); letter-spacing: .06em; text-transform: uppercase; }
+    .question p { white-space: pre-line; margin-top: 4px; }
+    .question .btn { margin-top: 12px; text-align: left; line-height: 1.35; }
+    .docs { display: grid; margin-top: 12px; border-top: 1px solid var(--rule); }
+    .doc { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; border-bottom: 1px solid var(--rule); padding: 10px 2px; font-size: 15px; font-weight: 600; }
+    .doc .meta { font: 500 11.5px var(--mono); color: var(--ink-3); margin-top: 2px; }
+    .finding { margin-top: 12px; font-size: 14px; color: var(--signal-ink); background: var(--signal-bg); border-left: 4px solid var(--signal); border-radius: 3px; padding: 10px 12px; }
+    .timeline { display: flex; flex-wrap: wrap; gap: 4px 0; align-items: center; }
+    .st { font: 500 11.5px var(--mono); letter-spacing: .02em; color: var(--ink-3); border: 1px solid var(--rule-2); border-radius: 3px; padding: 6px 8px; background: var(--sheet); }
+    .st.done { color: var(--ink); border-color: var(--ink); text-decoration: line-through; text-decoration-color: var(--rule-2); }
+    .st.now { color: #fff; background: var(--signal); border-color: var(--signal); font-weight: 600; }
+    .arrow { width: 14px; height: 1.5px; background: var(--rule-2); font-size: 0; margin-inline: 2px; }
+
+    /* Nasıl çalışır */
+    .how { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: clamp(32px, 6vw, 96px); align-items: start; }
+    @media (max-width: 960px) { .how { grid-template-columns: minmax(0, 1fr); } }
+    .how .section-title, .faq-grid .section-title { font-size: clamp(34px, 4.6vw, 58px); }
+
+    .steps { counter-reset: s; list-style: none; border-top: 2px solid var(--ink); }
+    .steps li { counter-increment: s; display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 14px; padding: 20px 0; border-bottom: 1px solid var(--rule); }
+    .steps li::before { content: counter(s, decimal-leading-zero); font: 850 34px/1 var(--sans); font-stretch: 70%; color: var(--signal); }
+    .steps b { display: block; font-size: 19px; font-stretch: 88%; font-weight: 750; margin-bottom: 4px; }
+    .steps span { color: var(--ink-2); font-size: 15px; }
+    .grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; margin-top: clamp(56px, 8vw, 96px); border-top: 2px solid var(--ink); }
+    @media (max-width: 960px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    @media (max-width: 560px) { .grid { grid-template-columns: minmax(0, 1fr); } }
+    .card { padding: 24px 22px 8px 0; border-right: 1px solid var(--rule); }
+    .card + .card { padding-left: 22px; }
+    .card:last-child { border-right: 0; }
+    @media (max-width: 960px) { .card { border-right: 0; padding-left: 0 !important; border-bottom: 1px solid var(--rule); padding-bottom: 22px; } }
+    .card svg { color: var(--signal); margin-bottom: 14px; }
+    .card h3 { font-size: 21px; font-stretch: 85%; margin-bottom: 10px; line-height: 1.1; }
+    .card p { color: var(--ink-2); font-size: 14.5px; }
+
+    /* Verify */
+    .verify-sec { background: var(--ink); color: var(--paper); border-top: 0; }
+    .verify-sec .label { color: #f2a48a; }
+    .verify-sec .lead { color: #c9c6be; }
+    .verify { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(32px, 6vw, 88px); align-items: center; }
+    @media (max-width: 860px) { .verify { grid-template-columns: minmax(0, 1fr); } }
+    .checklist { list-style: none; border-top: 1px solid #3a3d42; counter-reset: c; }
+    .checklist li { counter-increment: c; display: grid; grid-template-columns: 44px minmax(0,1fr); padding: 16px 0; border-bottom: 1px solid #3a3d42; font-size: 16px; }
+    .checklist li::before { content: counter(c, decimal-leading-zero); font: 500 12px/1.9 var(--mono); color: #f2a48a; }
+
+    /* SSS */
+    .faq-grid { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: clamp(32px, 6vw, 96px); }
+    @media (max-width: 960px) { .faq-grid { grid-template-columns: minmax(0, 1fr); } }
+    .faq-list { border-top: 2px solid var(--ink); }
+    .faq details { border-bottom: 1px solid var(--rule); }
+    .faq summary { cursor: pointer; font-weight: 700; font-size: 18px; list-style: none; display: flex; justify-content: space-between; gap: 16px; padding: 18px 0; }
+    .faq summary::-webkit-details-marker { display: none; }
+    .faq summary::after { content: "+"; font: 400 24px/1 var(--mono); color: var(--signal); }
+    .faq details[open] summary::after { content: "–"; }
+    .faq p { color: var(--ink-2); padding-bottom: 18px; font-size: 15.5px; max-width: 62ch; }
+
+    /* Pilot */
+    .cta { background: var(--signal); color: #fff; border-top: 0; }
+    .cta .label { color: #fff; } .cta .label::before { background: #fff; }
+    .cta .section-title { max-width: 14ch; }
+    .cta .lead { color: #ffe9e0; }
+    .cta .btn { border-color: #fff; color: #fff; }
+    .cta .btn::before { background: #fff; } .cta .btn:hover { color: var(--signal-ink); }
+    .cta .btn-primary { background: #fff; color: var(--signal-ink); }
+    .cta .btn-primary::before { background: var(--ink); } .cta .btn-primary:hover { color: #fff; border-color: var(--ink); }
+    footer { padding-block: 26px; color: var(--ink-3); font: 12px var(--mono); }
+    footer .container { display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; }
+    @media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
+    /* Nakliyat demosu eklemeleri (2026-10-10) */
+    .tbl-wrap { overflow-x: auto; margin-top: 4px; border: 1px solid var(--rule); border-radius: 3px; }
+    table.chain { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 460px; }
+    .chain th, .chain td { text-align: left; padding: 9px 10px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+    .chain th { font: 500 10.5px var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); background: var(--paper); }
+    .chain td.num { font-family: var(--mono); font-size: 13px; white-space: nowrap; }
+    .chain td.bad { background: var(--signal-bg); color: var(--signal-ink); font-weight: 600; }
+    .chain td.warnc { background: var(--amber-bg); color: var(--amber); font-weight: 600; }
+    .chain tr.absent td { color: var(--ink-3); }
+    .chain tr:last-child td { border-bottom: 0; }
+    .finding.warn { color: var(--amber); background: var(--amber-bg); border-left-color: #c99a3a; }
+    .finding.info { color: var(--blue); background: var(--blue-bg); border-left-color: var(--blue); }
+    .finding b { font-weight: 700; }
+    .cov { display: grid; gap: 0; border-top: 1px solid var(--rule); }
+    .cov-row { display: grid; grid-template-columns: minmax(0, 150px) minmax(0, 1fr); gap: 12px; padding: 11px 2px; border-bottom: 1px solid var(--rule); font-size: 14.5px; }
+    .cov-row > span:first-child { font: 500 11px/1.7 var(--mono); color: var(--ink-3); text-transform: uppercase; letter-spacing: .06em; }
+    @media (max-width: 520px) { .cov-row { grid-template-columns: minmax(0, 1fr); gap: 2px; } }
+    .calc-in { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
+    .calc-in label { display: grid; gap: 4px; font: 500 10.5px var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); }
+    .calc-in input, .calc-in select { font: 500 15px var(--sans); color: var(--ink); background: var(--paper); border: 1px solid var(--rule-2); border-radius: 3px; padding: 9px 10px; min-height: 42px; width: 100%; }
+    .calc-in input:focus-visible, .calc-in select:focus-visible { outline: 2px solid var(--blue); outline-offset: 1px; }
+    .dl { margin-top: 16px; border-top: 2px solid var(--ink); }
+    .dl-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 6px 14px; padding: 12px 2px; border-bottom: 1px solid var(--rule); align-items: baseline; }
+    .dl-row b { font-size: 15px; font-weight: 700; }
+    .dl-row small { grid-column: 1 / -1; color: var(--ink-3); font-size: 13px; }
+    .dl-row .when { font: 600 13px var(--mono); text-align: right; white-space: nowrap; }
+    .when.ok { color: var(--blue); } .when.warn { color: var(--amber); } .when.danger { color: var(--signal-ink); }
+    .sum { margin-top: 16px; background: var(--ink); color: var(--paper); border-radius: 3px; padding: 16px 18px; font: 13px/1.8 var(--mono); }
+    .sum b { color: #fff; font-weight: 600; }
+    .sum .big { font: 800 clamp(26px, 3.4vw, 34px)/1.1 var(--sans); font-stretch: 78%; color: #fff; display: block; margin-top: 6px; letter-spacing: -0.01em; }
+    .sum .sig { color: #f2a48a; }
+    .actions { list-style: none; border-top: 1px solid var(--rule); margin-top: 14px; }
+    .actions li { padding: 10px 2px 10px 26px; border-bottom: 1px solid var(--rule); position: relative; font-size: 14.5px; }
+    .actions li::before { content: "→"; position: absolute; left: 4px; color: var(--signal); font-weight: 700; }
+    .letter { margin-top: 12px; border: 1px solid var(--rule-2); background: var(--paper); border-radius: 3px; padding: 14px; font: 12.5px/1.7 var(--mono); white-space: pre-wrap; color: var(--ink-2); }
+    .letter-head { display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; align-items: center; margin-top: 16px; }
+    .regimes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: clamp(40px, 6vw, 72px); border-top: 2px solid var(--paper); }
+    @media (max-width: 860px) { .regimes { grid-template-columns: minmax(0, 1fr); } }
+    .regime { padding: 22px 22px 6px 0; border-right: 1px solid #3a3d42; }
+    .regime + .regime { padding-left: 22px; }
+    .regime:last-child { border-right: 0; }
+    @media (max-width: 860px) { .regime { border-right: 0; padding-left: 0 !important; border-bottom: 1px solid #3a3d42; padding-bottom: 18px; } }
+    .regime h3 { font-size: 24px; font-stretch: 80%; margin-bottom: 12px; }
+    .regime dl { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 6px 14px; font-size: 14.5px; color: #d8d5cd; }
+    .regime dt { font: 500 11px/1.9 var(--mono); color: #f2a48a; text-transform: uppercase; letter-spacing: .06em; }
+    @media (min-width: 961px) { .demo > .panel:first-child { position: sticky; top: 76px; } }
+  </style>
+</head>
+<body>
+
+<nav class="nav" aria-label="Ana menü">
+  <div class="container nav-inner">
+    <a class="brand" href="/"><b>Hasar<span>AI</span></b><small>Analiz demosu</small></a>
+    <div class="nav-links">
+      <a href="#demo">Demo</a>
+      <a class="hide-sm" href="#nasil">Nasıl çalışır</a>
+      <a class="hide-sm" href="#rejimler">Rejimler</a>
+      <a href="/analiz/hasarai.html">Analiz</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <header class="hero">
+    <div class="container">
+      <div class="hero-grid">
+        <div>
+          <p class="label">Nakliyat hasar asistanı</p>
+          <h1>Belge zinciri tutsun, <em>süre kaçmasın,</em> rücu kaybolmasın.</h1>
+          <p class="lead">HasarAI, nakliyat (emtia taşıma) hasar dosyasını hazırlar: fatura, çeki listesi, CMR / konşimento / AWB
+            ve teslim tutanağını çapraz kontrol eder, taşıyıcıya ihbar ve zamanaşımı sürelerini takvime çevirir, sorumluluk
+            limitine göre rücu potansiyelini hesaplar. <strong>Karar insanda kalır, hazırlık yapay zekada.</strong></p>
+          <div class="hero-cta">
+            <a class="btn btn-primary" href="#demo">Demoyu dene <span aria-hidden="true">→</span></a>
+            <a class="btn" href="/analiz/hasarai.html">Analizi oku</a>
+          </div>
+          <p class="demo-note"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="1.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>Bu demo, nakliyat hasar analizini göstermek için hazırlandı; tüm veriler kurgusaldır. Tarayıcıda çalışır, hiçbir bilgi sunucuya gönderilmez.</p>
+        </div>
+
+        <div class="dossier" aria-hidden="true">
+          <div class="sheet back"></div>
+          <div class="sheet front">
+            <div class="sheet-head"><b>HASAR DOSYASI · NAKLİYAT</b><span>NKL-2026-000731</span></div>
+            <div class="sheet-row"><span>Taşıma</span><strong>Karayolu · CMR</strong></div>
+            <div class="sheet-row"><span>Güzergâh</span><strong>İzmir → Köln</strong></div>
+            <div class="sheet-row"><span>Emtia</span><strong>Ev tekstili · 420 koli · 8.400 kg</strong></div>
+            <div class="sheet-row"><span>Teslim</span><strong>05.10.2026 · çekincesiz</strong></div>
+            <div class="sheet-row"><span>Hasar</span><strong>Islanma · 38 koli · 760 kg</strong></div>
+            <div class="sheet-row"><span>Belgeler</span><strong>Fatura ✓ · Çeki ✓ · CMR ✓ · Sörvey —</strong></div>
+            <div class="sheet-foot">Rücu limiti: 760 kg × 8,33 SDR = <mark>6.330,80 SDR</mark></div>
+            <div class="stamp">Süre riski<small>CMR çekince · son gün 13.10</small></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="facts" aria-label="Öne çıkanlar">
+        <div class="fact"><b>7 · 3 · 14</b><span>gün: karayolu, deniz ve hava için görünmeyen hasar ihbar süresi</span></div>
+        <div class="fact"><b>SDR</b><span>rücu limiti kuralla hesaplanır, yapay zekayla değil</span></div>
+        <div class="fact"><b>0 red</b><span>yapay zeka red ya da ödeme kararı vermez</span></div>
+        <div class="fact"><b>KVKK</b><span>kişisel veri maskeli gider, şifreli saklanır</span></div>
+      </div>
+    </div>
+  </header>
+
+  <section class="section demo-sec" id="demo" aria-labelledby="demo-title">
+    <div class="container">
+      <p class="label">Canlı demo</p>
+      <h2 class="section-title" id="demo-title">Bir nakliyat dosyasının yolculuğu</h2>
+      <p class="lead">Bir senaryo seçin. Maskeleme, belge zinciri, süre takvimi ve rücu hesabı burada gerçek kurallarla çalışır;
+        süre ve rücu alanlarını değiştirip sonucu görebilirsiniz. Serbest metinden alan çıkarımı ürünün yapay zeka modeline
+        gider, bu yüzden demoda hazır senaryolarda gösterilir.</p>
+
+      <div class="demo">
+        <div class="panel">
+          <h3><span class="step-no">01</span> İhbar metni</h3>
+          <div class="panel-body">
+            <div class="tabs" role="tablist" aria-label="Senaryolar" id="tabs"></div>
+            <label for="claim-text" class="small muted">Sigortalının ya da brokerin yazdığı ihbar (e-posta, web formu)</label>
+            <textarea id="claim-text" spellcheck="false"></textarea>
+            <p class="hint">Telefon, TC kimlik no, IBAN ve e-posta yazmayı deneyin; modele gitmeden önce maskelenir.</p>
+          </div>
+          <h3 style="border-top:1px solid var(--rule)"><span class="step-no">02</span> Modele giden metin</h3>
+          <div class="panel-body"><div class="masked" id="masked" aria-live="polite"></div></div>
+        </div>
+
+        <div class="flow">
+          <div class="panel">
+            <h3><span class="step-no">03</span> Yapılandırılmış dosya</h3>
+            <div class="panel-body">
+              <div id="fields" class="fields"></div>
+              <div id="badges" class="badges"></div>
+            </div>
+          </div>
+          <div class="panel">
+            <h3><span class="step-no">04</span> Belge zinciri</h3>
+            <div class="panel-body" id="docs-area"></div>
+          </div>
+          <div class="panel">
+            <h3><span class="step-no">05</span> Teminat ve risk geçişi</h3>
+            <div class="panel-body" id="cov-area"></div>
+          </div>
+          <div class="panel">
+            <h3><span class="step-no">06</span> Süre takvimi ve rücu</h3>
+            <div class="panel-body">
+              <div class="calc-in" id="calc-in">
+                <label>Rejim<select id="c-regime">
+                  <option value="cmr">CMR · karayolu</option>
+                  <option value="hv">Lahey-Visby / TTK · deniz</option>
+                  <option value="mc">Montreal · hava</option>
+                </select></label>
+                <label>Teslim tarihi<input type="date" id="c-delivered" /></label>
+                <label>Hasar teslimde<select id="c-apparent">
+                  <option value="hidden">Görünmüyordu</option>
+                  <option value="apparent">Görünüyordu</option>
+                </select></label>
+                <label>Teslimde çekince<select id="c-reserved">
+                  <option value="no">Yazılmadı</option>
+                  <option value="yes">Yazıldı</option>
+                </select></label>
+                <label>Hasarlı kap<input type="number" id="c-pkgs" min="0" step="1" inputmode="numeric" /></label>
+                <label>Hasarlı brüt kg<input type="number" id="c-kg" min="0" step="0.1" inputmode="decimal" /></label>
+                <label>Hasar tutarı (TL)<input type="number" id="c-amount" min="0" step="1" inputmode="decimal" /></label>
+                <label>SDR kuru (TL)<input type="number" id="c-rate" min="0" step="0.01" inputmode="decimal" /></label>
+                <label>Bugün<input type="date" id="c-today" /></label>
+              </div>
+              <p class="hint">SDR kuru örnektir (09.10.2026 ≈ 67,03 TL); üründe tarihiyle girilir ve dosyada saklanır. Resmî tatiller demoda düşülmez, yalnızca pazar günleri.</p>
+              <div id="deadlines" class="dl" aria-live="polite"></div>
+              <div id="recovery" class="sum" aria-live="polite"></div>
+            </div>
+          </div>
+          <div class="panel">
+            <h3><span class="step-no">07</span> Dosya durumu ve önerilen adımlar</h3>
+            <div class="panel-body">
+              <div class="timeline" id="timeline" aria-live="polite"></div>
+              <p class="hint" id="status-note"></p>
+              <ul class="actions" id="actions"></ul>
+              <div id="letter-area"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="nasil" aria-labelledby="nasil-title">
+    <div class="container">
+      <div class="how">
+        <div>
+          <p class="label">Nasıl çalışır</p>
+          <h2 class="section-title" id="nasil-title">Hazırlık yapay zekada, karar uzmanda</h2>
+          <p class="lead">Nakliyat dosyasında para çoğu zaman iki yerde kaybolur: tutmayan belgeler ve kaçan süreler.
+            HasarAI ikisini de dosyanın ilk gününde görünür kılar. Tutar ve tarih hesapları kuraldır; yapay zeka yalnızca okur ve yazar.</p>
+        </div>
+        <ol class="steps">
+          <li><div><b>Belge paketi okuma</b><span>Fatura, çeki listesi, CMR / konşimento / AWB, teslim tutanağı, sörvey raporu ve sigorta sertifikası sınıflandırılır; Türkçe ve İngilizce belgelerden kap adedi, brüt ağırlık, konteyner ve mühür no, teslim tarihi ve çekince metni çıkarılır.</span></div></li>
+          <li><div><b>Belge zinciri kontrolü</b><span>Aynı alan bütün belgelerde karşılaştırılır. Tutmayan kap adedi, toleransı aşan ağırlık farkı veya konşimentodaki "said to contain" kaydı bulgu olarak işaretlenir; red kararı verilmez.</span></div></li>
+          <li><div><b>Teminat ve risk geçişi</b><span>Hasar nedeni poliçenin ICC (A), (B) veya (C) klozuyla eşleştirilir; Incoterms 2020 kuralına göre hasar anında riskin ve sigortalanabilir menfaatin kimde olduğu kontrol edilir.</span></div></li>
+          <li><div><b>Süre takvimi</b><span>Taşıma rejimine göre taşıyıcıya ihbar son günü ve zamanaşımı hesaplanır. Son güne iki iş günü kalan dosya "insan önceliği" kuyruğuna düşer; taşıyıcıya yazılı ihbar taslağı hazırlanır.</span></div></li>
+          <li><div><b>Rücu tahmini</b><span>Taşıyıcının sorumluluk limiti (kg ya da kap başına SDR) tarihli kurla TL'ye çevrilir; rücu potansiyeli hasar tutarı ile limitin küçüğüdür. Limiti kaldırabilecek durumlar ayrıca not edilir.</span></div></li>
+        </ol>
+      </div>
+
+      <div class="grid">
+        <div class="card"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg><h3>KVKK öncelikli</h3><p>TC, VKN, telefon, IBAN ve e-posta modele gitmeden maskelenir. Kişisel alanlar veritabanında şifreli tutulur. Yurt dışı yapay zeka kullanımı şirket bazında kapalı başlar.</p></div>
+        <div class="card"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3h8l4 4v14H7z"/><path d="M15 3v4h4M10 12h6M10 16h6"/></svg><h3>İzlenebilir öneriler</h3><p>Her öneri model ve istem sürümüyle, her hesap kural sürümü ve kur tarihiyle saklanır. Uzmanın kabul, red ve düzeltmeleri ölçülür; durum değişiklikleri değiştirilemez kayda yazılır.</p></div>
+        <div class="card"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></svg><h3>Kurallar sizin</h3><p>Süreler, limitler, kloz eşleştirmeleri, tatil takvimi ve belge matrisi koda gömülü değildir; şirket bazında sürümlü kural setleriyle değiştirilir ve hukukçunuzun onayından geçer.</p></div>
+        <div class="card"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="7" height="18"/><rect x="13" y="8" width="7" height="13"/><path d="M7 7h1M7 11h1M7 15h1M16 12h1M16 16h1"/></svg><h3>Çok kiracılı</h3><p>Her sigorta şirketi, broker ve sörvey firmasının verisi ayrı tutulur ve testlerle doğrulanır. Türkiye'de barındırma ve kendi depolama altyapınızla çalışabilir.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section verify-sec" id="rejimler" aria-labelledby="rejim-title">
+    <div class="container">
+      <p class="label">Taşıyıcı sorumluluk rejimleri</p>
+      <h2 class="section-title" id="rejim-title">Üç rejim, tek takvim</h2>
+      <p class="lead">Varsayılan kural seti aşağıdaki gibidir. Şirketinizin hukukçusu tarafından doğrulanır ve sürümlenir;
+        bu sayfa hukuki görüş değildir.</p>
+      <div class="regimes">
+        <div class="regime"><h3>CMR · karayolu</h3><dl>
+          <dt>İhbar</dt><dd>Görünen hasar teslimde; görünmeyen hasar 7 gün içinde yazılı (pazar ve resmî tatil hariç)</dd>
+          <dt>Kaçarsa</dt><dd>Hasarsız teslim karinesi; ispat yükü sigortalıya geçer</dd>
+          <dt>Limit</dt><dd>8,33 SDR / kg brüt</dd>
+          <dt>Zamanaşımı</dt><dd>1 yıl (kast veya eşdeğer kusurda 3 yıl)</dd></dl></div>
+        <div class="regime"><h3>Lahey-Visby · deniz</h3><dl>
+          <dt>İhbar</dt><dd>Görünen hasar teslimde; görünmeyen hasar 3 gün içinde</dd>
+          <dt>Kaçarsa</dt><dd>Hasarsız teslim karinesi</dd>
+          <dt>Limit</dt><dd>666,67 SDR / kap veya 2 SDR / kg, hangisi yüksekse</dd>
+          <dt>Zamanaşımı</dt><dd>1 yıl</dd></dl></div>
+        <div class="regime"><h3>Montreal · hava</h3><dl>
+          <dt>İhbar</dt><dd>Hasarda 14 gün, gecikmede 21 gün içinde yazılı</dd>
+          <dt>Kaçarsa</dt><dd>Taşıyıcıya karşı dava hakkı düşer (hile hariç)</dd>
+          <dt>Limit</dt><dd>26 SDR / kg (28.12.2024'ten itibaren)</dd>
+          <dt>Zamanaşımı</dt><dd>2 yıl</dd></dl></div>
+      </div>
+      <p class="lead" style="margin-top:40px">Yakında · <strong style="color:#fff">HasarAI Verify:</strong> sörvey raporlarına ikinci göz. Sayılan kap ile taşıma belgesi,
+        hasar nedeni ve dayanağı, ambalaj değerlendirmesi, mühür durumu ve değer kaybı hesabının tutarlılığı.</p>
+    </div>
+  </section>
+
+  <section class="section faq" aria-labelledby="faq-title">
+    <div class="container faq-grid">
+      <div>
+        <p class="label">Sık sorulanlar</p>
+        <h2 class="section-title" id="faq-title">Merak edilenler</h2>
+      </div>
+      <div class="faq-list">
+        <details><summary>Rücu tutarını yapay zeka mı hesaplıyor?</summary>
+          <p>Hayır. Süre ve limit hesapları kural motorunda, ondalık hassasiyetle yapılır; kural sürümü ve kur tarihi dosyaya yazılır. Yapay zeka belgeleri okur, bulguları açıklar ve taşıyıcıya ihbar taslağı yazar.</p></details>
+        <details><summary>Yapay zeka hasar dosyasını reddedebilir mi?</summary>
+          <p>Hayır. HasarAI hiçbir modülde nihai red veya ödeme kararı vermez. "Kapsam dışı olası" bir ön görüştür; red ve ödeme onayı yalnızca yetkili kullanıcı tarafından, gerekçe yazılarak yapılabilir.</p></details>
+        <details><summary>İngilizce belgeleri okuyor mu?</summary>
+          <p>Evet. Nakliyat belgelerinin çoğu İngilizce olduğu için fatura, çeki listesi, konşimento, CMR ve AWB Türkçe ve İngilizce okunur. Taranmış belgelerin önce şirketin kendi sunucusunda metne çevrilmesi bir tasarım kararıdır.</p></details>
+        <details><summary>Hangi taşıma türlerini kapsıyor?</summary>
+          <p>Uluslararası karayolu (CMR), deniz (Lahey-Visby / TTK) ve hava (Montreal) taşımaları. Proje kargo, iş makinesi ve ağır yük sevkiyatları da aynı belge zinciri ve süre takvimiyle işlenir. Yurt içi ve kombine taşımalarda rejim türetilmez, bulgu yazılır; bu kuralların bir hukukçuyla tanımlanması analizde açık madde olarak duruyor.</p></details>
+        <details><summary>Mevcut sistemlerle nasıl çalışır?</summary>
+          <p>Analizde REST API öngörüldü. İlk aşamada poliçe ve dosya verisinin CSV ya da elle aktarımla alınması, çekirdek sigorta sistemleriyle canlı entegrasyonun ise sonraki faza bırakılması önerildi.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="section cta" aria-labelledby="cta-title">
+    <div class="container">
+      <p class="label">Analiz</p>
+      <h2 class="section-title" id="cta-title">Bu demonun arkasındaki analiz</h2>
+      <p class="lead">Taşıma rejimlerine göre 22 iş kuralı, yapay zekâ ile insan kararı arasındaki sınırlar, gereksinimler, kapsam kararları ve açık sorular analiz envanterinde.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="/analiz/hasarai.html">Analizi oku <span aria-hidden="true">→</span></a>
+        <a class="btn" href="https://www.linkedin.com/in/mustafa-ender-do%C4%9Fan-02273b30/" target="_blank" rel="noopener">LinkedIn'den yaz</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container">
+    <span>© 2026 Mustafa Ender Doğan · HasarAI analiz demosu</span>
+    <span>Demodaki tüm kişi, firma, poliçe ve belge numaraları sentetiktir.</span>
+  </div>
+</footer>
+
+<script>
+(() => {
+  "use strict";
+
+  // --- Kurallar: maskeleme backend/app/core/pii.py ile, süre/limit backend/app/rules/cargo.yaml ile aynı -----
+  const PII = [
+    [/\bTR\s?\d{2}(?:\s?\d{4}){5}\s?\d{2}\b/gi, "[IBAN]"],
+    [/\b[\w.+-]+@[\w-]+(?:\.[\w-]+)+\b/g, "[EPOSTA]"],
+    [/(?<!\d)(?:\+?90[\s-]?|0)?\(?[2-5]\d{2}\)?[\s-]?\d{3}[\s-]?\d{2}[\s-]?\d{2}(?!\d)/g, "[TEL]"],
+    [/(?<!\d)[1-9]\d{10}(?!\d)/g, "[TC]"],
+    [/(?<!\d)\d{10}(?!\d)/g, "[VKN]"],
+  ];
+  const REGIMES = {
+    cmr: { label: "CMR · karayolu", hidden: 7, skipSunday: true, consequence: "presumption", timeBarYears: 1,
+           limit: (p, kg) => ({ sdr: r2(kg * 8.33), basis: `${fmtKg(kg)} kg × 8,33 SDR` }) },
+    hv:  { label: "Lahey-Visby / TTK · deniz", hidden: 3, skipSunday: false, consequence: "presumption", timeBarYears: 1,
+           limit: (p, kg) => { const a = r2(p * 666.67), b = r2(kg * 2);
+             return a >= b ? { sdr: a, basis: `${fmtN(p, 0)} kap × 666,67 SDR (kg bazı ${fmtN(b)} SDR, düşük)` }
+                           : { sdr: b, basis: `${fmtKg(kg)} kg × 2 SDR (kap bazı ${fmtN(a)} SDR, düşük)` }; } },
+    mc:  { label: "Montreal · hava", hidden: 14, apparentToo: true, skipSunday: false, consequence: "bar", timeBarYears: 2,
+           limit: (p, kg) => ({ sdr: r2(kg * 26), basis: `${fmtKg(kg)} kg × 26 SDR` }) },
+  };
+  const CONSEQ_PASSED = { presumption: "Sonuç: hasarsız teslim karinesi, ispat yükü sigortalıda", bar: "Sonuç: taşıyıcıya karşı dava hakkı düşer (hile hariç)" };
+  const CONSEQ = { presumption: "kaçarsa hasarsız teslim karinesi: ispat yükü sigortalıya geçer", bar: "kaçarsa taşıyıcıya karşı dava hakkı düşer (hile hariç)" };
+  const PRIORITY_BDAYS = 2;
+  const STATUSES = ["IHBAR", "BELGE_BEKLENIYOR", "INCELEMEDE", "EKSPERTIZDE", "ONAY_BEKLIYOR", "ODEME_ONAYLANDI", "KAPANDI"];
+  const STATUS_TEXT = { IHBAR: "İhbar", BELGE_BEKLENIYOR: "Belge bekleniyor", INCELEMEDE: "İncelemede", EKSPERTIZDE: "Sörveyde",
+                        ONAY_BEKLIYOR: "Onay bekliyor", ODEME_ONAYLANDI: "Ödeme onaylandı", KAPANDI: "Kapandı" };
+  const DOC_LABEL = { commercial_invoice: "Ticari fatura", packing_list: "Çeki listesi", cmr: "CMR taşıma senedi", bill_of_lading: "Konşimento (B/L)",
+                      awb: "Hava yolu senedi (AWB)", delivery_receipt: "Teslim tutanağı", survey_report: "Sörvey raporu", policy_certificate: "Poliçe / sertifika" };
+  const DEMO_TODAY = "2026-10-10";
+
+  // --- Sentetik senaryolar (çıkarım sonuçları ürünün modelinden alınmış örneklerdir) ----------------------
+  const SCENARIOS = [
+    {
+      id: "cmr", tab: "Karayolu · ıslanma",
+      text: "Merhaba, 05.10.2026'da Köln'deki alıcımıza teslim edilen ev tekstili yükümüzde sorun var. İzmir'den çıkan 420 kolilik sevkiyat (CMR no DMO-CMR-55120) teslimde çekincesiz imzalandı. Alıcı 07.10'da kolileri açınca 38 kolinin ıslandığını, ürünlerde küf olduğunu bildirdi; fotoğraflarda dorse brandasının yırtık olduğu görünüyor. Tahmini hasar 612.000 TL. Sertifika no DEMO-NKL-0007. Bana 0532 000 00 00'den, muhasebe için ihracat@ornek-tekstil.example adresinden ulaşabilirsiniz.",
+      fields: [["Taşıma", "Karayolu · CMR DMO-CMR-55120"], ["Güzergâh", "İzmir → Köln"], ["Emtia", "Ev tekstili"], ["Kap / brüt", "420 koli · 8.400 kg"],
+               ["Teslim", "05.10.2026 · çekincesiz"], ["Hasar", "Islanma · 38 koli · 760 kg"], ["Satış", "CIP Köln"], ["Kloz", "ICC (A)"], ["Tutar", "612.000 TL"]],
+      calc: { regime: "cmr", delivered: "2026-10-05", apparent: "hidden", reserved: "no", pkgs: 38, kg: 760, amount: 612000 },
+      docs: [
+        { kind: "policy_certificate", meta: "DEMO-NKL-0007 · ICC (A) · bedel 1.390.400 TL" },
+        { kind: "commercial_invoice", pkgs: 420, meta: "1.264.000 TL · CIP Köln" },
+        { kind: "packing_list", pkgs: 420, kg: 8460 },
+        { kind: "cmr", pkgs: 420, kg: 8400, transport: true, meta: "DMO-CMR-55120 · teslim 05.10.2026" },
+        { kind: "delivery_receipt", pkgs: 420, meta: "alıcı imzası · çekince yok" },
+        { kind: "survey_report", missing: true, upload: { meta: "DMO Sörvey · 09.10.2026", finding: ["info", "<b>Sörvey:</b> ıslanma nedeni dorse brandasındaki 40 cm yırtıktan giren yağmur suyu; ambalaj ihracata uygun. Taşıyıcı kusuru rücu için destekleniyor."] } },
+      ],
+      findings: [["info", "<b>Teslimde çekince yok.</b> Hasar görünmüyordu; CMR'de yazılı çekince için süre teslimden itibaren 7 gün (pazar hariç)."]],
+      coverage: [
+        ["Hasar nedeni", "Yağmur suyu girişi → ICC (A) kapsamında olası. (B) veya (C) klozunda kapsam dışı olurdu.", "ok", "Kapsamda olası"],
+        ["Risk geçişi", "CIP: risk İzmir'de ilk taşıyıcıya teslimle alıcıya geçti; satıcı ICC (A) ile alıcı lehine sigorta yaptırdı. Tazminat hakkı sertifikayı elinde tutan alıcıda — ihbarı satıcı yapıyor, lehtar teyidi gerekli.", "warn", "Lehtar teyidi"],
+        ["Sigorta bedeli", "1.390.400 TL = fatura 1.264.000 TL × %110 (CIP asgarisi) → eksik sigorta yok.", "ok", "Yeterli"],
+        ["Ambalaj", "İstisna sinyali yok; sörvey raporu bekleniyor.", "ok", "Sinyal yok"],
+      ],
+      status: { before: "BELGE_BEKLENIYOR", after: "INCELEMEDE" },
+      actions: ["Taşıyıcıya CMR yazılı çekincesi bugün gönderilsin (son gün aşağıda)", "Sigorta sertifikasının lehtarı (alıcı) teyit edilsin; ihbar alıcı adına da kayda geçsin",
+                "Sörvey raporu istensin; dorse brandası fotoğrafları rücu dosyasına eklensin", "Çeki listesi ile CMR arasındaki 60 kg fark gönderene sorulsun"],
+      letter: "Konu: CMR m.30 uyarınca yazılı çekince — CMR DMO-CMR-55120\n\nSayın Taşıyıcı,\n05.10.2026 tarihinde Köln'de teslim edilen 420 koli ev tekstilinden 38 kolide (760 kg brüt) teslim sırasında görünmeyen ıslanma hasarı tespit edilmiştir. İlk bulgulara göre hasar, taşıma sırasında dorse brandasındaki yırtıktan giren yağmur suyundan kaynaklanmaktadır.\n\nCMR m.30/1 uyarınca çekincemizi bildirir, ortak sörvey için yetkilinizi en geç 14.10.2026'ya kadar görevlendirmenizi rica ederiz. Taşıyıcı sorumluluğuna ilişkin tüm haklarımız saklıdır.\n\n[Sigortalı / sigortacı adına]",
+    },
+    {
+      id: "hv", tab: "Deniz · eksik kap",
+      text: "Şangay'dan gelen MSDU 418827-3 numaralı konteynerimiz 28.09.2026'da Mersin'de antrepoya alındı. Konşimentoda 1.200 karton görünüyor, sayımda 1.164 çıktı; 36 karton küçük ev aleti eksik. Mühür sağlam, devir tespit tutanağına eksik yazdırıldı. Fatura bedeline göre eksik kısım 540.000 TL. Poliçe DEMO-NKL-0012. Ödeme için IBAN'ımız TR33 0006 1005 1978 6457 8413 26.",
+      fields: [["Taşıma", "Deniz · B/L DMO-SHA-88231"], ["Güzergâh", "Şangay → Mersin"], ["Emtia", "Küçük ev aleti"], ["Kap / brüt", "1.200 karton · 18.000 kg"],
+               ["Teslim", "28.09.2026 · çekinceli"], ["Hasar", "Eksik kap · 36 karton · 540 kg"], ["Satış", "CFR Mersin"], ["Kloz", "ICC (A)"], ["Tutar", "540.000 TL"]],
+      calc: { regime: "hv", delivered: "2026-09-28", apparent: "apparent", reserved: "yes", pkgs: 36, kg: 540, amount: 540000 },
+      docs: [
+        { kind: "policy_certificate", meta: "DEMO-NKL-0012 · ICC (A) · abonman" },
+        { kind: "commercial_invoice", pkgs: 1200, meta: "18.000.000 TL · CFR Mersin" },
+        { kind: "packing_list", pkgs: 1200, kg: 18000 },
+        { kind: "bill_of_lading", pkgs: 1200, kg: 18000, transport: true, meta: "MSDU 418827-3 · mühür SH-77120 · “said to contain”" },
+        { kind: "delivery_receipt", pkgs: 1164, meta: "mühür SH-77120 sağlam · eksik yazıldı" },
+        { kind: "survey_report", meta: "DMO Sörvey · 30.09.2026 · 36 karton eksik" },
+      ],
+      findings: [
+        ["warn", "<b>Mühür sağlam + konşimentoda “said to contain”.</b> Eksik, yüklemede oluşmuş olabilir; taşıyıcı bu kayda dayanarak sorumluluğu reddedebilir."],
+        ["info", "<b>Konteyner ve mühür no</b> konşimento ile teslim tutanağında aynı (MSDU 418827-3 / SH-77120)."],
+      ],
+      coverage: [
+        ["Hasar nedeni", "Eksik / çalınma → ICC (A) kapsamında olası; (B) ve (C) klozunda kapsam dışı olurdu.", "ok", "Kapsamda olası"],
+        ["Risk geçişi", "CFR: risk Şangay'da gemiye yüklemeyle alıcıya geçti. Kayıp yüklemeden önce olduysa (eksik yükleme) risk henüz satıcıdaydı → talep satıcıya yönelebilir.", "warn", "Belirsiz"],
+        ["Sigortalanabilir menfaat", "Alıcı (sigortalı) deniz yolculuğu boyunca riski taşıyor.", "ok", "Var"],
+      ],
+      status: { before: "INCELEMEDE", after: "INCELEMEDE" },
+      actions: ["Satıcıdan yükleme sayım tutanağı ve konteyner yükleme fotoğrafları istensin", "Taşıyıcıya / acenteye talep yazısı gönderilsin (zamanaşımı aşağıda)",
+                "Antrepo kamera kaydı ve tartı fişi talep edilsin (mühür sağlam, ağırlık farkı var mı?)"],
+    },
+    {
+      id: "mc", tab: "Hava · süre kaçmış",
+      text: "İstanbul Havalimanı'ndan Dubai'deki müşterimize gönderdiğimiz 12 palet seramik karodan 3'ü (180 kg) kırık çıktı. AWB 235-DMO-4471, mal 22.09.2026'da teslim alındı. Müşteri bize ancak bugün haber verdi, taşıyıcıya henüz yazmadık. Hasar 260.000 TL. Poliçe DEMO-NKL-0020, satış FCA İstanbul. Yetkili TC: 10000000146",
+      fields: [["Taşıma", "Hava · AWB 235-DMO-4471"], ["Güzergâh", "İstanbul → Dubai"], ["Emtia", "Seramik karo"], ["Kap / brüt", "12 palet · 2.160 kg"],
+               ["Teslim", "22.09.2026 · çekincesiz"], ["Hasar", "Kırılma · 3 palet · 180 kg"], ["Satış", "FCA İstanbul"], ["Kloz", "ICC (A)"], ["Tutar", "260.000 TL"]],
+      calc: { regime: "mc", delivered: "2026-09-22", apparent: "apparent", reserved: "no", pkgs: 3, kg: 180, amount: 260000 },
+      docs: [
+        { kind: "policy_certificate", meta: "DEMO-NKL-0020 · ICC (A) · ihracatçı adına" },
+        { kind: "commercial_invoice", pkgs: 12, meta: "1.020.000 TL · FCA İstanbul" },
+        { kind: "packing_list", pkgs: 12, kg: 2160 },
+        { kind: "awb", pkgs: 12, kg: 2160, transport: true, meta: "235-DMO-4471 · teslim 22.09.2026" },
+        { kind: "delivery_receipt", pkgs: 12, meta: "çekince yok" },
+        { kind: "survey_report", missing: true, upload: { meta: "DMO Sörvey · 12.10.2026", finding: ["warn", "<b>Sörvey:</b> paletlerde köşe koruması ve ara katman yok. Ambalaj yetersizliği istisnası (ICC 4.3) değerlendirilmeli."] } },
+      ],
+      findings: [],
+      coverage: [
+        ["Hasar nedeni", "Kırılma → ICC (A) kapsamında olası; ambalaj yeterliliği sörveyde netleşmeli.", "ok", "Kapsamda olası"],
+        ["Risk geçişi", "FCA İstanbul: risk İstanbul'da taşıyıcıya teslimle alıcıya geçti. Hasar sonrasında olduysa ihracatçının (sigortalı) sigortalanabilir menfaati olmayabilir.", "danger", "Kapsam dışı olası"],
+        ["Poliçe şartı", "Alıcı lehine ya da satıcı menfaati (contingency) klozu var mı? Poliçe metninde atıf bulunamadı → BELİRSİZ.", "warn", "Belirsiz"],
+      ],
+      status: { before: "BELGE_BEKLENIYOR", after: "INCELEMEDE" },
+      actions: ["Taşıyıcıya yine de bugün yazılı şikâyet gönderilsin; geç bildirim hukukçuya danışılsın", "Alıcının kendi sigortası ve sertifika lehtarı sorulsun (FCA)",
+                "Sörvey raporunda ambalaj yeterliliği ayrıca değerlendirilsin"],
+    },
+    { id: "custom", tab: "Kendi dosyam", text: "" },
+  ];
+
+  // --- Yardımcılar ------------------------------------------------------------------------------------
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const mask = (s) => PII.reduce((acc, [re, token]) => acc.replace(re, token), s);
+  function r2(x) { return Math.round((x + Number.EPSILON) * 100) / 100; }
+  function fmtKg(x) { return fmtN(x, Number.isInteger(Number(x)) ? 0 : 1); }
+  function fmtN(x, d = 2) { return Number(x).toLocaleString("tr-TR", { minimumFractionDigits: d, maximumFractionDigits: d }); }
+  const fmtTL = (x) => fmtN(x) + " TL";
+  const D = (iso) => { const [y, m, d] = iso.split("-").map(Number); return new Date(Date.UTC(y, m - 1, d)); };
+  const iso = (dt) => dt.toISOString().slice(0, 10);
+  const fmtD = (dt) => `${String(dt.getUTCDate()).padStart(2, "0")}.${String(dt.getUTCMonth() + 1).padStart(2, "0")}.${dt.getUTCFullYear()}`;
+  const addDays = (dt, n) => new Date(dt.getTime() + n * 864e5);
+  function addCountDays(dt, n, skipSunday) {
+    let d = dt, left = n;
+    while (left > 0) { d = addDays(d, 1); if (!(skipSunday && d.getUTCDay() === 0)) left--; }
+    return d;
+  }
+  const addYears = (dt, n) => new Date(Date.UTC(dt.getUTCFullYear() + n, dt.getUTCMonth(), dt.getUTCDate()));
+  const daysBetween = (a, b) => Math.round((b - a) / 864e5);
+  function businessDaysLeft(today, due) {
+    let n = 0;
+    for (let d = addDays(today, 1); d <= due; d = addDays(d, 1)) { const w = d.getUTCDay(); if (w !== 0 && w !== 6) n++; }
+    return n;
+  }
+
+  let scenario, state;
+
+  function select(id, keepCalc) {
+    scenario = SCENARIOS.find((s) => s.id === id);
+    state = { surveyUploaded: false };
+    document.querySelectorAll(".tab").forEach((b) => b.setAttribute("aria-selected", String(b.dataset.id === id)));
+    if (!keepCalc) {
+      $("claim-text").value = scenario.text;
+      const c = scenario.calc || { regime: "cmr", delivered: iso(addDays(D(todayIso()), -3)), apparent: "hidden", reserved: "no", pkgs: 10, kg: 200, amount: 100000 };
+      $("c-regime").value = c.regime; $("c-delivered").value = c.delivered; $("c-apparent").value = c.apparent;
+      $("c-reserved").value = c.reserved; $("c-pkgs").value = c.pkgs; $("c-kg").value = c.kg; $("c-amount").value = c.amount;
+      $("c-rate").value = "67.03"; $("c-today").value = scenario.calc ? DEMO_TODAY : todayIso();
+    }
+    $("claim-text").placeholder = "Örn: Gebze'den Varşova'ya giden 24 paletlik yükümüzde 2 palet ezik teslim edildi, CMR'ye çekince yazıldı. Bana 0532 000 00 01'ten ulaşın.";
+    render();
+  }
+  function todayIso() { const n = new Date(); return iso(new Date(Date.UTC(n.getFullYear(), n.getMonth(), n.getDate()))); }
+
+  // --- Süre ve rücu (deterministik) -------------------------------------------------------------------
+  function computeCalc() {
+    const reg = REGIMES[$("c-regime").value];
+    const delivered = $("c-delivered").value ? D($("c-delivered").value) : null;
+    const today = $("c-today").value ? D($("c-today").value) : D(todayIso());
+    const apparent = $("c-apparent").value === "apparent";
+    const reserved = $("c-reserved").value === "yes";
+    const pkgs = Math.max(0, Number($("c-pkgs").value) || 0);
+    const kg = Math.max(0, Number($("c-kg").value) || 0);
+    const amount = Math.max(0, Number($("c-amount").value) || 0);
+    const rate = Math.max(0, Number($("c-rate").value) || 0);
+    const rows = [];
+    let notice = null;
+    if (delivered) {
+      if (reserved) {
+        notice = { title: "Taşıyıcıya ihbar / çekince", status: "met", text: "Teslimde yazılı çekince alındı.", cls: "ok", when: "yapıldı ✓" };
+      } else if (apparent && !reg.apparentToo) {
+        notice = { title: "Taşıyıcıya ihbar / çekince", status: "passed", due: delivered, text: "Hasar görünüyordu: çekince teslim anında yazılmalıydı. " + CONSEQ_PASSED[reg.consequence] + ".", cls: "danger", when: "kaçırıldı" };
+      } else {
+        const due = addCountDays(delivered, reg.hidden, reg.skipSunday);
+        const left = daysBetween(today, due), bd = businessDaysLeft(today, due);
+        const rule = `${reg.hidden} gün${reg.skipSunday ? " (pazar hariç)" : ""}`;
+        if (left < 0) notice = { title: "Taşıyıcıya yazılı ihbar", status: "passed", due, text: `Son gün ${fmtD(due)} idi (${rule}). ` + CONSEQ_PASSED[reg.consequence] + ".", cls: "danger", when: `${-left} gün geçti` };
+        else notice = { title: "Taşıyıcıya yazılı ihbar", status: "open", due, bd, text: `Son gün ${fmtD(due)} · teslimden ${rule}; ${CONSEQ[reg.consequence]}.`,
+                        cls: bd <= PRIORITY_BDAYS ? "danger" : left <= 7 ? "warn" : "ok", when: left === 0 ? "bugün son gün" : `${left} gün · ${bd} iş günü` };
+      }
+      rows.push(notice);
+      const bar = addYears(delivered, reg.timeBarYears), leftBar = daysBetween(today, bar);
+      rows.push({ title: "Zamanaşımı (taşıyıcıya dava)", text: `${reg.timeBarYears} yıl · son gün ${fmtD(bar)}` + ($("c-regime").value === "mc" ? " (varıştan; demoda teslim tarihi esas alındı)" : ""),
+                  cls: leftBar < 0 ? "danger" : leftBar < 60 ? "warn" : "ok", when: leftBar < 0 ? "geçti" : `${leftBar} gün` });
+    }
+    const lim = reg.limit(pkgs, kg);
+    const limitTL = r2(lim.sdr * rate);
+    const potential = Math.min(amount, limitTL);
+    const barred = notice && notice.status === "passed" && reg.consequence === "bar";
+    const weakened = notice && notice.status === "passed" && reg.consequence === "presumption";
+    const priority = notice && (notice.status === "passed" || (notice.status === "open" && notice.bd <= PRIORITY_BDAYS));
+    return { reg, rows, lim, limitTL, amount, rate, potential, barred, weakened, priority, notice };
+  }
+
+  function renderCalc(c) {
+    $("deadlines").innerHTML = c.rows.length ? c.rows.map((r) => `<div class="dl-row"><b>${esc(r.title)}</b><span class="when ${r.cls}">${esc(r.when)}</span><small>${esc(r.text)}</small></div>`).join("")
+      : '<p class="hint">Teslim tarihini girin.</p>';
+    const gap = r2(c.amount - c.potential);
+    let lines = `<span class="sig">${esc(c.reg.label)}</span><br>Limit: ${esc(c.lim.basis)} = <b>${fmtN(c.lim.sdr)} SDR</b><br>` +
+      `${fmtN(c.lim.sdr)} SDR × ${fmtN(c.rate, 2)} TL = <b>${fmtTL(c.limitTL)}</b><br>Hasar tutarı: ${fmtTL(c.amount)}`;
+    if (c.barred) {
+      lines += `<br>Rücu potansiyeli<span class="big">0,00 TL</span>Hesaplanan ${fmtTL(c.potential)}; ihbar süresi geçtiği için dava hakkı düşmüş olabilir (hile hariç). Hukukçu görüşü gerekli.`;
+    } else {
+      lines += `<br>Rücu potansiyeli = min(hasar, limit)<span class="big">${fmtTL(c.potential)}</span>` +
+        (gap > 0 ? `Limit dışında kalan: ${fmtTL(gap)} (kast, beyan edilmiş değer gibi limiti kaldıran durumlar ayrıca incelenir).` : "Limit hasarı karşılıyor.") +
+        (c.weakened ? "<br><span class=\"sig\">İhbar süresi kaçtı: ispat yükü sigortalıda, tahsil kabiliyeti düşer.</span>" : "");
+    }
+    $("recovery").innerHTML = lines;
+  }
+
+  // --- Ana çizim ----------------------------------------------------------------------------------
+  function render() {
+    const text = $("claim-text").value;
+    const masked = esc(mask(text)).replace(/\[(TC|TEL|IBAN|EPOSTA|VKN)\]/g, '<span class="pii">[$1]</span>');
+    $("masked").innerHTML = masked || '<span class="muted">Metin yazınca burada maskelenmiş hâli görünür.</span>';
+
+    const c = computeCalc();
+    renderCalc(c);
+    const badges = [];
+    badges.push(c.priority ? '<span class="badge danger">⚑ İnsan önceliği: ihbar süresi</span>' : '<span class="badge ok">Öncelik: normal</span>');
+    badges.push(`<span class="badge ok">${esc(c.reg.label)}</span>`);
+
+    if (scenario.id === "custom") {
+      $("fields").innerHTML = '<div class="field" style="grid-column:1/-1"><small>Alan çıkarımı</small><strong class="muted">Kendi metninizde alanları ürünün yapay zeka modeli çıkarır; demo sunucuya bağlanmadığı için burada gösterilmez. Maskeleme, süre takvimi ve rücu hesabı ise gerçek zamanlı çalışıyor: 06. adımdaki alanları kendi dosyanıza göre doldurun.</strong></div>';
+      $("badges").innerHTML = badges.join("");
+      $("docs-area").innerHTML = '<p class="muted small">Belge zinciri, yüklenen belgelerden çıkarılan kap ve ağırlık bilgileriyle kurulur. Akışı görmek için bir senaryo seçin.</p>';
+      $("cov-area").innerHTML = '<p class="muted small">Kloz ve Incoterms ön kontrolü poliçe ve satış belgesi okunduktan sonra yapılır.</p>';
+      renderTimeline("IHBAR", "Alanlar tamamlanınca dosya belge aşamasına geçer.");
+      $("actions").innerHTML = c.priority ? "<li>Taşıyıcıya yazılı ihbar bugün gönderilsin</li>" : "";
+      $("letter-area").innerHTML = "";
+      return;
+    }
+
+    $("fields").innerHTML = scenario.fields.map(([k, v]) => `<div class="field"><small>${esc(k)}</small><strong>${esc(v)}</strong></div>`).join("");
+
+    // Belge zinciri
+    const docs = scenario.docs.map((d) => d.kind === "survey_report" && d.missing && state.surveyUploaded ? { ...d, missing: false, meta: d.upload.meta } : d);
+    const missingDocs = docs.filter((d) => d.missing);
+    const refP = (docs.find((d) => d.kind === "commercial_invoice") || {}).pkgs;
+    const refKg = (docs.find((d) => d.transport) || {}).kg;
+    const findings = [];
+    const rows = docs.map((d) => {
+      let pc = "num", kc = "num";
+      if (d.pkgs != null && refP != null && d.pkgs !== refP) {
+        pc += " bad";
+        findings.push(["danger", `<b>Kap adedi tutmuyor:</b> ${esc(DOC_LABEL[d.kind])} ${fmtN(d.pkgs, 0)}, ticari fatura ${fmtN(refP, 0)} → ${fmtN(refP - d.pkgs, 0)} kap fark.`]);
+      }
+      if (d.kg != null && refKg && !d.transport) {
+        const pct = Math.abs(d.kg - refKg) / refKg * 100;
+        if (pct > 0.5) { kc += " warnc"; findings.push(["warn", `<b>Brüt ağırlık farkı:</b> ${esc(DOC_LABEL[d.kind])} ${fmtN(d.kg, 0)} kg, taşıma belgesi ${fmtN(refKg, 0)} kg (%${fmtN(pct, 1)}; tolerans %0,5).`]); }
+      }
+      return `<tr class="${d.missing ? "absent" : ""}"><td><strong>${esc(DOC_LABEL[d.kind])}</strong>${d.meta && !d.missing ? `<div class="meta">${esc(d.meta)}</div>` : ""}</td>` +
+        `<td>${d.missing ? '<span class="badge warn">Eksik</span>' : '<span class="badge ok">Okundu</span>'}</td>` +
+        `<td class="${pc}">${d.pkgs != null && !d.missing ? fmtN(d.pkgs, 0) : "—"}</td><td class="${kc}">${d.kg != null && !d.missing ? fmtN(d.kg, 0) : "—"}</td></tr>`;
+    });
+    scenario.findings.forEach((f) => findings.push(f));
+    const sv = scenario.docs.find((d) => d.kind === "survey_report" && d.upload);
+    if (sv && state.surveyUploaded) findings.push(sv.upload.finding);
+    $("docs-area").innerHTML = `<div class="tbl-wrap"><table class="chain"><thead><tr><th>Belge</th><th>Durum</th><th>Kap</th><th>Brüt kg</th></tr></thead><tbody>${rows.join("")}</tbody></table></div>` +
+      findings.map(([cls, html]) => `<div class="finding ${cls === "danger" ? "" : cls}">${html}</div>`).join("") +
+      (missingDocs.length ? `<div style="margin-top:14px"><button class="btn btn-ghost btn-sm" id="upload-btn">Sörvey raporu yüklensin</button></div>` : "");
+    const up = $("upload-btn");
+    if (up) up.onclick = () => { state.surveyUploaded = true; render(); };
+
+    badges.push(missingDocs.length ? `<span class="badge warn">${missingDocs.length} eksik belge</span>` : '<span class="badge ok">Belgeler tamam</span>');
+    const nBad = findings.filter(([k]) => k !== "info").length;
+    if (nBad) badges.push(`<span class="badge warn">${nBad} bulgu</span>`);
+    $("badges").innerHTML = badges.join("");
+
+    // Teminat
+    const lvl = { ok: "ok", warn: "warn", danger: "danger" };
+    $("cov-area").innerHTML = '<div class="cov">' + scenario.coverage.map(([k, v, l, tag]) =>
+      `<div class="cov-row"><span>${esc(k)}</span><div><span class="badge ${lvl[l]}">${esc(tag)}</span><p style="margin-top:6px">${esc(v)}</p></div></div>`).join("") +
+      '</div><p class="hint">Ön görüş: kloz ve şart metnine madde atfı yoksa sonuç “belirsiz” kalır. Karar uzmanındır.</p>';
+
+    // Durum ve adımlar
+    const st = missingDocs.length ? scenario.status.before : scenario.status.after;
+    renderTimeline(st, missingDocs.length ? "Sörvey raporu gelince zincir yeniden kontrol edilir ve dosya incelemeye geçer."
+      : "Belgeler tamam; dosya uzman incelemesinde. Ödeme ve rücu kararları yalnızca yetkili kullanıcıyla.");
+    $("actions").innerHTML = scenario.actions.map((a) => `<li>${esc(a)}</li>`).join("");
+    $("letter-area").innerHTML = scenario.letter && !(c.notice && c.notice.status === "met")
+      ? `<div class="letter-head"><strong>Taşıyıcıya ihbar taslağı</strong><span class="badge warn">Taslak · gönderim uzmanda</span></div><div class="letter">${esc(scenario.letter)}</div><p class="hint">Üründe taslağı yapay zeka dosya alanlarından yazar; tarih ve sayılar kural motorundan gelir. Demoda hazır metindir.</p>`
+      : "";
+  }
+
+  function renderTimeline(current, note) {
+    const idx = STATUSES.indexOf(current);
+    $("timeline").innerHTML = STATUSES.map((s, i) => {
+      const cls = i < idx ? "done" : i === idx ? "now" : "";
+      return `<span class="st ${cls}"${i === idx ? ' aria-current="step"' : ""}>${STATUS_TEXT[s]}</span>`;
+    }).join('<span class="arrow" aria-hidden="true">→</span>');
+    $("status-note").textContent = note;
+  }
+
+  // --- Kurulum ------------------------------------------------------------------------------------
+  $("tabs").innerHTML = SCENARIOS.map((s) => `<button class="tab" role="tab" data-id="${s.id}" aria-selected="false">${esc(s.tab)}</button>`).join("");
+  document.querySelectorAll(".tab").forEach((b) => b.addEventListener("click", () => select(b.dataset.id)));
+  ["c-regime", "c-delivered", "c-apparent", "c-reserved", "c-pkgs", "c-kg", "c-amount", "c-rate", "c-today"].forEach((id) => $(id).addEventListener("input", render));
+  $("claim-text").addEventListener("input", () => {
+    // Senaryo metni değiştiyse hazır çıkarım sonucu artık geçerli değildir → serbest moda geç (hesap alanları korunur).
+    if (scenario.id !== "custom" && $("claim-text").value !== scenario.text) select("custom", true);
+    else render();
+  });
+  select("cmr");
+})();
+</script>
+</body>
+</html>
