@@ -4,7 +4,8 @@ Mustafa Ender Doğan — İş Analizi Portfolyosu. Statik site: HTML, CSS ve Jav
 
 ## İçerik
 
-- `index.html`: kısa tanıtım, Hakkımda, dört analiz vakası, Lab, yetkinlikler.
+- `index.html`: kısa tanıtım, Hakkımda, deneyim, eğitim, uzmanlık, dört örnek çalışma, Lab ve yazılar.
+- `css/site.css` ve `js/site.js`: tüm sayfaların (demolar hariç) tek stil ve betik dosyası.
 - `analiz/`: vaka sayfaları. Bankasürans vakası temsilidir; kurum adları ve veriler kurgusaldır.
 - `nasil-calisirim.html`: Scrum çalışma biçimi; örnekler temsilidir.
 - `hasarai/`, `buro/`, `isyonetim/`: analizleri sınamak için hazırlanmış demoların derlenmiş kopyaları. Kaynak kodları ayrı projelerde; veriler kurgusaldır.
@@ -32,4 +33,4 @@ python araclar/alan-adi.py --denetle                # yalnızca tutarlılığı 
 
 ## Lisanslar
 
-Fotoğraflar Unsplash ve Pexels lisanslıdır. Yazı tipleri (Figtree, Inter, IBM Plex Mono, Archivo) SIL Open Font License 1.1 ile yerel olarak sunulur.
+Sitede stok fotoğraf yoktur; görseller demoların ekran görüntüleridir. Yazı tipleri (Figtree, IBM Plex Mono, Archivo) SIL Open Font License 1.1 ile yerel olarak sunulur.

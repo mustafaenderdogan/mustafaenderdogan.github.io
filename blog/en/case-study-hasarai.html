@@ -70,29 +70,37 @@
   </script>
 
   <link rel="icon" href="/assets/favicon.svg?v=1" type="image/svg+xml" />
-  <link href="/assets/fonts/figtree-inter.css?v=1" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/styles.css?v=1" />
-  <link rel="stylesheet" href="/css/brand.css?v=1" />
+  <link rel="stylesheet" href="/assets/fonts/portfolyo.css?v=1" />
+  <link rel="stylesheet" href="/css/site.css?v=1" />
 </head>
 <body>
 
-  <header class="nav" id="nav">
-    <div class="container nav-inner">
-      <a href="/en/" class="brand gd-brand" aria-label="Mustafa Ender Doğan, English summary"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="1.5" y="1.5" width="45" height="45" rx="13" fill="#0B0D10" stroke="#D6DCE4" stroke-width="2"/><text x="24" y="31.5" text-anchor="middle" font-size="19" font-weight="700" fill="#FFFFFF">ED</text></svg><span class="gd-bt"><span class="gd-bn">Mustafa Ender Doğan</span><span class="gd-bs">BUSINESS ANALYSIS PORTFOLIO</span></span></a>
-      <nav class="nav-links" id="navLinks">
-        <a href="/en/#cases">Case studies</a>
-        <a href="/en/#experience">Experience</a>
-        <a href="/blog/en/">Blog</a>
-        <a href="https://www.linkedin.com/in/mustafa-ender-do%C4%9Fan-02273b30/" target="_blank" rel="noopener">LinkedIn ↗</a>
-        <a class="lang-btn" href="../vaka-hasarai.html">TR</a>
-      </nav>
-      <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-  </header>
+  <a class="skip" href="#icerik">Skip to content</a>
+<header class="hd" id="hd">
+  <div class="wrap hd-in">
+    <a href="/en/" class="brand" aria-label="Mustafa Ender Doğan, English summary">Mustafa Ender Doğan</a>
+    <nav class="hd-nav" aria-label="Main menu">
+      <a href="/en/#cases">Case studies</a>
+      <a href="/en/#experience">Experience</a>
+      <a href="/blog/en/">Blog</a>
+      <a href="../vaka-hasarai.html" lang="tr" hreflang="tr">TR</a>
+      <a href="https://www.linkedin.com/in/mustafa-ender-do%C4%9Fan-02273b30/" class="hd-li" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a>
+    </nav>
+    <button type="button" class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="menu"><span></span><span></span></button>
+  </div>
+</header>
 
-  <main class="section blog-page">
+<div class="menu" id="menu" hidden>
+  <nav class="menu-nav" aria-label="Mobile menu">
+    <a href="/en/#cases">Case studies</a>
+    <a href="/en/#experience">Experience</a>
+    <a href="/blog/en/">Blog</a>
+    <a href="../vaka-hasarai.html" lang="tr" hreflang="tr">Türkçe</a>
+    <a href="https://www.linkedin.com/in/mustafa-ender-do%C4%9Fan-02273b30/" class="hd-li" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a>
+  </nav>
+</div>
+
+  <main id="icerik" class="section blog-page">
     <div class="container">
       <nav class="breadcrumb" aria-label="breadcrumb">
         <a href="/en/">Home</a><span>›</span><a href="./">Blog</a><span>›</span><span>Case study: HasarAI</span>
@@ -153,7 +161,7 @@
         <div class="article-cta">
           <h3>The full analysis</h3>
           <p>22 business rules, AI boundaries, requirements, scope decisions and open questions are in the cargo claims case study (in Turkish).</p>
-          <a class="btn btn-primary" href="../../analiz/hasarai.html">Read the analysis (TR) →</a>
+          <a class="btn btn-primary" href="../../analiz/hasarai.html">Read the analysis (TR)</a>
         </div>
 
         <nav class="article-nav">
@@ -164,20 +172,17 @@
     </div>
   </main>
 
-  <footer class="footer">
-    <div class="container footer-inner">
-      <a href="/en/" class="brand gd-brand" aria-label="Mustafa Ender Doğan, English summary"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="1.5" y="1.5" width="45" height="45" rx="13" fill="#0B0D10" stroke="#D6DCE4" stroke-width="2"/><text x="24" y="31.5" text-anchor="middle" font-size="19" font-weight="700" fill="#FFFFFF">ED</text></svg><span class="gd-bt"><span class="gd-bn">Mustafa Ender Doğan</span><span class="gd-bs">BUSINESS ANALYSIS PORTFOLIO</span></span></a>
-      <nav class="footer-links">
-        <a href="/en/#cases">Case studies</a>
-        <a href="/en/#experience">Experience</a>
-        <a href="/blog/en/">Blog</a>
-        <a href="https://www.linkedin.com/in/mustafa-ender-do%C4%9Fan-02273b30/" target="_blank" rel="noopener">LinkedIn ↗</a>
-        <a href="/gizlilik.html#en">Privacy</a>
-      </nav>
-      <p class="footer-copy">© <span id="year"></span> Mustafa Ender Doğan — Business Analysis Portfolio</p>
-    </div>
-  </footer>
+  <footer class="ft">
+  <div class="wrap ft-in">
+    <p>© <span id="year">2026</span> Mustafa Ender Doğan</p>
+    <nav class="ft-nav" aria-label="Footer">
+      <a href="https://www.linkedin.com/in/mustafa-ender-do%C4%9Fan-02273b30/" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a>
+      <a href="/gizlilik.html#en">Privacy</a>
+      <a href="/" lang="tr" hreflang="tr">Türkçe</a>
+    </nav>
+  </div>
+</footer>
 
-  <script src="/js/blog.js?v=1"></script>
+<script src="/js/site.js?v=1" defer></script>
 </body>
 </html>
