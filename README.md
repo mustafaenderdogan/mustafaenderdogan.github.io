@@ -1,1 +1,35 @@
 # mustafaenderdogan.github.io
+
+Mustafa Ender Doğan — İş Analizi Portfolyosu. Statik site: HTML, CSS ve JavaScript; derleme adımı, çerez ve analitik yok. GitHub Pages'te yayınlanmak üzere hazırlandı.
+
+## İçerik
+
+- `index.html`: kısa tanıtım, Hakkımda, dört analiz vakası, Lab, yetkinlikler.
+- `analiz/`: vaka sayfaları. Bankasürans vakası temsilidir; kurum adları ve veriler kurgusaldır.
+- `nasil-calisirim.html`: Scrum çalışma biçimi; örnekler temsilidir.
+- `hasarai/`, `buro/`, `isyonetim/`: analizleri sınamak için hazırlanmış demoların derlenmiş kopyaları. Kaynak kodları ayrı projelerde; veriler kurgusaldır.
+- `blog/`: sigorta, yapay zekâ ve vaka yazıları (TR ve EN).
+- `en/`: kısa İngilizce özet.
+
+## Yerelde açmak
+
+```
+python -m http.server 8080 --bind 127.0.0.1
+```
+
+Ardından http://127.0.0.1:8080/ adresini açın. Sayfalar kök göreli yollar (`/css/...`) kullandığı için klasörü doğrudan dosya olarak açmak yerine yerel sunucu gerekir.
+
+## Alan adı
+
+canonical, og:url, paylaşım görseli, hreflang, JSON-LD, `sitemap.xml` ve `robots.txt` içindeki adres tek yerden yönetilir: `araclar/alan-adi.json`.
+
+```
+python araclar/alan-adi.py https://yeni-adres.com   # ayarı günceller ve tüm dosyalara uygular
+python araclar/alan-adi.py --denetle                # yalnızca tutarlılığı denetler
+```
+
+Özel alan adına geçerken GitHub'da Settings › Pages › Custom domain alanı da doldurulmalıdır.
+
+## Lisanslar
+
+Fotoğraflar Unsplash ve Pexels lisanslıdır. Yazı tipleri (Figtree, Inter, IBM Plex Mono, Archivo) SIL Open Font License 1.1 ile yerel olarak sunulur.

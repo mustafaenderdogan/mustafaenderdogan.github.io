@@ -1,0 +1,18 @@
+# Mustafa Ender Doğan — İş Analizi Portfolyosu
+# Arama motorları ve kullanıcı adına sayfa okuyan yapay zekâ asistanları: izinli.
+User-agent: *
+Allow: /
+
+# Yapay zekâ modeli eğitmek için içerik toplayan botlar: kapalı (stüdyo sitesindeki kararla aynı; Ender onaylasın).
+# Google-Extended Google aramasını etkilemez; yalnızca model eğitimini kapatır.
+User-agent: GPTBot
+User-agent: ClaudeBot
+User-agent: anthropic-ai
+User-agent: Google-Extended
+User-agent: Applebot-Extended
+User-agent: CCBot
+User-agent: Bytespider
+User-agent: meta-externalagent
+Disallow: /
+
+Sitemap: https://mustafaenderdogan.github.io/sitemap.xml
