@@ -325,6 +325,11 @@ body.menu-open { overflow: hidden; }
 .bp-ann { fill: none; stroke: #8A94A3; stroke-width: 1.1; }
 .bp-assoc { fill: none; stroke: #8A94A3; stroke-width: 1; stroke-dasharray: 2 3; }
 .bp-store { fill: #FFFFFF; stroke: #8A94A3; stroke-width: 1.2; }
+/* bildirimler: numaralı mavi mesaj okları ve zarflı bitiş olayı */
+.bp-mf.bp-nf { stroke: #1D4F91; stroke-width: 1.4; }
+.bp-nl { font-size: 10.5px; font-weight: 700; fill: #1D4F91; }
+.bp-env { fill: #1D4F91; }
+.bp-env-l { fill: none; stroke: #FFFFFF; stroke-width: 1; }
 
 .er-box { fill: #FFFFFF; stroke: #8A94A3; stroke-width: 1.2; }
 .er-hd { fill: #EEF2F7; }
