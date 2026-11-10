@@ -8,6 +8,7 @@ Mustafa Ender Doğan — İş Analizi Portfolyosu. Statik site: HTML, CSS ve Jav
 - `css/site.css` ve `js/site.js`: tüm sayfaların (demolar hariç) tek stil ve betik dosyası.
 - `analiz/`: vaka sayfaları. Bankasürans vakası temsilidir; kurum adları ve veriler kurgusaldır.
 - `surec-ve-yontem.html`: Scrum çalışma biçimi; örnekler temsilidir.
+- `yolculuk.html`: kariyerin bir dakikalık görsel anlatımı (yalnız Türkçe). Sahne `yolculuk/sahne.html` içinde; ekrandaki metinler dosyanın başındaki `ICERIK` bloğunda.
 - `hasarai/`, `buro/`, `isyonetim/`: analizleri sınamak için hazırlanmış demoların derlenmiş kopyaları. Kaynak kodları ayrı projelerde; veriler kurgusaldır.
 - `blog/`: sigorta, yapay zekâ ve vaka yazıları (TR ve EN).
 - `en/`: kısa İngilizce özet.
@@ -33,4 +34,4 @@ python araclar/alan-adi.py --denetle                # yalnızca tutarlılığı 
 
 ## Lisanslar
 
-Analiz kartlarındaki fotoğraflar Unsplash ve Pexels lisanslıdır. Lab görselleri greendigitalstudio.com'daki uygulama sayfalarından alındı; Ritim oyunu görseli oyunun kendi ekranıdır. Demo görselleri demoların ekran görüntüleridir. Yazı tipleri (Figtree, IBM Plex Mono, Archivo) SIL Open Font License 1.1 ile yerel olarak sunulur.
+Analiz kartlarındaki fotoğraflar Unsplash ve Pexels lisanslıdır. Lab görselleri greendigitalstudio.com'daki uygulama sayfalarından alındı; Ritim oyunu görseli oyunun kendi ekranıdır. Demo görselleri demoların ekran görüntüleridir. Yazı tipleri (Figtree, IBM Plex Mono, Archivo) SIL Open Font License 1.1 ile yerel olarak sunulur. Yolculuk sahnesi three.js r128 kütüphanesini (Copyright 2010-2021 Three.js Authors, MIT lisansı) yerel kopyadan kullanır: `assets/vendor/three.r128.min.js`.

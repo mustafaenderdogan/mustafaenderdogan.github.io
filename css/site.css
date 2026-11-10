@@ -396,6 +396,8 @@ body.menu-open { overflow: hidden; }
   html { scroll-behavior: auto; }
   *, *::before, *::after { transition: none !important; animation: none !important; }
 }
+/* Menüde sekiz madde: dar masaüstünde aralığı daralt ki satır taşmasın */
+@media (min-width: 881px) and (max-width: 980px) { .hd-nav { gap: 14px; } }
 @media print {
   body { font-size: 11pt; color: #000; }
   .hd, .menu, .burger, .ft, .skip, .az-toc, .intro-links .btn { display: none !important; }

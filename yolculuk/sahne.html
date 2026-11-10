@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Yolculuk · Mustafa Ender Doğan</title>
+<meta name="robots" content="noindex">
+<script>
+/* İÇERİK — Ekranda görünen bütün metinler yalnızca bu blokta durur.
+   Sahne ve zaman çizgisi metin uzunluğuna bağlı değildir; cümleler burada değiştirilebilir. */
+const ICERIK = {
+  giris: {
+    baslik: 'Mustafa Ender Doğan',
+    metin: 'Kıdemli iş analisti ve Scrum Master. Sigorta ve bankasürans projelerinde on yılı aşkın deneyim.',
+    ipucu: 'Yolculuk kendiliğinden ilerler. Kaydırarak hızlandırabilirsin.'
+  },
+  duraklar: [
+    {
+      zaman: '2013, Hacettepe Üniversitesi',
+      baslik: 'Belirsizliği ölçmeyi öğrendim',
+      metin: 'Aktüerya bilimleri okudum. Riskin sayıyla konuşulduğu yerden başladım.',
+      sorun: 'Risk görünmez. Ölçülmeyen şey yönetilemez.',
+      analist: 'Belirsizliği olasılığa, olasılığı karara çevirmeyi burada öğrendim.'
+    },
+    {
+      zaman: '2014 – 2017, Ankara',
+      baslik: 'İki sistemi birbirine bağladım',
+      metin: 'Ekspertiz firmalarının CRM uygulamaları ile sigorta şirketlerinin hasar sistemleri arasındaki entegrasyonu yürüttüm.',
+      sorun: 'Aynı hasar dosyası iki sistemde iki ayrı dille tutuluyordu.',
+      analist: 'Alanları tek tek eşleştirdim. Amaç, iki tarafın aynı dosyada aynı şeyi görmesiydi.'
+    },
+    {
+      zaman: '2017 – 2019, Vakıf Emeklilik',
+      baslik: 'İşleyişi içeriden gördüm',
+      metin: 'Hayat ürünlerinin devreye alınmasında ve BES fon süreçlerinde çalıştım.',
+      sorun: 'Aynı iş her gün elle, baştan yapılıyordu.',
+      analist: 'Tekrarlayan adımları ayırdım. Onları otomasyona taşıyan ekipteydim.'
+    },
+    {
+      zaman: '2019 – 2025, Softtech',
+      baslik: 'Her sprint bir tur daha',
+      metin: "Bankasürans ekibinde 50'den fazla sprint yönettim. 20 kişilik ekibin Scrum Master'ıydım.",
+      sorun: 'İş birimi bir şey ister, yazılım ekibi başka bir şey anlar.',
+      analist: 'İsteği gereksinime, gereksinimi teslim edilebilir işe çevirmek benim işimdi.'
+    }
+  ],
+  bugun: {
+    zaman: 'Bugün',
+    baslik: 'İş ile teknoloji arasında köprü',
+    metin: 'İş birimleri ile teknoloji ekipleri arasında köprü kuruyorum. Vakalar bu yolun nasıl yüründüğünü gösteriyor.',
+    kapanis: 'Sorun her gezegende başkaydı: ölçmek, bağlamak, düzene koymak, çevirmek.'
+  },
+  etiket: { sorun: 'Sorun', analist: 'Analist gözüyle', tur: '50+' },
+  harita: ['Başlangıç', '2013', '2014–2017', '2017–2019', '2019–2025', 'Bugün'],
+  dugme: {
+    linkedin: "LinkedIn'de yaz",
+    linkedinAdres: 'https://www.linkedin.com/in/mustafa-ender-do%C4%9Fan-02273b30/',
+    bastan: 'Baştan izle', duraklat: 'Duraklat', oynat: 'Oynat', duzOku: 'Düz oku', kapat: 'Kapat'
+  },
+  erisim: { duraklar: 'Duraklar', duzMetin: 'Düz metin' }
+};
+</script>
+<link rel="stylesheet" href="/assets/fonts/portfolyo.css?v=1">
+<style>
+  :root {
+    /* One drawing, full-bleed: a comet crosses a solar system seen at a fixed angle, from its edge up to the sun.
+       Captions sit bottom-left on the calm foot of the colour field; the six stops run up the right edge. */
+    --ink: #0B0D10;
+    --text: #F6F4F1;
+    --soft: #ECE8E4;
+    --muted: #D6D1CE;
+    --line: rgba(255, 255, 255, .38);
+    --pale: #FFE3B8;
+    --font: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --ease: cubic-bezier(.2, .75, .2, 1);
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; }
+  body { background: var(--ink); color: var(--text); font-family: var(--font); overflow: hidden; -webkit-font-smoothing: antialiased; }
+  #stage { position: relative; height: 100%; overflow: hidden; background: #2B2147; touch-action: none; outline: none; }
+  #gl { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+  #scrim { position: absolute; inset: 0; pointer-events: none;
+    background: linear-gradient(to top, rgba(11, 13, 16, .34) 0%, rgba(11, 13, 16, .16) 24%, rgba(11, 13, 16, 0) 44%); }
+  #scrim::after { content: ""; position: absolute; inset: 0; opacity: 0; transition: opacity 1.4s var(--ease);
+    background: linear-gradient(to top, rgba(11, 13, 16, .9) 0%, rgba(11, 13, 16, .66) 26%, rgba(11, 13, 16, 0) 50%); }
+  .fin #scrim::after { opacity: 1; }
+  @media (min-aspect-ratio: 11/10) { #scrim::after { background: linear-gradient(100deg, rgba(11, 13, 16, .86) 0%, rgba(11, 13, 16, .55) 26%, rgba(11, 13, 16, 0) 48%); } }
+  #grain { position: absolute; inset: 0; pointer-events: none; opacity: .12; mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .6 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"); }
+
+  #caps { position: absolute; inset: 0; pointer-events: none; }
+  .cap { position: absolute; left: 20px; right: 64px; bottom: 30px; max-width: 30rem; opacity: 0; transition: opacity .35s ease-out; text-shadow: 0 1px 14px rgba(11, 13, 16, .3); }
+  .cap.on { opacity: 1; transition: opacity .7s var(--ease) .05s; }
+  .cap.last { bottom: 96px; }
+  .cap .when { margin: 0 0 .55rem; font-size: .84rem; font-weight: 500; letter-spacing: .04em; color: var(--pale); font-variant-numeric: tabular-nums; }
+  .cap h1, .cap h2 { margin: 0 0 .6rem; font-weight: 300; letter-spacing: -.03em; line-height: 1.08; text-wrap: balance; }
+  .cap h1 { font-size: clamp(2.1rem, 8.6vw, 3.6rem); }
+  .cap h2 { font-size: clamp(1.75rem, 7vw, 2.9rem); }
+  .cap p.body { margin: 0; max-width: 34ch; font-size: 1rem; line-height: 1.5; color: var(--soft); }
+  .cap .say { margin: 0; max-width: 22ch; font-size: clamp(1.4rem, 5.6vw, 2.1rem); font-weight: 300; line-height: 1.2; letter-spacing: -.02em; text-wrap: balance; }
+  .cap .cue { margin: 1rem 0 0; font-size: .84rem; font-weight: 500; letter-spacing: .04em; color: var(--muted); }
+  #tag { position: absolute; left: 0; top: 0; font: 500 .8rem/1 var(--font); letter-spacing: .04em; color: var(--pale); opacity: 0; pointer-events: none; white-space: nowrap; }
+
+  /* The stop map: the start at the bottom, today at the top, like the journey itself. */
+  #map { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column-reverse; }
+  #map::before { content: ""; position: absolute; left: 50%; top: 22px; bottom: 22px; width: 1px; margin-left: -.5px; background: var(--line); }
+  #map::after { content: ""; position: absolute; left: 50%; bottom: 22px; width: 2px; margin-left: -1px; height: calc((100% - 44px) * var(--p, 0)); background: #fff; }
+  #map li { position: relative; z-index: 1; }
+  #map button { position: relative; display: block; width: 44px; height: 44px; padding: 0; border: 0; background: none; cursor: pointer; }
+  #map button::after { content: ""; position: absolute; left: 50%; top: 50%; width: 9px; height: 9px; margin: -4.5px; border-radius: 999px; border: 1.5px solid #fff; background: rgba(11, 13, 16, .4); transition: transform .4s var(--ease), background .4s var(--ease); }
+  #map button.done::after { background: #fff; }
+  #map button.on::after { background: #fff; transform: scale(1.55); box-shadow: 0 0 0 4px rgba(255, 255, 255, .22); }
+  #map button:focus-visible { outline: 2px solid var(--text); outline-offset: -8px; border-radius: 999px; }
+
+  .btn { font: 500 .92rem/1 var(--font); color: var(--text); background: rgba(11, 13, 16, .5); border: 1px solid var(--line); border-radius: 999px; padding: .72rem 1.1rem; text-decoration: none; cursor: pointer; -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+  .btn.solid { background: var(--text); color: var(--ink); border-color: var(--text); }
+  .btn:focus-visible { outline: 2px solid var(--text); outline-offset: 3px; }
+  #plainBtn { position: absolute; top: 14px; right: 14px; }
+  #playBtn { position: absolute; top: 14px; left: 14px; }
+  #end { position: absolute; left: 20px; bottom: 30px; display: flex; gap: 10px; flex-wrap: wrap; opacity: 0; pointer-events: none; transition: opacity .8s var(--ease); }
+  #end.on { opacity: 1; pointer-events: auto; }
+
+  #plain { position: absolute; inset: 0; overflow: auto; touch-action: pan-y; padding: 64px 20px 40px; background: rgba(11, 13, 16, .96); }
+  #plain[hidden] { display: none; }
+  #plain > * { max-width: 34rem; }
+  #plain h2 { margin: 0 0 .9rem; font-weight: 300; font-size: 1.9rem; letter-spacing: -.03em; }
+  #plain h3 { margin: 0 0 .4rem; font-weight: 500; font-size: 1.05rem; }
+  #plain p { margin: 0 0 .6rem; line-height: 1.5; color: var(--soft); }
+  #plain .when, #plain .lbl { margin: 0 0 .3rem; font-size: .84rem; font-weight: 500; letter-spacing: .04em; color: var(--pale); font-variant-numeric: tabular-nums; }
+  #plain .lbl { margin-top: .7rem; }
+  #plain article { margin: 1.6rem 0 0; }
+  #plain .close { margin: 2rem 0 1.4rem; }
+  #plainClose { position: absolute; top: 14px; right: 14px; }
+  .nogl #map, .nogl #plainBtn, .nogl #playBtn, .nogl #caps, .nogl #end, .nogl #plain .cue { display: none; }
+  @media (prefers-reduced-motion: reduce) { .cap, .cap.on, #map button::after, #end { transition: none; } }
+</style>
+</head>
+<body>
+<div id="stage" tabindex="0">
+  <canvas id="gl" aria-hidden="true"></canvas>
+  <div id="scrim" aria-hidden="true"></div>
+  <div id="grain" aria-hidden="true"></div>
+  <span id="tag" aria-hidden="true"></span>
+  <div id="caps"></div>
+  <ol id="map"></ol>
+  <div id="end"></div>
+  <button class="btn" id="playBtn" type="button" aria-pressed="true"></button>
+  <button class="btn" id="plainBtn" type="button"></button>
+  <section id="plain" hidden></section>
+</div>
+
+<script>
+// Everything on screen is built from ICERIK, before the 3D library loads: without WebGL the plain text still works.
+(function () {
+  'use strict';
+  const D = ICERIK, B = D.dugme, $ = (s) => document.querySelector(s);
+  const el = (t, c, x) => { const e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; };
+  const put = (parent, kids) => { kids.forEach((k) => parent.appendChild(k)); return parent; };
+  const caps = $('#caps'), cap = (kids, c) => caps.appendChild(put(el('article', 'cap' + (c ? ' ' + c : '')), kids));
+  $('#stage').setAttribute('aria-label', D.giris.ipucu);
+  cap([el('h1', null, D.giris.baslik), el('p', 'body', D.giris.metin), el('p', 'cue', D.giris.ipucu)]);
+  D.duraklar.forEach((d) => {
+    cap([el('p', 'when', d.zaman), el('h2', null, d.baslik), el('p', 'body', d.metin)]);
+    cap([el('p', 'when', D.etiket.sorun), el('p', 'say', d.sorun)]);
+    cap([el('p', 'when', D.etiket.analist), el('p', 'say', d.analist)]);
+  });
+  cap([el('p', 'when', D.bugun.zaman), el('h2', null, D.bugun.baslik), el('p', 'body', D.bugun.metin)]);
+  cap([el('p', 'say', D.bugun.kapanis)], 'last');
+  $('#tag').textContent = D.etiket.tur;
+
+  const map = $('#map'); map.setAttribute('aria-label', D.erisim.duraklar);
+  D.harita.forEach((n) => { const b = el('button'); b.type = 'button'; b.setAttribute('aria-label', n); map.appendChild(put(el('li'), [b])); });
+
+  const link = () => { const a = el('a', 'btn solid', B.linkedin); a.href = B.linkedinAdres; a.target = '_blank'; a.rel = 'noopener'; return a; };
+  const again = el('button', 'btn', B.bastan); again.type = 'button'; again.id = 'again';
+  put($('#end'), [link(), again]);
+  $('#playBtn').textContent = B.duraklat; $('#plainBtn').textContent = B.duzOku;
+
+  const pl = $('#plain'); pl.setAttribute('aria-label', D.erisim.duzMetin);
+  const close = el('button', 'btn', B.kapat); close.type = 'button'; close.id = 'plainClose';
+  put(pl, [close, el('h2', null, D.giris.baslik), el('p', null, D.giris.metin), el('p', 'cue', D.giris.ipucu)]);
+  D.duraklar.forEach((d) => pl.appendChild(put(el('article'), [el('p', 'when', d.zaman), el('h3', null, d.baslik), el('p', null, d.metin),
+    el('p', 'lbl', D.etiket.sorun), el('p', null, d.sorun), el('p', 'lbl', D.etiket.analist), el('p', null, d.analist)])));
+  pl.appendChild(put(el('article'), [el('p', 'when', D.bugun.zaman), el('h3', null, D.bugun.baslik), el('p', null, D.bugun.metin)]));
+  put(pl, [el('p', 'close', D.bugun.kapanis), link()]);
+})();
+</script>
+<script src="/assets/vendor/three.r128.min.js"></script>
+<script>
+(function () {
+  'use strict';
+  const $ = (s) => document.querySelector(s), B = ICERIK.dugme;
+  const stage = $('#stage'), canvas = $('#gl'), plain = $('#plain'), playBtn = $('#playBtn'), endEl = $('#end'), tagEl = $('#tag'), mapEl = $('#map');
+  const caps = [].slice.call(document.querySelectorAll('.cap')), stops = [].slice.call(document.querySelectorAll('#map button'));
+  let playing = false;
+  function setPlaying(v) { playing = v; playBtn.textContent = v ? B.duraklat : B.oynat; playBtn.setAttribute('aria-pressed', v ? 'true' : 'false'); }
+  $('#plainBtn').addEventListener('click', () => { plain.hidden = false; setPlaying(false); $('#plainClose').focus(); });
+  $('#plainClose').addEventListener('click', () => { plain.hidden = true; $('#plainBtn').focus(); });
+  function noGL() { document.documentElement.classList.add('nogl'); plain.hidden = false; $('#plainClose').hidden = true; }
+  if (!window.THREE) { noGL(); return; }
+  // ask for the context first (WebGL 2, else 1), so a device without WebGL goes straight to the plain text
+  const attrs = { alpha: false, depth: true, stencil: true, antialias: true, premultipliedAlpha: true, preserveDrawingBuffer: false, powerPreference: 'high-performance' };
+  let renderer, gl = null;
+  try { gl = canvas.getContext('webgl2', attrs) || canvas.getContext('webgl', attrs); } catch (e) { gl = null; }
+  if (!gl) { noGL(); return; }
+  try { renderer = new THREE.WebGLRenderer({ canvas: canvas, context: gl, antialias: true, alpha: false, powerPreference: 'high-performance' }); }
+  catch (e) { noGL(); return; }
+
+  const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const V = (x, y, z) => new THREE.Vector3(x || 0, y || 0, z || 0), V4 = () => new THREE.Vector4(), C = (h) => new THREE.Color(h);
+  const clamp = (v, a, b) => Math.min(b, Math.max(a, v)), lerp = (a, b, t) => a + (b - a) * t;
+  const ease = (t) => t * t * t * (t * (6 * t - 15) + 10);
+  const sstep = (a, b, v) => { const t = clamp((v - a) / (b - a), 0, 1); return t * t * (3 - 2 * t); };
+  const RAD = Math.PI / 180, TAU = Math.PI * 2;
+  const hsh = (n) => { const s = Math.sin(n * 127.1 + 311.7) * 43758.5453; return s - Math.floor(s); };
+
+  // One fixed viewing angle, no perspective: the camera only slides and changes scale.
+  const scene = new THREE.Scene();
+  const EL = 30 * RAD, SE = Math.sin(EL);
+  const camDir = V(0, SE, Math.cos(EL)), camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 10, 9000);
+  camera.position.copy(camDir).multiplyScalar(3000); camera.lookAt(0, 0, 0); camera.updateMatrixWorld();
+  const camRight = V().setFromMatrixColumn(camera.matrixWorld, 0), camUp = V().setFromMatrixColumn(camera.matrixWorld, 1);
+  // a point of the orbital plane, placed by where it sits in the finished drawing: x to the right, d below the sun
+  const P = (x, d) => V(x, 0, d / SE);
+  // a point in the picture plane through p: sx to the right, sy up
+  const Q = (p, sx, sy) => p.clone().addScaledVector(camRight, sx).addScaledVector(camUp, sy);
+  const scr = (p) => [p.dot(camRight), p.dot(camUp)];
+
+  // ---------- shared uniforms and shader chunks ----------
+  const G = { uRes: { value: new THREE.Vector2(1, 1) }, uPx: { value: 1 }, uTop: { value: C('#3B2A5A') }, uBot: { value: C('#1B1B3A') },
+    uFoot: { value: new THREE.Vector4(.42, .2, 0, 0) }, uTime: { value: 0 } };
+  const COMMON = `
+    uniform vec2 uRes; uniform float uPx; uniform vec3 uTop; uniform vec3 uBot; uniform vec4 uFoot; uniform float uTime;
+    vec3 bg(vec2 uv){ return mix(uBot, uTop, smoothstep(-0.04, 1.02, uv.y)); }
+    // towards the foot of the picture everything dissolves into the field, so the caption has a calm ground
+    float footK(){
+      vec2 uv = gl_FragCoord.xy / uRes;
+      float k = 1.0 - smoothstep(uFoot.y, uFoot.x, uv.y);
+      if (uFoot.w > 0.0) k *= 1.0 - smoothstep(uFoot.w, uFoot.w + 0.22, uv.x);
+      return k * uFoot.z;
+    }
+    vec3 foot(vec3 c){ return mix(c, bg(gl_FragCoord.xy / uRes), footK()); }
+    float band(float x, float a, float b, float w){ return smoothstep(a - w, a + w, x) * (1.0 - smoothstep(b - w, b + w, x)); }`;
+  function mat(o) {
+    const m = new THREE.ShaderMaterial({ uniforms: Object.assign({}, G, o.u || {}), vertexShader: o.vs, fragmentShader: COMMON + o.fs,
+      transparent: !!o.tr, depthWrite: o.dw === undefined ? !o.tr : o.dw, depthTest: o.dt === undefined ? true : o.dt, side: o.side || THREE.FrontSide });
+    m.extensions.derivatives = true; return m;
+  }
+  const QUAD_VS = 'varying vec2 vP; void main(){ vP = position.xy * 2.0; gl_Position = projectionMatrix * viewMatrix * modelMatrix * vec4(position, 1.0); }';
+
+  // ---------- the colour field and its sparse stars ----------
+  const bgMat = mat({ dt: false, dw: false,
+    u: { uPar: { value: new THREE.Vector2() }, uStars: { value: 1 } },
+    vs: 'void main(){ gl_Position = vec4(position.xy, 0.0, 1.0); }',
+    fs: `uniform vec2 uPar; uniform float uStars;
+      float h21(vec2 p){ p = fract(p * vec2(123.34, 456.21)); p += dot(p, p + 45.32); return fract(p.x * p.y); }
+      void main(){
+        vec2 uv = gl_FragCoord.xy / uRes;
+        vec3 c = bg(uv);
+        float acc = 0.0;
+        for (int L = 0; L < 3; L++) {
+          float fl = float(L), cell = (74.0 + 48.0 * fl) * uPx;
+          vec2 q = (gl_FragCoord.xy + uPar * (0.1 + 0.14 * fl) * uPx) / cell + fl * 7.31;
+          vec2 id = floor(q), f = fract(q);
+          float h = h21(id);
+          if (h > 0.38) continue;
+          vec2 d = (f - (vec2(h21(id + 3.7), h21(id + 9.1)) * 0.7 + 0.15)) * cell;
+          float dia = step(0.3, h);
+          float r = mix(0.5 + 0.7 * h21(id + 1.3), 1.7, dia) * (0.85 + 0.15 * fl) * uPx;
+          float dist = mix(length(d), (abs(d.x) + abs(d.y)) * 0.8, dia);
+          float s = 1.0 - smoothstep(r - 0.7, r + 0.7, dist);
+          float tw = 0.9 + 0.1 * sin(uTime * (0.4 + 1.2 * h) + h * 50.0);
+          acc = max(acc, s * tw * (0.36 + 0.2 * fl));
+        }
+        c = mix(c, vec3(1.0, 0.97, 0.92), acc * uStars * (1.0 - 0.9 * footK()));
+        gl_FragColor = vec4(c + (h21(gl_FragCoord.xy * 0.71) - 0.5) / 255.0, 1.0);
+      }` });
+  { const m = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), bgMat); m.frustumCulled = false; m.renderOrder = -10; scene.add(m); }
+
+  // ---------- bodies: flat tones (lit, half tone, shadow) and analytic eclipse shadows ----------
+  const BODY_VS = `varying vec3 vW; varying vec3 vN; varying vec3 vO;
+    void main(){ vec4 w = modelMatrix * vec4(position, 1.0); vW = w.xyz; vN = mat3(modelMatrix) * normal; vO = position; gl_Position = projectionMatrix * viewMatrix * w; }`;
+  const BODY_FS = `
+    uniform vec3 uC0; uniform vec3 uC1; uniform vec3 uC2; uniform vec3 uShT; uniform vec3 uMidT; uniform vec3 uL; uniform vec3 uLc; uniform vec3 uGlowC;
+    uniform vec4 uCast[4]; uniform vec4 uRingC; uniform vec3 uRingN; uniform vec4 uRingR; uniform float uKind; uniform float uSeed; uniform float uDraw;
+    varying vec3 vW; varying vec3 vN; varying vec3 vO;
+    float sphSh(vec3 p, vec4 s){
+      if (s.w <= 0.0) return 1.0;
+      vec3 v = s.xyz - p; float tc = dot(v, uLc);
+      if (tc <= 0.0) return 1.0;
+      float d = sqrt(max(dot(v, v) - tc * tc, 0.0)), w = fwidth(d) * 0.7 + s.w * 0.02;
+      return smoothstep(s.w - w, s.w + w, d);
+    }
+    float puff(vec3 o, vec3 c, float s){ float l = length(o - normalize(c)), f = fwidth(l) + 0.002; return 1.0 - smoothstep(s - f, s + f, l); }
+    float cloud(vec3 o, vec3 c, float s){
+      vec3 n = normalize(c), e = normalize(vec3(-n.z, 0.0, n.x)) * s * 1.05;
+      return max(puff(o, n, s), max(puff(o, n + e - vec3(0.0, s * 0.25, 0.0), s * 0.72), puff(o, n - e * 0.9 - vec3(0.0, s * 0.3, 0.0), s * 0.62)));
+    }
+    float blob(vec3 o, vec3 c, float s){ float l = length((o - normalize(c)) * vec3(0.8, 2.6, 0.8)), f = fwidth(l) + 0.002; return 1.0 - smoothstep(s - f, s + f, l); }
+    vec3 pick(float i){ float m = mod(i, 6.0); return m < 0.5 ? uC0 : (m < 1.5 ? uC1 : (m < 2.5 ? uC0 : (m < 3.5 ? uC2 : (m < 4.5 ? uC0 : uC1)))); }
+    vec3 albedo(vec3 o){
+      float y = o.y, fy = fwidth(y) + 0.002;
+      if (uKind < 0.5) return mix(uC0, uC1, band(y, -0.12, 0.1, fy) * 0.8);
+      if (uKind < 1.5) {
+        float q = (y + 0.045 * sin(y * 6.0 + uSeed) + 0.014 * sin(o.x * 7.0 + o.z * 4.0)) * 5.2 + 0.5, fq = fwidth(q) + 0.002;
+        float i0 = floor(q - fq * 0.5), i1 = floor(q + fq * 0.5);
+        vec3 c = mix(pick(i0), pick(i1), i1 > i0 ? clamp((q + fq * 0.5 - i1) / fq, 0.0, 1.0) : 0.0);
+        c = mix(c, mix(uC1, uC2, 0.55), smoothstep(0.76 - fy, 0.76 + fy, abs(y)));
+        return mix(c, uC1 * 0.94, blob(o, vec3(0.55, -0.24, 0.8), 0.25));
+      }
+      if (uKind < 2.5) return mix(uC0, uC1, max(band(y, -0.1, 0.05, fy), max(band(y, 0.3, 0.37, fy), band(y, -0.45, -0.37, fy))) * 0.7);
+      if (uKind < 3.5) {
+        float cl = max(max(cloud(o, vec3(0.45, 0.32, 0.83), 0.15), cloud(o, vec3(-0.62, -0.18, 0.76), 0.12)), max(cloud(o, vec3(0.12, -0.55, 0.83), 0.1), cloud(o, vec3(0.9, 0.05, -0.42), 0.14)));
+        cl = max(cl, max(cloud(o, vec3(-0.55, 0.42, -0.72), 0.13), cloud(o, vec3(-0.2, -0.3, -0.93), 0.11)));
+        return mix(uC0, uC1, cl * 0.9);
+      }
+      return mix(uC0, uC1, blob(o, vec3(-0.45, 0.4, 0.8), 0.55) * 0.8);
+    }
+    void main(){
+      vec3 n = normalize(vN), o = normalize(vO);
+      float ndl = dot(n, uL), aw = fwidth(ndl) * 0.8 + 0.022;
+      float lit = smoothstep(0.14 - aw, 0.14 + aw, ndl), mid = smoothstep(-0.2 - aw, -0.2 + aw, ndl);
+      float sh = sphSh(vW, uCast[0]) * sphSh(vW, uCast[1]) * sphSh(vW, uCast[2]) * sphSh(vW, uCast[3]);
+      if (uRingC.w > 0.0) {
+        float dn = dot(uLc, uRingN);
+        if (abs(dn) > 0.001) {
+          float tt = dot(uRingC.xyz - vW, uRingN) / dn;
+          if (tt > 0.0) { float rr = length(vW + uLc * tt - uRingC.xyz), fr = fwidth(rr) * 0.7 + 0.02;
+            sh *= 1.0 - uRingC.w * band(rr, uRingR.x, uRingR.y, fr) * (1.0 - 0.8 * band(rr, uRingR.z, uRingR.w, fr)); }
+        }
+      }
+      vec3 tone = mix(uShT, mix(uMidT, vec3(1.0), lit), mid);
+      tone = mix(uShT, tone, sh);
+      vec3 col = mix(albedo(o) * tone, uGlowC, uDraw);
+      gl_FragColor = vec4(foot(col), 1.0);
+    }`;
+  const SPH = new THREE.SphereGeometry(1, 64, 40), SPHs = new THREE.SphereGeometry(1, 32, 20);
+  const bodies = [];
+  function body(o) {
+    const m = mat({ vs: BODY_VS, fs: BODY_FS, u: {
+      uC0: { value: C(o.c0) }, uC1: { value: C(o.c1 || o.c0) }, uC2: { value: C(o.c2 || o.c0) },
+      uShT: { value: C(o.sh) }, uMidT: { value: C(o.mid) }, uL: { value: V(0, 1, 0) }, uLc: { value: V(0, 1, 0) }, uGlowC: { value: C('#FFEBCB') },
+      uCast: { value: [V4(), V4(), V4(), V4()] }, uRingC: { value: V4() }, uRingN: { value: V(0, 1, 0) }, uRingR: { value: V4() },
+      uKind: { value: o.kind || 0 }, uSeed: { value: o.seed || 0 }, uDraw: { value: 0 } } });
+    const mesh = new THREE.Mesh(o.small ? SPHs : SPH, m); mesh.scale.setScalar(o.r); if (o.at) mesh.position.copy(o.at); mesh.renderOrder = 1; scene.add(mesh);
+    const b = { mesh: mesh, u: m.uniforms, r: o.r, dot: o.dot || 1.3 }; bodies.push(b); return b;
+  }
+  // The light always comes from the sun as the picture shows it. The faces are lit from a little in front, so they read;
+  // the cast shadows are thrown with the same direction in the picture, from further in front, so they land as flat drop shadows.
+  const PHI = 30 * RAD, PHC = [74 * RAD, -30 * RAD, 74 * RAD, 74 * RAD];
+  function lightAt(p, out, f) {
+    const s = scr(p), dx = -s[0], dy = -s[1], l = Math.hypot(dx, dy) || 1;
+    return out.copy(camRight).multiplyScalar(dx / l * Math.cos(f)).addScaledVector(camUp, dy / l * Math.cos(f)).addScaledVector(camDir, Math.sin(f)).normalize();
+  }
+
+  // ---------- lines: drawn in screen space, a fixed hair width, own antialiasing, optional dashes ----------
+  const LINE_VS = `attribute vec3 aDir; attribute float aSide; attribute float aS; attribute float aA;
+    uniform vec2 uRes; uniform float uPx; uniform float uW;
+    varying float vS; varying float vV; varying float vA;
+    void main(){
+      vec4 p = projectionMatrix * viewMatrix * vec4(position, 1.0), q = projectionMatrix * viewMatrix * vec4(position + aDir, 1.0);
+      vec2 d = (q.xy - p.xy) * uRes; float l = length(d); d = l > 1e-6 ? d / l : vec2(1.0, 0.0);
+      float hw = max(uW, 1.0) * uPx * 0.5 + 1.0;
+      p.xy += vec2(-d.y, d.x) * aSide * hw * 2.0 / uRes;
+      vS = aS; vV = aSide * hw; vA = aA; gl_Position = p;
+    }`;
+  const LINE_FS = `uniform vec3 uCol; uniform float uOp; uniform float uW; uniform vec4 uDash; uniform vec4 uShow;
+    varying float vS; varying float vV; varying float vA;
+    void main(){
+      float hw = max(uW, 1.0) * uPx * 0.5, a = clamp(hw + 0.5 - abs(vV), 0.0, 1.0) * min(uW, 1.0);
+      if (uDash.w > 0.0) {
+        float f = vS / uDash.x + uDash.z, fw = fwidth(f) + 1e-4, g = fract(f), d = uDash.y;
+        float e = g < d ? min(g, d - g) : -min(g - d, 1.0 - g);
+        float on = mix(clamp(e / fw + 0.5, 0.0, 1.0), d, smoothstep(0.22, 0.55, fw));
+        a *= mix(1.0, on, uDash.w);
+      }
+      a *= clamp((vS - uShow.x) / max(uShow.z, 0.001) + 1.0, 0.0, 1.0) * clamp((uShow.y - vS) / max(uShow.w, 0.001), 0.0, 1.0);
+      a *= vA * uOp * (1.0 - footK());
+      if (a < 0.003) discard;
+      gl_FragColor = vec4(uCol, a);
+    }`;
+  function lineMat(col, op, w, dash) {
+    return mat({ vs: LINE_VS, fs: LINE_FS, tr: true, side: THREE.DoubleSide, u: { uCol: { value: C(col) }, uOp: { value: op }, uW: { value: w },
+      uDash: { value: dash ? new THREE.Vector4(dash[0], dash[1], 0, 1) : new THREE.Vector4(1, .5, 0, 0) }, uShow: { value: new THREE.Vector4(-1e9, 1e9, 0, 0) } } });
+  }
+  // a batch of polylines in one draw call; set() fills one of them from a flat xyz array
+  function Lines(counts, m, order) {
+    let n = 0; const off = counts.map((c) => { const o = n; n += c; return o; });
+    const g = new THREE.BufferGeometry(), pos = new Float32Array(n * 6), dir = new Float32Array(n * 6), arc = new Float32Array(n * 2), al = new Float32Array(n * 2), side = new Float32Array(n * 2), idx = [];
+    for (let i = 0; i < n; i++) { side[i * 2] = -1; side[i * 2 + 1] = 1; }
+    counts.forEach((c, k) => { for (let i = 0; i < c - 1; i++) { const q = (off[k] + i) * 2; idx.push(q, q + 1, q + 2, q + 1, q + 3, q + 2); } });
+    const A = (a, s) => new THREE.BufferAttribute(a, s).setUsage(THREE.DynamicDrawUsage);
+    g.setAttribute('position', A(pos, 3)); g.setAttribute('aDir', A(dir, 3)); g.setAttribute('aS', A(arc, 1)); g.setAttribute('aA', A(al, 1));
+    g.setAttribute('aSide', new THREE.BufferAttribute(side, 1)); g.setIndex(idx);
+    const mesh = new THREE.Mesh(g, m); mesh.frustumCulled = false; mesh.renderOrder = order || 5; scene.add(mesh);
+    return { mesh: mesh, u: m.uniforms, g: g,
+      set(k, p, alpha, closed) {
+        const c = counts[k], o = off[k]; let s = 0;
+        for (let i = 0; i < c; i++) {
+          let i0 = i - 1, i1 = i + 1;
+          if (i0 < 0) i0 = closed ? c - 2 : 0; if (i1 > c - 1) i1 = closed ? 1 : c - 1;
+          const dx = p[i1 * 3] - p[i0 * 3], dy = p[i1 * 3 + 1] - p[i0 * 3 + 1], dz = p[i1 * 3 + 2] - p[i0 * 3 + 2];
+          if (i) s += Math.hypot(p[i * 3] - p[i * 3 - 3], p[i * 3 + 1] - p[i * 3 - 2], p[i * 3 + 2] - p[i * 3 - 1]);
+          for (let e = 0; e < 2; e++) { const v = (o + i) * 2 + e; pos[v * 3] = p[i * 3]; pos[v * 3 + 1] = p[i * 3 + 1]; pos[v * 3 + 2] = p[i * 3 + 2];
+            dir[v * 3] = dx; dir[v * 3 + 1] = dy; dir[v * 3 + 2] = dz; arc[v] = s; al[v] = alpha; }
+        }
+        return s;
+      },
+      done() { ['position', 'aDir', 'aS', 'aA'].forEach((k) => { g.attributes[k].needsUpdate = true; }); }
+    };
+  }
+  // a plane through a body: the orbital plane turned about x by tilt (near side up) and about the view by roll
+  function plane(tilt, roll) {
+    const ct = Math.cos(tilt), st = Math.sin(tilt), cr = Math.cos(roll), sr = Math.sin(roll);
+    const u = V(cr, sr, 0), w = V(-st * sr, st * cr, ct);
+    return { u: u, w: w, n: V().crossVectors(w, u) };
+  }
+  // points of a circle (or arc) in a plane; th counts anticlockwise in the picture, 0 on the right, 3pi/2 nearest the viewer
+  const BUF = new Float32Array(3 * 1200);
+  function circ(out, n, c, R, pl, a0, a1, rf) {
+    a0 = a0 || 0; a1 = a1 === undefined ? TAU : a1;
+    for (let i = 0; i < n; i++) {
+      const th = a0 + (a1 - a0) * i / (n - 1), r = rf ? rf(th) : R, cs = Math.cos(th) * r, sn = -Math.sin(th) * r;
+      out[i * 3] = c.x + pl.u.x * cs + pl.w.x * sn; out[i * 3 + 1] = c.y + pl.u.y * cs + pl.w.y * sn; out[i * 3 + 2] = c.z + pl.u.z * cs + pl.w.z * sn;
+    }
+    return out;
+  }
+  const onCirc = (out, c, R, pl, th) => out.copy(c).addScaledVector(pl.u, Math.cos(th) * R).addScaledVector(pl.w, -Math.sin(th) * R);
+  // small lit points (the twenty lights, the stops in the final drawing)
+  function Dots(n, size, col, halo) {
+    const g = new THREE.BufferGeometry(), pos = new Float32Array(n * 3), al = new Float32Array(n).fill(1);
+    g.setAttribute('position', new THREE.BufferAttribute(pos, 3).setUsage(THREE.DynamicDrawUsage)); g.setAttribute('aA', new THREE.BufferAttribute(al, 1).setUsage(THREE.DynamicDrawUsage));
+    const m = mat({ tr: true, dw: false, u: { uSize: { value: size }, uCol: { value: C(col) }, uHalo: { value: C(halo) }, uOp: { value: 1 } },
+      vs: 'attribute float aA; uniform float uSize; uniform float uPx; varying float vA; void main(){ vA = aA; gl_Position = projectionMatrix * viewMatrix * vec4(position, 1.0); gl_PointSize = uSize * uPx; }',
+      fs: `uniform float uSize; uniform vec3 uCol; uniform vec3 uHalo; uniform float uOp; varying float vA;
+        void main(){
+          float R = uSize * uPx * 0.5, d = length(gl_PointCoord - 0.5) * 2.0 * R;
+          float core = clamp(R * 0.42 + 0.5 - d, 0.0, 1.0), halo = clamp(R + 0.5 - d, 0.0, 1.0) * 0.26;
+          float a = max(core, halo) * vA * uOp * (1.0 - footK());
+          if (a < 0.003) discard;
+          gl_FragColor = vec4(mix(uHalo, uCol, core), a);
+        }` });
+    const p = new THREE.Points(g, m); p.frustumCulled = false; p.renderOrder = 9; scene.add(p);
+    return { p: p, g: g, pos: pos, al: al, u: m.uniforms };
+  }
+
+  // ---------- the film's clock ----------
+  // captions: the opening, then three beats per planet (approach, problem, the analyst's view), today, the close
+  const CAPT = [[0, 5.0]], ST = [];
+  let tt = 6.0;
+  for (let i = 0; i < 4; i++) { const a = tt, p = a + 4.45, s = p + 3.85, e = s + 3.6; ST.push({ a: a, p: p, s: s, e: e }); CAPT.push([a, a + 4.0], [p, p + 3.4], [s, e]); tt = e + 1.3; }
+  const TS = tt, TC = TS + 5.4, TEND = TC + 2.6;
+  CAPT.push([TS, TS + 4.8], [TC, 1e9]);
+  // where the stop map and the keys land: just inside each approach caption
+  const ANCH = [0, ST[0].a + .6, ST[1].a + .6, ST[2].a + .6, ST[3].a + .6, TS + .6];
+  // how far each planet's disorder has been resolved, and the stretch of time in which it moves at all
+  const RES = (i, t) => ease(sstep(ST[i].s - 0.1, ST[i].s + 2.2, t));
+  const LIVE = (i, t) => clamp(t, ST[i].a - 4.5, ST[i].s + 2.6);
+  const NEAR = (i, t) => sstep(ST[i].a - 4, ST[i].a - 1.2, t);
+
+  // ---------- the system, laid out for the finished drawing ----------
+  const SUN = V(), SUN_R = 12;
+  const SYS = [{ c: P(72, 370), r: 13 }, { c: P(-80, 277), r: 16 }, { c: P(80, 182), r: 20 }, { c: P(-72, 92), r: 10 }];
+  const LINE = '#FFF1E2';
+  // the planets' own orbits round the sun: thin, whole ellipses
+  const helio = Lines([361, 361, 361, 361], lineMat(LINE, .3, 1), 4);
+  SYS.forEach((s, k) => { helio.set(k, circ(BUF, 361, SUN, Math.hypot(s.c.x, s.c.z), plane(0, 0)), 1, true); });
+  helio.done();
+  let last1 = -1, last3 = -1, last4 = -1;
+
+  // ===== 1. the ice giant: where its moon goes is uncertain, six possible orbits until it is measured =====
+  const S1 = SYS[0], r1 = S1.r;
+  const ice = body({ at: S1.c, r: r1, kind: 0, c0: '#C9C6F2', c1: '#D2CFF6', sh: '#6E6AB8', mid: '#A6A2E0' });
+  const moon1 = body({ r: r1 * .2, small: true, kind: 4, c0: '#F2E9DC', c1: '#E3D8CE', sh: '#958BB8', mid: '#D2C6CF' });
+  const F1 = [1.72, 14, -10];   // the measured orbit: radius (planet radii), tilt, roll
+  const G1 = [[1.42, 2, 12, .26, -.22], [2.3, 24, -22, -.3, .2], [1.6, -8, 20, .05, .46], [2.05, 10, 0, .36, .1], [1.85, 28, -4, -.2, -.36], [2.45, 6, -18, .1, .3]];
+  const PF1 = plane(F1[1] * RAD, F1[2] * RAD);
+  const lines1 = Lines(G1.map(() => 161), lineMat(LINE, .5, 1, [1.4, .55]), 5);
+  const ticks1 = Lines(new Array(24).fill(2), lineMat(LINE, .7, 1), 5);
+  const T1P = ST[0].s + .5, th1 = (t) => 3.95 + (t - T1P) * .3;
+  function orb1(k, t, res) {
+    const g = G1[k], w = 1 - res;
+    return { R: lerp(g[0] + .07 * Math.sin(t * .5 + k * 2.1) * w, F1[0], res) * r1,
+      pl: plane(lerp(g[1] + 4 * Math.sin(t * .37 + k), F1[1], res) * RAD, lerp(g[2] + 5 * Math.sin(t * .29 + k * 1.7), F1[2], res) * RAD),
+      c: S1.c.clone().add(V(g[3] * w * r1, 0, g[4] * w * r1 / SE)) };
+  }
+  function moon1At(t, out) {
+    const res = RES(0, t);
+    let R = 0, tl = 0, rl = 0, x = 0, z = 0, ws = 0;
+    for (let k = 0; k < 6; k++) { const w = Math.pow(1 + Math.cos(t * .42 - k * 1.05), 3), g = G1[k]; R += g[0] * w; tl += g[1] * w; rl += g[2] * w; x += g[3] * w; z += g[4] * w; ws += w; }
+    const c = S1.c.clone().add(V(x / ws * (1 - res) * r1, 0, z / ws * (1 - res) * r1 / SE));
+    return onCirc(out, c, lerp(R / ws, F1[0], res) * r1, plane(lerp(tl / ws, F1[1], res) * RAD, lerp(rl / ws, F1[2], res) * RAD), th1(t));
+  }
+  function upd1(t) {
+    moon1At(t, moon1.mesh.position);
+    const lt = LIVE(0, t); if (lt === last1) return; last1 = lt;
+    const res = RES(0, lt), near = NEAR(0, lt);
+    for (let k = 0; k < 6; k++) { const o = orb1(k, lt, res); lines1.set(k, circ(BUF, 161, o.c, o.R, o.pl), k === 0 ? 1 : (1 - res * .999) * (.25 + .75 * near), true); }
+    lines1.done();
+    lines1.u.uOp.value = lerp(.46, .85, res); lines1.u.uW.value = lerp(1, 1.4, res); lines1.u.uDash.value.w = 1 - res;
+    const R = F1[0] * r1, a = V(), b = V();
+    for (let j = 0; j < 24; j++) { const th = j / 24 * TAU, big = j % 6 === 0 ? 2 : 1;
+      onCirc(a, S1.c, R * (1 - .035 * big), PF1, th); onCirc(b, S1.c, R * (1 + .035 * big), PF1, th);
+      BUF[0] = a.x; BUF[1] = a.y; BUF[2] = a.z; BUF[3] = b.x; BUF[4] = b.y; BUF[5] = b.z; ticks1.set(j, BUF, 1, false); }
+    ticks1.done(); ticks1.u.uOp.value = .7 * sstep(.45, 1, res);
+  }
+
+  // ===== 2. the ringed giant: ring and moon keep two rhythms; the comet's trace bridges them =====
+  const S2 = SYS[1], r2 = S2.r, PL2 = plane(10 * RAD, 18 * RAD);
+  const RG = [1.4 * r2, 2.2 * r2], RE = 2.3 * r2, RM = 3.05 * r2;
+  const ringed = body({ at: S2.c, r: r2, kind: 2, c0: '#F2C9A0', c1: '#E6B48E', sh: '#B9786A', mid: '#DDA488' });
+  const moon2 = body({ r: r2 * .24, small: true, kind: 4, c0: '#F6DCC4', c1: '#EAC7B0', sh: '#B07C78', mid: '#E2B9A6' });
+  const ringMat = mat({ tr: true, dw: true, side: THREE.DoubleSide,
+    u: { uCen: { value: S2.c }, uRR: { value: new THREE.Vector4(RG[0], RG[1], 0, 0) }, uCa: { value: C('#F7E7CF') }, uCb: { value: C('#E5ABA6') },
+      uShT: { value: C('#B9786A') }, uLc: { value: V(0, 1, 0) }, uPl: { value: new THREE.Vector4(S2.c.x, S2.c.y, S2.c.z, r2) }, uA: { value: 1 } },
+    vs: 'varying vec3 vW; void main(){ vec4 w = modelMatrix * vec4(position, 1.0); vW = w.xyz; gl_Position = projectionMatrix * viewMatrix * w; }',
+    fs: `uniform vec3 uCen; uniform vec4 uRR; uniform vec3 uCa; uniform vec3 uCb; uniform vec3 uShT; uniform vec3 uLc; uniform vec4 uPl; uniform float uA;
+      varying vec3 vW;
+      void main(){
+        float r = length(vW - uCen), x = (r - uRR.x) / (uRR.y - uRR.x), fx = (fwidth(r) + 1e-4) / (uRR.y - uRR.x);
+        float inner = band(x, 0.0, 0.36, fx), outer = band(x, 0.43, 0.84, fx), edge = band(x, 0.88, 1.0, fx);
+        float a = max(inner, max(outer, edge * 0.8));
+        vec3 c = mix(uCb, uCa, outer);
+        c = mix(c, mix(uCb, uCa, 0.55), edge);
+        vec3 v = uPl.xyz - vW; float tc = dot(v, uLc), sh = 1.0;
+        if (tc > 0.0) { float d = sqrt(max(dot(v, v) - tc * tc, 0.0)), w = fwidth(d) * 0.7 + 0.03; sh = smoothstep(uPl.w - w, uPl.w + w, d); }
+        c = mix(c * uShT / vec3(0.95, 0.8, 0.75), c, sh);
+        a *= uA;
+        if (a < 0.01) discard;
+        gl_FragColor = vec4(foot(c), a);
+      }` });
+  const ringMesh = new THREE.Mesh(new THREE.RingGeometry(RG[0] * .98, RG[1] * 1.02, 160, 1), ringMat);
+  ringMesh.matrixAutoUpdate = false; ringMesh.matrix.makeBasis(PL2.u, PL2.w.clone().negate(), PL2.n).setPosition(S2.c); ringMesh.renderOrder = 2; scene.add(ringMesh);
+  ringed.u.uRingC.value.set(S2.c.x, S2.c.y, S2.c.z, .85); ringed.u.uRingN.value.copy(PL2.n); ringed.u.uRingR.value.set(RG[0], RG[1], RG[0] + .36 * (RG[1] - RG[0]), RG[0] + .43 * (RG[1] - RG[0]));
+  const edge2 = Lines([241], lineMat(LINE, .72, 1.1, [2.2, .62]), 5), orb2 = Lines([241], lineMat(LINE, .62, 1.1, [.9, .3]), 5);
+  edge2.set(0, circ(BUF, 241, S2.c, RE, PL2), 1, true); edge2.done(); orb2.set(0, circ(BUF, 241, S2.c, RM, PL2), 1, true); orb2.done();
+  const bridge = Lines([24], lineMat('#FFF4DC', .95, 1.8), 6);
+  const T2P = ST[1].s + .5, th2 = (t) => -0.32 + (t - T2P) * .05, ROSE = C('#D6CAFF'), CREAM = C(LINE);
+  function upd2(t) {
+    const res = RES(1, t), th = th2(t);
+    onCirc(moon2.mesh.position, S2.c, RM, PL2, th);
+    // rhythm A (long dashes) and rhythm B (short dots) become one shared rhythm, moving together
+    const da = edge2.u.uDash.value, db = orb2.u.uDash.value;
+    da.x = lerp(3.0, 2.0, res); da.y = lerp(.66, .5, res); da.z = -t * lerp(.3, .45, res);
+    orb2.u.uCol.value.copy(ROSE).lerp(CREAM, res); orb2.u.uOp.value = lerp(.9, .72, res); orb2.u.uW.value = lerp(1.6, 1.1, res);
+    db.x = lerp(1.5, 2.0 * RM / RE, res); db.y = lerp(.26, .5, res); db.z = -t * lerp(-.35, .45, res);
+    // the bridge grows out from where the comet crossed, to the ring and to the moon
+    const g = sstep(0, 1, (t - T2P + .05) / 1.5), a = V(), b = V();
+    onCirc(a, S2.c, RG[1] * 1.01, PL2, th); onCirc(b, S2.c, RM - moon2.r * 1.05, PL2, th);
+    for (let i = 0; i < 24; i++) { const k = .5 + (i / 23 - .5) * g; BUF[i * 3] = lerp(a.x, b.x, k); BUF[i * 3 + 1] = lerp(a.y, b.y, k); BUF[i * 3 + 2] = lerp(a.z, b.z, k); }
+    bridge.set(0, BUF, 1, false); bridge.done(); bridge.u.uOp.value = .95 * sstep(0, .15, g);
+  }
+
+  // ===== 3. the banded giant: four moons, uneven and shaky, until they keep one clockwork =====
+  const S3 = SYS[2], r3 = S3.r, PL3 = plane(18 * RAD, 5 * RAD);
+  const banded = body({ at: S3.c, r: r3, kind: 1, seed: 1.3, c0: '#F4E3C6', c1: '#C8674A', c2: '#D6924E', sh: '#9A5A5E', mid: '#D49A82' });
+  const R3a = [1.36, 1.72, 2.02, 2.42], R3b = [1.42, 1.74, 2.06, 2.38];
+  const moons3 = [['#FFF1D9', .1], ['#F2D3B6', .085], ['#F0D6D2', .12], ['#F7E3A9', .095]].map((m) => body({ r: r3 * m[1], small: true, kind: 4, c0: m[0], c1: m[0], sh: '#9A6A72', mid: '#DDB6A6' }));
+  const lines3 = Lines([181, 181, 181, 181], lineMat(LINE, .5, 1.1), 5);
+  const P3 = [0.4, 2.2, 3.9, 5.3], W3 = [.62, .21, .44, .12];
+  const chaos3 = (k, t) => P3[k] + W3[k] * t + .55 * Math.sin(t * (.9 + .3 * k) + k * 2.0);
+  // order: one hand that moves on in short, even ticks
+  const order3 = (t) => { const u = Math.max(0, t - ST[2].s) / 1.25, f = u - Math.floor(u); return 2.62 + .13 * (Math.floor(u) + sstep(.5, 1, f)); };
+  function th3(k, t, res) { const t0 = ST[2].s, wrap = Math.round((chaos3(k, t0) - 2.62) / TAU) * TAU; return lerp(chaos3(k, t), order3(t) + wrap, res); }
+  function rad3(k, t, res) { const wob = (1 - res) * .065; return (th) => r3 * lerp(R3a[k], R3b[k], res) * (1 + wob * (Math.sin(th * 3 + t * 2.3 + k) + .6 * Math.sin(th * 5 - t * 1.7 + k * 2))); }
+  function upd3(t) {
+    const res = RES(2, t);
+    for (let k = 0; k < 4; k++) { const th = th3(k, t, res); onCirc(moons3[k].mesh.position, S3.c, rad3(k, t, res)(th), PL3, th); }
+    const lt = LIVE(2, t); if (lt === last3) return; last3 = lt;
+    const lr = RES(2, lt);
+    for (let k = 0; k < 4; k++) lines3.set(k, circ(BUF, 181, S3.c, 0, PL3, 0, TAU, rad3(k, lt, lr)), 1, true);
+    lines3.done(); lines3.u.uOp.value = lerp(.44, .62, lr);
+  }
+
+  // ===== 4. the blue planet: every lap leaves a line; the laps pile up untidily until they form one belt =====
+  const S4 = SYS[3], r4 = S4.r, PL4 = plane(12 * RAD, -10 * RAD), R4 = 1.66 * r4, NL = 14;
+  const blue = body({ at: S4.c, r: r4, kind: 3, seed: .7, c0: '#6E8FE0', c1: '#F1E8DC', sh: '#4A55A6', mid: '#5E78CC' });
+  const moon4 = body({ r: r4 * .24, small: true, kind: 4, c0: '#F6F0E2', c1: '#E6DCCB', sh: '#8E8FB8', mid: '#D6D1D6' });
+  const laps = Lines(new Array(NL + 1).fill(121), lineMat(LINE, .58, .9), 5);
+  const LAP = 1.7, L0 = ST[3].a - 9 * LAP;          // the moon has been lapping before the comet arrives
+  const lapG = (k) => ({ r: 1 + (hsh(k + 1) - .5) * .3, x: (hsh(k + 7) - .5) * .34, z: (hsh(k + 3) - .5) * .34, tl: (hsh(k + 5) - .5) * 16, rl: (hsh(k + 9) - .5) * 18 });
+  const BAND = (k) => .9 + .2 * k / NL;
+  function lapPlane(k, res) { const g = lapG(k), w = 1 - res; return { R: R4 * lerp(g.r, BAND(k), res), pl: plane((12 + g.tl * w) * RAD, (-10 + g.rl * w) * RAD),
+    c: S4.c.clone().add(V(g.x * r4 * w, 0, g.z * r4 * w / SE)) }; }
+  const lights = Dots(20, 9, '#FFD58F', '#F2B45A');
+  const T4D = ST[3].s, A4 = 3.9 - ((T4D + 1.2 - L0) / LAP % 1) * TAU, th4 = (t) => A4 + (t - L0) / LAP * TAU;
+  function upd4(t) {
+    const res = RES(3, t), near = NEAR(3, t);
+    // laps finished so far (none are added once the belt is in order)
+    const tl = Math.min(t, T4D + LAP * 1.2), nl = clamp(Math.floor((tl - L0) / LAP), 0, NL);
+    // the moon: on its current lap until the belt settles, then once round the belt's outer edge, slowly
+    const lk = Math.min(nl, NL), lp = lapPlane(lk, res);
+    onCirc(moon4.mesh.position, lp.c, lp.R, lp.pl, th4(Math.min(t, T4D + 1.2)) + Math.max(0, t - T4D - 1.2) * .45);
+    // twenty lights: scattered and drifting, then one even ring that turns together
+    const q = V();
+    for (let i = 0; i < 20; i++) {
+      const a0 = hsh(i * 3.1) * TAU, rr = r4 * (1.6 + 1.8 * hsh(i * 5.3)), wob = 1 - res;
+      const ca = a0 + t * (.18 + .3 * hsh(i * 2.7)) * (hsh(i) > .5 ? 1 : -1), cr = rr * (1 + .12 * Math.sin(t * (.7 + hsh(i * 1.9)) + i));
+      const oa = i / 20 * TAU + (t - T4D) * .09, ang = lerp(ca, oa + Math.round((ca - oa) / TAU) * TAU, res);
+      onCirc(q, S4.c, lerp(cr, r4 * 2.55, res), PL4, ang); q.y += r4 * (hsh(i * 4.4) - .5) * 1.6 * Math.sin(t * .5 + i) * wob;
+      q.toArray(lights.pos, i * 3); lights.al[i] = near;
+    }
+    lights.g.attributes.position.needsUpdate = true; lights.g.attributes.aA.needsUpdate = true;
+    const lt = LIVE(3, t), tlc = Math.min(lt, T4D + LAP * 1.2), key = lt * 1000 + Math.floor((tlc - L0) / LAP * 60);
+    if (key === last4) return; last4 = key;
+    const lr = RES(3, lt), nn = clamp(Math.floor((tlc - L0) / LAP), 0, NL);
+    for (let k = 0; k <= NL; k++) {
+      const p = lapPlane(k, lr);
+      if (k < nn) laps.set(k, circ(BUF, 121, p.c, p.R, p.pl), 1, true);
+      else if (k === nn && tlc > L0) { const f = clamp((tlc - L0) / LAP - nn, 0, 1); laps.set(k, circ(BUF, 121, p.c, p.R, p.pl, A4, A4 + TAU * Math.max(f, .002)), 1, false); }
+      else laps.set(k, circ(BUF, 121, p.c, p.R, p.pl), 0, true);
+    }
+    laps.done();
+  }
+
+  // ===== the sun: a flat golden disc, pale concentric rings, thin rays =====
+  const sunMat = mat({ tr: true, dw: false,
+    u: { uR: { value: SUN_R }, uHalf: { value: SUN_R * 3.4 }, uRot: { value: 0 }, uPxW: { value: .2 }, uDraw: { value: 0 },
+      uGold: { value: C('#FFCE63') }, uIn: { value: C('#FFE7A6') }, uPale: { value: C('#FFF3D8') } },
+    vs: QUAD_VS,
+    fs: `uniform float uR; uniform float uHalf; uniform float uRot; uniform float uPxW; uniform float uDraw; uniform vec3 uGold; uniform vec3 uIn; uniform vec3 uPale;
+      varying vec2 vP;
+      void main(){
+        vec2 p = vP * uHalf; float r = length(p), fw = fwidth(r) + 1e-5;
+        float disc = 1.0 - smoothstep(uR - fw, uR + fw, r), core = 1.0 - smoothstep(uR * 0.74 - fw, uR * 0.74 + fw, r);
+        float rings = 0.0;
+        for (int i = 0; i < 3; i++) { float fi = float(i), rc = uR * (1.3 + 0.36 * fi), hw = uR * (0.075 - 0.018 * fi);
+          rings = max(rings, (1.0 - smoothstep(hw - fw, hw + fw, abs(r - rc))) * (0.42 - 0.11 * fi)); }
+        float N = 36.0, q = (atan(p.y, p.x) + uRot) / 6.2831853 * N, id = floor(q);
+        float dl = abs(fract(q) - 0.5) * 6.2831853 / N * r, fl = fwidth(dl) + 1e-5, lw = uPxW * 0.55;
+        float len = mod(id, 3.0) < 0.5 ? 3.25 : (mod(id, 3.0) < 1.5 ? 2.75 : 2.95);
+        float ray = (1.0 - smoothstep(lw - fl, lw + fl, dl)) * smoothstep(uR * 2.28, uR * 2.4, r) * (1.0 - smoothstep(uR * (len - 0.1), uR * len, r)) * 0.55;
+        vec3 c = mix(uPale, mix(uGold, uIn, core), disc);
+        float a = max(disc, max(rings, ray) * (1.0 - 0.6 * uDraw));
+        a *= 1.0 - footK();
+        if (a < 0.003) discard;
+        gl_FragColor = vec4(c, a);
+      }` });
+  const sunMesh = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), sunMat);
+  sunMesh.quaternion.copy(camera.quaternion); sunMesh.scale.setScalar(SUN_R * 6.8); sunMesh.renderOrder = 3; scene.add(sunMesh);
+
+  // ---------- the comet's path: from outside the system, past the four planets, round the sun and on ----------
+  // the planets on the left are reached from below, so the comet never comes in under the stop map
+  const CP = [P(26, 474), P(44, 430)];                                                     // 0, 1: from outside the system
+  CP.push(onCirc(V(), S1.c, F1[0] * r1 * 1.36, PF1, th1(T1P) - .06));                    // 2: past the moon of the ice giant
+  CP.push(P(-20, 336));                                                                   // 3: below the ringed giant
+  CP.push(onCirc(V(), S2.c, (RG[1] * 1.01 + RM) / 2 + 1, PL2, th2(T2P) + .12));          // 4: between the ring and the moon
+  CP.push(onCirc(V(), S3.c, r3 * 2.66, PL3, 3.3));                                        // 5: outside the clockwork
+  CP.push(P(-36, 150));                                                                   // 6: below the blue planet
+  CP.push(onCirc(V(), S4.c, r4 * 2.12, PL4, -0.25));                                      // 7: past the blue planet, inside its lights
+  CP.push(P(-14, 64));                                                                    // 8: up towards the sun
+  [-95, -45, 5, 55, 100, 145].forEach((a) => CP.push(Q(SUN, 30 * Math.cos(a * RAD), 30 * Math.sin(a * RAD))));   // 9..14: round the sun
+  [[-58, 2], [-124, -9], [-236, -20], [-370, -28]].forEach((q) => CP.push(Q(SUN, q[0], q[1])));                    // 15..18: onwards
+  // centripetal Catmull-Rom, then even steps along the length
+  const dense = [], cpAt = [];
+  {
+    const ext = [CP[0].clone().multiplyScalar(2).sub(CP[1])].concat(CP, [CP[CP.length - 1].clone().multiplyScalar(2).sub(CP[CP.length - 2])]);
+    const A1 = V(), A2 = V(), A3 = V(), B1 = V(), B2 = V();
+    for (let i = 1; i < ext.length - 2; i++) {
+      const p0 = ext[i - 1], p1 = ext[i], p2 = ext[i + 1], p3 = ext[i + 2];
+      const t0 = 0, t1 = t0 + Math.sqrt(p0.distanceTo(p1)) + 1e-4, t2 = t1 + Math.sqrt(p1.distanceTo(p2)) + 1e-4, t3 = t2 + Math.sqrt(p2.distanceTo(p3)) + 1e-4;
+      cpAt.push(dense.length);
+      for (let k = 0; k < 60; k++) {
+        const t = lerp(t1, t2, k / 60);
+        A1.copy(p0).multiplyScalar((t1 - t) / (t1 - t0)).addScaledVector(p1, (t - t0) / (t1 - t0));
+        A2.copy(p1).multiplyScalar((t2 - t) / (t2 - t1)).addScaledVector(p2, (t - t1) / (t2 - t1));
+        A3.copy(p2).multiplyScalar((t3 - t) / (t3 - t2)).addScaledVector(p3, (t - t2) / (t3 - t2));
+        B1.copy(A1).multiplyScalar((t2 - t) / (t2 - t0)).addScaledVector(A2, (t - t0) / (t2 - t0));
+        B2.copy(A2).multiplyScalar((t3 - t) / (t3 - t1)).addScaledVector(A3, (t - t1) / (t3 - t1));
+        dense.push(B1.multiplyScalar((t2 - t) / (t2 - t1)).addScaledVector(B2, (t - t1) / (t2 - t1)).clone());
+      }
+    }
+    cpAt.push(dense.length); dense.push(CP[CP.length - 1].clone());
+  }
+  const dl = [0]; for (let i = 1; i < dense.length; i++) dl[i] = dl[i - 1] + dense[i].distanceTo(dense[i - 1]);
+  const sCP = cpAt.map((i) => dl[i]);
+  const PATH = dl[dl.length - 1], NP = Math.ceil(PATH / .8), SP = [];
+  for (let i = 0, j = 0; i <= NP; i++) {
+    const d = PATH * i / NP; while (j < dense.length - 2 && dl[j + 1] < d) j++;
+    SP.push(V().lerpVectors(dense[j], dense[j + 1], clamp((d - dl[j]) / Math.max(1e-6, dl[j + 1] - dl[j]), 0, 1)));
+  }
+  const pathAt = (s, out) => { const f = clamp(s / PATH, 0, 1) * NP, i = Math.min(NP - 1, Math.floor(f)); return out.lerpVectors(SP[i], SP[i + 1], f - i); };
+  // the trace behind the comet (solid) and the way ahead (dashed, only at the end)
+  const trail = Lines([NP + 1], lineMat('#FFF4DC', .62, 1.3), 6);
+  { const b = new Float32Array((NP + 1) * 3); SP.forEach((p, i) => p.toArray(b, i * 3)); trail.set(0, b, 1, false); trail.done(); }
+  const ahead = new THREE.Mesh(trail.g, lineMat('#FFF4DC', .7, 1.3, [3.4, .5])); ahead.frustumCulled = false; ahead.renderOrder = 6; scene.add(ahead);
+  const aheadU = ahead.material.uniforms;
+  // when the comet is where: [time, distance along the path]
+  const sAt = (i, f) => lerp(sCP[i], sCP[i + 1], f || 0);
+  const CK = [[0, sAt(0, .08)], [ST[0].a - .4, sAt(1, .22)], [ST[0].p, sAt(1, .7)], [T1P, sCP[2]], [ST[0].e, sAt(2, .4)],
+    [ST[1].a - .4, sAt(3, .1)], [ST[1].p, sAt(3, .62)], [T2P, sCP[4]], [ST[1].e, sAt(4, .32)],
+    [ST[2].a - .4, sAt(4, .52)], [ST[2].p, sAt(4, .8)], [ST[2].s + .5, sCP[5]], [ST[2].e, sAt(5, .4)],
+    [ST[3].a - .4, sAt(6, .1)], [ST[3].p, sAt(6, .62)], [ST[3].s + .5, sCP[7]], [ST[3].e, sAt(7, .42)],
+    [TS, sAt(8, .2)], [TS + 1.3, sCP[10]], [TS + 2.8, sCP[12]], [TS + 4.4, sCP[14]], [TC + 1.0, sAt(15, .45)], [TEND, sAt(15, .78)]];
+  function monotone(keys) {
+    const n = keys.length, x = keys.map((k) => k[0]), y = keys.map((k) => k[1]), d = [], m = [];
+    for (let i = 0; i < n - 1; i++) d[i] = (y[i + 1] - y[i]) / (x[i + 1] - x[i]);
+    m[0] = d[0]; m[n - 1] = d[n - 2];
+    for (let i = 1; i < n - 1; i++) m[i] = d[i - 1] * d[i] <= 0 ? 0 : (d[i - 1] + d[i]) / 2;
+    for (let i = 0; i < n - 1; i++) { if (!d[i]) { m[i] = m[i + 1] = 0; continue; } const a = m[i] / d[i], b = m[i + 1] / d[i], h = a * a + b * b; if (h > 9) { const k = 3 / Math.sqrt(h); m[i] = k * a * d[i]; m[i + 1] = k * b * d[i]; } }
+    return (t) => { if (t <= x[0]) return y[0]; if (t >= x[n - 1]) return y[n - 1]; let i = 0; while (x[i + 1] < t) i++;
+      const h = x[i + 1] - x[i], u = (t - x[i]) / h, u2 = u * u, u3 = u2 * u;
+      return (2 * u3 - 3 * u2 + 1) * y[i] + (u3 - 2 * u2 + u) * h * m[i] + (-2 * u3 + 3 * u2) * y[i + 1] + (u3 - u2) * h * m[i + 1]; };
+  }
+  const cometS = monotone(CK);
+
+  // ---------- the comet: a warm nucleus in a round coma; a curved dust tail and a straight pale ion tail, always away from the sun ----------
+  const headMat = mat({ tr: true, dw: false, u: { uCore: { value: C('#FFF8E8') }, uHalo: { value: C('#FFE3B8') }, uGlow: { value: 0 } }, vs: QUAD_VS,
+    fs: `uniform vec3 uCore; uniform vec3 uHalo; uniform float uGlow; varying vec2 vP;
+      void main(){
+        float r = length(vP), fw = fwidth(r) + 1e-5;
+        float core = 1.0 - smoothstep(0.24 - fw, 0.24 + fw, r);
+        float h1 = (1.0 - smoothstep(0.52 - fw, 0.52 + fw, r)) * (0.42 + 0.16 * uGlow), h2 = (1.0 - smoothstep(0.96 - fw, 0.96 + fw, r)) * (0.12 + 0.1 * uGlow);
+        float a = max(core, max(h1, h2)) * (1.0 - footK());
+        if (a < 0.003) discard;
+        gl_FragColor = vec4(mix(uHalo, uCore, core), a);
+      }` });
+  const head = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), headMat); head.quaternion.copy(camera.quaternion); head.renderOrder = 8; scene.add(head);
+  const TAIL_FS = `uniform float uW; uniform float uGlow; uniform float uShape; uniform vec3 uC1; uniform vec3 uC2; uniform vec2 uA; varying vec2 vT;
+    float fan(float x){ x = clamp(x, 0.0, 1.0); return (0.34 + 0.66 * sin(min(x / 0.45, 1.0) * 1.5708)) * pow(1.0 - smoothstep(0.45, 1.0, x), 0.75); }
+    float streak(float x){ x = clamp(x, 0.0, 1.0); return 0.25 + 0.75 * pow(1.0 - x, 0.8) - 0.25 * x; }
+    void main(){
+      float u = vT.x, d = abs(vT.y), fd = fwidth(vT.y) * 0.8 + 1e-5;
+      float w1 = uW * (uShape < 0.5 ? fan(u) : streak(u)), w2 = uW * (uShape < 0.5 ? 0.5 * fan(u / 0.68) : 0.42 * streak(u / 0.7));
+      float b1 = 1.0 - smoothstep(w1 - fd, w1 + fd, d);
+      float b2 = (1.0 - smoothstep(w2 - fd, w2 + fd, d)) * step(u, uShape < 0.5 ? 0.68 : 0.7);
+      float a = max(b1 * uA.x, b2 * uA.y) * (0.8 + 0.35 * uGlow) * (1.0 - footK());
+      if (a < 0.003) discard;
+      gl_FragColor = vec4(mix(uC1, uC2, b2), min(a, 0.95));
+    }`;
+  function Tail(shape, c1, c2, a1, a2, order) {
+    const n = 40, pos = new Float32Array((n + 1) * 6), tv = new Float32Array((n + 1) * 4), g = new THREE.BufferGeometry(), idx = [];
+    for (let i = 0; i < n; i++) { const q = i * 2; idx.push(q, q + 1, q + 2, q + 1, q + 3, q + 2); }
+    g.setIndex(idx); g.setAttribute('position', new THREE.BufferAttribute(pos, 3).setUsage(THREE.DynamicDrawUsage)); g.setAttribute('aT', new THREE.BufferAttribute(tv, 2).setUsage(THREE.DynamicDrawUsage));
+    const m = mat({ tr: true, dw: false, side: THREE.DoubleSide, vs: 'attribute vec2 aT; varying vec2 vT; void main(){ vT = aT; gl_Position = projectionMatrix * viewMatrix * vec4(position, 1.0); }',
+      u: { uW: { value: 1 }, uGlow: { value: 0 }, uShape: { value: shape }, uC1: { value: C(c1) }, uC2: { value: C(c2) }, uA: { value: new THREE.Vector2(a1, a2) } }, fs: TAIL_FS });
+    const mesh = new THREE.Mesh(g, m); mesh.frustumCulled = false; mesh.renderOrder = order; scene.add(mesh);
+    // the centre line runs from the nucleus along dir, bending towards side by bend; the strip is wide enough for its bands
+    return { u: m.uniforms, set(at, dir, side, len, wd, bend) {
+      for (let i = 0; i <= n; i++) {
+        const u = i / n, bx = (dir[0] * u + side[0] * u * u * bend) * len, by = (dir[1] * u + side[1] * u * u * bend) * len;
+        let tx = dir[0] + side[0] * u * 2 * bend, ty = dir[1] + side[1] * u * 2 * bend; const l = Math.hypot(tx, ty) || 1; tx /= l; ty /= l;
+        for (let e = 0; e < 2; e++) { const sg = e ? 1 : -1, h = wd * 1.06 * sg, sx = bx - ty * h, sy = by + tx * h, j = (i * 2 + e) * 3;
+          pos[j] = at.x + camRight.x * sx + camUp.x * sy; pos[j + 1] = at.y + camRight.y * sx + camUp.y * sy; pos[j + 2] = at.z + camRight.z * sx + camUp.z * sy;
+          tv[(i * 2 + e) * 2] = u; tv[(i * 2 + e) * 2 + 1] = h; }
+      }
+      m.uniforms.uW.value = wd; g.attributes.position.needsUpdate = true; g.attributes.aT.needsUpdate = true;
+    } };
+  }
+  const dust = Tail(0, '#E9796A', '#F2B45A', .34, .5, 7), ion = Tail(1, '#FFF4DC', '#FFFBF2', .3, .5, 7.5);
+  // tail length (picture units) grows after each planet and peaks at the sun
+  const TLEN = monotone([[0, 56], [ST[0].a, 46], [ST[0].s, 46], [ST[0].e, 54], [ST[1].e, 66], [ST[2].e, 80], [ST[3].e, 96], [TS + 2.4, 140], [TC, 120], [TC + 1.6, 74], [TEND, 74]]);
+  const GLOW = monotone([[0, 0], [ST[3].e, .25], [TS + 1.5, 1], [TC, .8], [TEND, .7]]);
+
+  // ---------- the final drawing: the stops become small lit points ----------
+  const stopDots = Dots(4, 13, '#FFF0D2', '#F2B45A');
+  SYS.forEach((s, i) => s.c.toArray(stopDots.pos, i * 3)); stopDots.g.attributes.position.needsUpdate = true;
+
+  // ---------- colour of the field: each stop has its own, flowing into the next ----------
+  const hx = (h) => { const c = C(h); return [c.r, c.g, c.b]; };
+  const PAL = [[0, '#3B2A5A', '#1B1B3A'], [3.0, '#3B2A5A', '#1B1B3A'], [ST[0].a - .6, '#5C5AA8', '#2A2F6B'], [ST[0].e - .6, '#5C5AA8', '#2A2F6B'],
+    [ST[1].a - .6, '#C97B8E', '#4A2B55'], [ST[1].e - .6, '#C97B8E', '#4A2B55'], [ST[2].a - .6, '#E8A66B', '#5A2A3A'], [ST[2].e - .6, '#E8A66B', '#5A2A3A'], [(ST[2].e + ST[3].a) / 2 - .5, '#B07CA8', '#3C2246'],
+    [ST[3].a - .6, '#5B74C9', '#1C2550'], [ST[3].e - .6, '#5B74C9', '#1C2550'], [(ST[3].e + TS) / 2 - .3, '#B98AB0', '#4A2440'], [TS - .3, '#F6C56B', '#7A2F2A'], [TS + 3.6, '#F6C56B', '#7A2F2A'],
+    [TC - .4, '#A5587A', '#2A1A30'], [TC + .9, '#1C2646', '#0B0D10'], [TEND, '#1C2646', '#0B0D10']].map((k) => [k[0], hx(k[1]), hx(k[2])]);
+
+  // ---------- the camera: the same angle throughout; it frames a box round a point inside the free part of the screen ----------
+  const sysF = Q(SUN, 0, -222);
+  // [time, focus point, half width, half height] in picture units
+  const HOLD = [[Q(S1.c, -4, 0), 27, 26], [Q(S2.c, 20, -2), 50, 36], [Q(S3.c, -2, 2), 50, 37], [Q(S4.c, 5, 0), 30, 28], [Q(SUN, 0, 16), 52, 52]];
+  const TRANSIT = [0, [0, 1, 44, 32], [1, 0, 46, 34], [0, 1, 30, 28], [.9, .1, 52, 52]];
+  const CAM = [[0, sysF, 138, 272], [3.0, sysF, 138, 272]];
+  HOLD.forEach((h, i) => {
+    const a = i < 4 ? ST[i].a : TS;
+    // On the way: [share of the slide, share of the rise, half width, half height] at the midpoint. Leftwards it rises
+    // first, so the planet left behind sinks out through the foot; into the banded giant it slides first, so that planet
+    // comes down from above; to the sun it goes straight. The bodies keep clear of the stop map on the right edge.
+    if (i) { const g = HOLD[i - 1], tm = (ST[i - 1].e - .5 + a + .2) / 2, ga = scr(g[0]), ha = scr(h[0]), m = TRANSIT[i];
+      CAM.push([tm, Q(SUN, lerp(ga[0], ha[0], m[0]), lerp(ga[1], ha[1], m[1])), m[2], m[3]]); }
+    CAM.push([a + .2, h[0], h[1], h[2]], [i < 4 ? ST[i].e - .5 : TS + 4.4, h[0], h[1], h[2]]);
+  });
+  CAM.push([TC + 1.6, sysF, 138, 272], [TEND, sysF, 138, 272]);
+  // smooth through every key, still at the holds, without overshoot
+  const camK = [0, 1, 2, 3].map((j) => monotone(CAM.map((k) => [k[0], j < 2 ? scr(k[1])[j] : Math.log(k[j])])));
+  let W = 1, H = 1, aspect = 1, K = 1;
+  const camC = V(), camF = V();
+  function safe() {
+    const wide = sstep(.95, 1.35, aspect);
+    return { x0: lerp(16, Math.max(W * .4, 440), wide), x1: lerp(W - 60, W - 74, wide), y0: lerp(70, 74, wide), y1: lerp(Math.min(H * .6, H - 250), H - 56, wide), wide: wide };
+  }
+  function frameCam(t) {
+    const F = camF.copy(camRight).multiplyScalar(camK[0](t)).addScaledVector(camUp, camK[1](t)), ex = Math.exp(camK[2](t)), ey = Math.exp(camK[3](t));
+    const r = safe();
+    K = Math.min((r.x1 - r.x0) / (2 * ex), (r.y1 - r.y0) / (2 * ey));
+    camC.copy(F).addScaledVector(camRight, -((r.x0 + r.x1) / 2 - W / 2) / K).addScaledVector(camUp, ((r.y0 + r.y1) / 2 - H / 2) / K);
+    const hw = W / 2 / K, hh = H / 2 / K;
+    camera.left = -hw; camera.right = hw; camera.top = hh; camera.bottom = -hh; camera.updateProjectionMatrix();
+    camera.position.copy(camC).addScaledVector(camDir, 3000); camera.updateMatrixWorld();
+    return r;
+  }
+
+  // ---------- chrome: captions, the stop map, the end ----------
+  let capNow = -1, stopNow = -1;
+  function chrome(t) {
+    let c = -1; for (let i = 0; i < CAPT.length; i++) if (t >= CAPT[i][0] && t <= CAPT[i][1]) c = i;
+    if (c !== capNow) { capNow = c; caps.forEach((el, i) => el.classList.toggle('on', i === c)); }
+    let r = 0; for (let i = 0; i < ANCH.length; i++) if (t >= ANCH[i] - .6) r = i;
+    if (r !== stopNow) { stopNow = r; stops.forEach((el, i) => { el.classList.toggle('on', i === r); el.classList.toggle('done', i < r); }); }
+    let f = 0; for (let i = 0; i < ANCH.length - 1; i++) if (t >= ANCH[i]) f = i + clamp((t - ANCH[i]) / (ANCH[i + 1] - ANCH[i]), 0, 1);
+    mapEl.style.setProperty('--p', (f / (ANCH.length - 1)).toFixed(4));
+    endEl.classList.toggle('on', t > TC + .6); stage.classList.toggle('fin', t > TC - .4);
+  }
+
+  // ---------- controls: it plays by itself; scrolling, swiping and the stops steer it ----------
+  let T0 = 0, shown = 0, hold = 0, glide = null, first = true;
+  function seek(to) { glide = { a: T0, b: clamp(to, 0, TEND), k: 0 }; hold = 0; }
+  function nudge(dt) { glide = null; T0 = clamp(T0 + dt, 0, TEND); hold = 1.3; }
+  stops.forEach((b, i) => b.addEventListener('click', () => { seek(ANCH[i]); if (!reduce) setPlaying(true); }));
+  playBtn.addEventListener('click', () => { if (!playing && T0 >= TEND - .05) T0 = 0; setPlaying(!playing); });
+  $('#again').addEventListener('click', () => { seek(0); setPlaying(!reduce); });
+  stage.addEventListener('wheel', (e) => { if (!plain.hidden) return; e.preventDefault(); nudge(clamp(e.deltaY, -160, 160) * .012); }, { passive: false });
+  let touchY = null;
+  stage.addEventListener('touchstart', (e) => { if (e.target.closest('button, a, #plain')) { touchY = null; return; } touchY = e.touches[0].clientY; }, { passive: true });
+  stage.addEventListener('touchmove', (e) => { if (touchY === null) return; e.preventDefault(); const y = e.touches[0].clientY; nudge((touchY - y) * .03); touchY = y; }, { passive: false });
+  stage.addEventListener('touchend', () => { touchY = null; });
+  stage.addEventListener('keydown', (e) => {
+    if (!plain.hidden) return;
+    const next = () => { for (let i = 0; i < ANCH.length; i++) if (ANCH[i] > T0 + .3) return seek(ANCH[i]); seek(TEND); };
+    const prev = () => { for (let i = ANCH.length - 1; i >= 0; i--) if (ANCH[i] < T0 - .8) return seek(ANCH[i]); seek(0); };
+    if (e.key === ' ') { if (e.target === stage) { e.preventDefault(); playBtn.click(); } }
+    else if (e.key === 'ArrowDown' || e.key === 'ArrowRight' || e.key === 'PageDown') { e.preventDefault(); next(); }
+    else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); prev(); }
+  });
+
+  let prCap = 2, adaptive = true, slowN = 0, slowT = 0;
+  function resize() {
+    W = stage.clientWidth || 1; H = stage.clientHeight || 1; aspect = W / H;
+    const pr = Math.min(window.devicePixelRatio || 1, prCap); renderer.setPixelRatio(pr); renderer.setSize(W, H, false);
+    renderer.getDrawingBufferSize(G.uRes.value); G.uPx.value = G.uRes.value.x / W;
+  }
+  window.addEventListener('resize', resize); resize();
+
+  const UP = V(0, 1, 0), QS = new THREE.Quaternion();
+  function spin(b, pl, a) { b.mesh.quaternion.setFromUnitVectors(UP, pl.n).multiply(QS.setFromAxisAngle(UP, a)); }
+  // ---------- one frame ----------
+  const pos = V(), p2 = V(), tmp = V(), Ls = V(), Lc = V();
+  let time = 0, last = performance.now();
+  // one light for a planet and its company: the planet is shadowed by its moons (and ring), the moons by the planet
+  function light(sys, planet, moons, phc) {
+    lightAt(sys.c, Ls, PHI); lightAt(sys.c, Lc, phc);
+    [planet].concat(moons).forEach((b) => { b.u.uL.value.copy(Ls); b.u.uLc.value.copy(Lc); });
+    for (let i = 0; i < 4; i++) { const m = moons[i]; if (m) planet.u.uCast.value[i].set(m.mesh.position.x, m.mesh.position.y, m.mesh.position.z, m.mesh.scale.x); }
+    moons.forEach((m) => { m.u.uCast.value[0].set(sys.c.x, sys.c.y, sys.c.z, planet.mesh.scale.x); });
+  }
+  function frame(now, snap) {
+    const raw = (now - last) / 1000, dt = Math.min(.05, raw); last = now; if (!reduce) time += dt;
+    if (adaptive && !snap) { slowT += raw; if (++slowN >= 50) { if (slowT / slowN > .027 && prCap > 1) { prCap = Math.max(1, prCap - .35); resize(); } slowN = 0; slowT = 0; } }
+    if (glide) { glide.k = Math.min(1, glide.k + dt / 1.3); T0 = lerp(glide.a, glide.b, ease(glide.k)); if (glide.k >= 1) glide = null; }
+    else if (hold > 0) hold -= dt;
+    else if (playing) { T0 = Math.min(TEND, T0 + dt); if (T0 >= TEND) setPlaying(false); }
+    shown = snap || first ? T0 : shown + (T0 - shown) * (1 - Math.exp(-dt * 9));
+    const t = shown; G.uTime.value = time;
+
+    // colour of the field
+    let pi = 0; while (pi < PAL.length - 2 && PAL[pi + 1][0] < t) pi++;
+    const pa = PAL[pi], pb = PAL[pi + 1], pk = ease(clamp((t - pa[0]) / (pb[0] - pa[0]), 0, 1));
+    G.uTop.value.setRGB(lerp(pa[1][0], pb[1][0], pk), lerp(pa[1][1], pb[1][1], pk), lerp(pa[1][2], pb[1][2], pk));
+    G.uBot.value.setRGB(lerp(pa[2][0], pb[2][0], pk), lerp(pa[2][1], pb[2][1], pk), lerp(pa[2][2], pb[2][2], pk));
+
+    const r = frameCam(t);
+    // the stars drift more slowly than the drawing
+    const cs = scr(camC); bgMat.uniforms.uPar.value.set(cs[0] * 3, cs[1] * 3);
+
+    // the close: the system becomes one drawing of thin lines and small lit points
+    const draw = sstep(TC - .8, TC + 1.4, t);
+    bodies.forEach((b) => { b.u.uDraw.value = draw; b.mesh.scale.setScalar(lerp(b.r, b.dot / K, draw)); });
+    ringMat.uniforms.uA.value = 1 - draw; ringMesh.visible = draw < .99; ringMat.depthWrite = draw < .01;
+    stopDots.u.uOp.value = draw; stopDots.p.visible = draw > .01;
+
+    // the planets, and the light on them
+    spin(ice, PF1, t * .05); spin(ringed, PL2, t * .04); spin(banded, PL3, t * .06); spin(blue, PL4, t * .09);
+    upd1(t); upd2(t); upd3(t); upd4(t);
+    light(S1, ice, [moon1], PHC[0]); light(S2, ringed, [moon2], PHC[1]); light(S3, banded, moons3, PHC[2]); light(S4, blue, [moon4], PHC[3]);
+    ringMat.uniforms.uLc.value.copy(ringed.u.uLc.value);
+    lights.u.uSize.value = clamp(K * 1.5, 3.5, 9);
+    sunMat.uniforms.uDraw.value = draw; sunMat.uniforms.uPxW.value = 1 / K; sunMat.uniforms.uRot.value = time * .02;
+    sunMesh.scale.setScalar(SUN_R * 6.8 * lerp(1, .55, draw));
+    helio.u.uOp.value = lerp(.3, .38, draw);
+
+    // the comet
+    const s = cometS(t); pathAt(s, pos); pathAt(s + 1.5, p2);
+    const hs = Math.max(1.7, 11 / K); head.position.copy(pos); head.scale.setScalar(hs * 2);
+    const glowV = GLOW(t); headMat.uniforms.uGlow.value = glowV; dust.u.uGlow.value = glowV; ion.u.uGlow.value = glowV;
+    const sp = scr(pos), ss = scr(SUN); let dx = sp[0] - ss[0], dy = sp[1] - ss[1]; { const l = Math.hypot(dx, dy) || 1; dx /= l; dy /= l; }
+    const vv = scr(p2); let vx = vv[0] - sp[0], vy = vv[1] - sp[1]; { const l = Math.hypot(vx, vy) || 1; vx /= l; vy /= l; }
+    // the dust tail lags behind the motion: it bends to the side the comet is leaving
+    const cr = vx * dy - vy * dx, sd = cr >= 0 ? 1 : -1, bend = .12 + .2 * Math.min(1, Math.abs(cr) * 1.5);
+    const len = TLEN(t) / K, wd = len * .095 + .5 / K;
+    dust.set(pos, [dx, dy], [-dy * -sd, dx * -sd], len, wd, bend);
+    ion.set(pos, [dx, dy], [0, 0], len * 1.12, wd * .3, 0);
+    trail.u.uShow.value.set(0, s - hs * .5, 0, 2.5); trail.u.uOp.value = lerp(.62, .8, draw); trail.u.uW.value = lerp(1.3, 1.5, draw);
+    aheadU.uShow.value.set(s + hs * .6, 1e9, 4, 0); aheadU.uOp.value = .7 * sstep(TC - .2, TC + 1.4, t); ahead.visible = aheadU.uOp.value > .01;
+    aheadU.uDash.value.z = -time * .15;
+
+    // the '50+' beside the belt
+    const tagA = .95 * sstep(.55, 1, RES(3, t)) * (1 - sstep(TS - 1.6, TS - .4, t));
+    if (tagA > .01) { onCirc(tmp, S4.c, R4 * 1.14, PL4, 2.75); tmp.sub(camC); const x = W / 2 + tmp.dot(camRight) * K, y = H / 2 - tmp.dot(camUp) * K;
+      tagEl.style.transform = 'translate(' + (x - 30).toFixed(1) + 'px,' + (y - 28).toFixed(1) + 'px)'; }
+    tagEl.style.opacity = tagA.toFixed(3);
+
+    // captions keep a calm ground: the foot of the picture dissolves into the field
+    let capAmt = 0; for (let i = 0; i < CAPT.length; i++) capAmt = Math.max(capAmt, sstep(CAPT[i][0] - 1, CAPT[i][0] + .5, t) * (1 - sstep(CAPT[i][1] - .3, CAPT[i][1] + 1, t)));
+    G.uFoot.value.set(lerp(lerp(.41, .42, r.wide), .35, draw), lerp(.2, .1, r.wide), lerp(.55, .92, capAmt), r.wide > .5 ? .36 : 0);
+
+    chrome(t);
+    renderer.render(scene, camera);
+    first = false;
+  }
+  function loop(now) { frame(now, false); requestAnimationFrame(loop); }
+  setPlaying(!reduce);
+  requestAnimationFrame(loop);
+
+  // Jump straight to a moment (used for checking frames).
+  window.__seek = function (t) { adaptive = false; setPlaying(false); glide = null; hold = 0; T0 = t; frame(performance.now(), true); };
+})();
+</script>
+</body>
+</html>
