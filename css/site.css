@@ -248,6 +248,7 @@ body.menu-open { overflow: hidden; }
 .az-dg { margin-top: 16px; overflow-x: auto; border: 1px solid var(--rule); border-radius: 8px; background: var(--paper); }
 .az-dg svg { width: 100%; min-width: 900px; height: auto; }
 .az-dg.er-w svg { min-width: 760px; }
+.az-dg.genis svg { min-width: 1340px; }
 .az-cap, .az-src { margin-top: 10px; font-size: 14px; color: var(--muted); max-width: 52em; }
 .az-src a { color: var(--accent); }
 .az-hint { display: none; }
