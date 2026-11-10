@@ -33,4 +33,4 @@ python araclar/alan-adi.py --denetle                # yalnızca tutarlılığı 
 
 ## Lisanslar
 
-Sitede stok fotoğraf yoktur; görseller demoların ekran görüntüleridir. Yazı tipleri (Figtree, IBM Plex Mono, Archivo) SIL Open Font License 1.1 ile yerel olarak sunulur.
+Analiz kartlarındaki fotoğraflar Unsplash ve Pexels lisanslıdır. Lab görselleri greendigitalstudio.com'daki uygulama sayfalarından alındı; Ritim oyunu görseli oyunun kendi ekranıdır. Demo görselleri demoların ekran görüntüleridir. Yazı tipleri (Figtree, IBM Plex Mono, Archivo) SIL Open Font License 1.1 ile yerel olarak sunulur.
