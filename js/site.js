@@ -60,30 +60,6 @@
     d.querySelectorAll(".az-sec[id]").forEach(function (s) { so.observe(s); });
   }
 
-  /* ---------- Açılış arka planı: ışık akışı ----------
-     Stüdyo sitesindeki efektin açık zemine uyarlanmış hâli: mavi tonlarında, yavaş ve soluk.
-     Açılış görünmüyorsa durur; hareket azaltma tercihinde site.css çizgileri sabit bırakır. */
-  var plane = d.getElementById("flowPlane");
-  if (plane) {
-    var seed = 11;
-    var rnd = function () { seed = (seed * 9301 + 49297) % 233280; return seed / 233280; };
-    var n = window.innerWidth < 640 ? 30 : 56, html = "";
-    for (var i = 0; i < n; i++) {
-      var x = (i / n * 100 + rnd() * 2).toFixed(2), w = rnd() < 0.3 ? 3 : 2, h = Math.round(60 + rnd() * 180);
-      var c = rnd() < 0.4 ? "29,79,145" : "111,147,198";
-      var o = (0.4 + rnd() * 0.5).toFixed(2), du = (5 + rnd() * 5).toFixed(2), dl = (rnd() * 8).toFixed(2);
-      html += '<span class="fl" style="left:' + x + '%;width:' + w + 'px;opacity:' + o + ';animation-duration:' + du + 's;animation-delay:-' + dl + 's">' +
-        '<i style="height:' + h + 'px;background:linear-gradient(180deg,rgba(' + c + ',0) 0%,rgba(' + c + ',.9) 75%,rgba(' + c + ',1) 100%)"></i></span>';
-    }
-    plane.innerHTML = html;
-    var flow = d.getElementById("flow");
-    if (flow && "IntersectionObserver" in window) {
-      new IntersectionObserver(function (es) {
-        es.forEach(function (e) { flow.classList.toggle("off", !e.isIntersecting); });
-      }).observe(flow);
-    }
-  }
-
   var y = d.getElementById("year");
   if (y) y.textContent = new Date().getFullYear();
 })();
