@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HasarAI Case Study: From Cargo Document Pack to Review-Ready File</title>
+  <meta name="description" content="Design decisions behind HasarAI, our cargo claims assistant: document chain checks, rules-engine deadlines and recovery limits, privacy masking." />
+  <link rel="canonical" href="https://mustafaenderdogan.github.io/blog/en/case-study-hasarai.html" />
+  <meta name="robots" content="index, follow" />
+
+  <meta property="og:title" content="Case Study: HasarAI — From a Cargo Document Pack to a Review-Ready File" />
+  <meta property="og:description" content="Design decisions behind HasarAI, our cargo claims assistant: document chain checks, rules-engine deadlines and recovery limits, privacy masking." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://mustafaenderdogan.github.io/blog/en/case-study-hasarai.html" />
+  <meta property="og:image" content="https://mustafaenderdogan.github.io/assets/img/og-portfolyo.png" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:site_name" content="Mustafa Ender Doğan — İş Analizi Portfolyosu" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Case Study: HasarAI — From a Cargo Document Pack to a Review-Ready File" />
+  <meta name="twitter:description" content="Design decisions behind HasarAI, our cargo claims assistant: document chain checks, rules-engine deadlines and recovery limits, privacy masking." />
+  <meta name="twitter:image" content="https://mustafaenderdogan.github.io/assets/img/og-portfolyo.png" />
+
+  <link rel="alternate" hreflang="tr" href="https://mustafaenderdogan.github.io/blog/vaka-hasarai.html" />
+  <link rel="alternate" hreflang="en" href="https://mustafaenderdogan.github.io/blog/en/case-study-hasarai.html" />
+  <link rel="alternate" hreflang="x-default" href="https://mustafaenderdogan.github.io/blog/vaka-hasarai.html" />
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Case Study: HasarAI — From a Cargo Document Pack to a Review-Ready File",
+  "description": "Design decisions behind HasarAI, our cargo claims assistant: document chain checks, rules-engine deadlines and recovery limits, privacy masking.",
+  "image": "https://mustafaenderdogan.github.io/assets/img/og-portfolyo.png",
+  "datePublished": "2026-10-09",
+  "dateModified": "2026-10-10",
+  "inLanguage": "en",
+  "author": { "@type": "Person", "name": "Mustafa Ender Doğan", "url": "https://mustafaenderdogan.github.io/" },
+  "publisher": { "@type": "Person", "name": "Mustafa Ender Doğan", "url": "https://mustafaenderdogan.github.io/" },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://mustafaenderdogan.github.io/blog/en/case-study-hasarai.html"
+  }
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://mustafaenderdogan.github.io/en/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Blog",
+      "item": "https://mustafaenderdogan.github.io/blog/en/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Case study: HasarAI",
+      "item": "https://mustafaenderdogan.github.io/blog/en/case-study-hasarai.html"
+    }
+  ]
+}
+  </script>
+
+  <link rel="icon" href="/assets/favicon.svg?v=1" type="image/svg+xml" />
+  <link href="/assets/fonts/figtree-inter.css?v=1" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/styles.css?v=1" />
+  <link rel="stylesheet" href="/css/brand.css?v=1" />
+</head>
+<body>
+
+  <header class="nav" id="nav">
+    <div class="container nav-inner">
+      <a href="/en/" class="brand gd-brand" aria-label="Mustafa Ender Doğan, English summary"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="1.5" y="1.5" width="45" height="45" rx="13" fill="#0B0D10" stroke="#D6DCE4" stroke-width="2"/><text x="24" y="31.5" text-anchor="middle" font-size="19" font-weight="700" fill="#FFFFFF">ED</text></svg><span class="gd-bt"><span class="gd-bn">Mustafa Ender Doğan</span><span class="gd-bs">BUSINESS ANALYSIS PORTFOLIO</span></span></a>
+      <nav class="nav-links" id="navLinks">
+        <a href="/en/#cases">Case studies</a>
+        <a href="/en/#experience">Experience</a>
+        <a href="/blog/en/">Blog</a>
+        <a href="https://www.linkedin.com/in/mustafa-ender-do%C4%9Fan-02273b30/" target="_blank" rel="noopener">LinkedIn ↗</a>
+        <a class="lang-btn" href="../vaka-hasarai.html">TR</a>
+      </nav>
+      <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main class="section blog-page">
+    <div class="container">
+      <nav class="breadcrumb" aria-label="breadcrumb">
+        <a href="/en/">Home</a><span>›</span><a href="./">Blog</a><span>›</span><span>Case study: HasarAI</span>
+      </nav>
+
+      <article class="article">
+        <header class="article-head">
+          <span class="tag">Case study · Insurance</span>
+          <h1>Case Study: HasarAI — From a Cargo Document Pack to a Review-Ready File</h1>
+          <div class="article-meta">
+            <time datetime="2026-10-09">October 9, 2026</time>
+            <span>5 min read</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+<p>HasarAI is a cargo (goods in transit) claims assistant I built for insurers, brokers and surveyors. Its purpose in one sentence: turn a scattered document pack into a review-ready file whose deadlines and recovery potential are known. Rather than promoting the product, this article explains the decisions I made while designing it and why.</p>
+
+          <h2>The problem: many documents, little time</h2>
+          <p>In a cargo file the handler's real job is to assess cover and loss. But the file starts with a series of problems: the notice arrives by email, often in English; the invoice, packing list, transport document and delivery receipt come from different people on different days; package counts or weights don't agree. Meanwhile the written notice period against the carrier is only a few days. This preparation is repetitive, rule-bound and mostly about reading text, while deadline and limit arithmetic is pure rules.</p>
+
+          <h2>Design principle: reading by AI, arithmetic by rules, decisions by people</h2>
+          <p>The first decision was what the system will not do. HasarAI never declines a claim or approves payment, and it never uses a language model to calculate deadlines, limits or amounts. A file moves from Notice → Awaiting documents → Under review → Survey → Awaiting approval → Payment approved → Closed; declinature and payment approval can only be done by an authorised person with a written reason.</p>
+
+          <h2>1. First notice: the shipment record</h2>
+          <p>From a Turkish or English notice the system extracts the type of loss, transport mode, transport document number, route, package count, gross weight, damaged portion, delivery date and whether a reservation was noted at delivery. The model's answer must fit a defined schema; anything not in the text stays empty. If the transport mode or delivery date is missing, a targeted question goes to the insured; files still incomplete after three rounds go to a handler.</p>
+
+          <h2>2. The document chain: the same number everywhere</h2>
+          <p>Documents are not sent to the model as images: they are first converted to text and masked on the server, then classified. The documents required for the transport mode and type of loss are listed. Package counts, gross weights, container and seal numbers are compared across documents, and a shortage in the delivery tally is shown as a separate finding. A "said to contain" clause on the bill of lading is caught by a rule-based second check even if the model misses it.</p>
+
+          <h2>3. The deadline calendar: in the rules engine</h2>
+          <p>Notice deadlines and time bars are calculated per regime (CMR, Hague-Visby, Montreal). Under CMR, public holidays of the destination country are excluded; for a country without a calendar only Sundays are excluded and a warning is added to the file. A file two working days from the deadline, or past it, moves to the human-priority queue. Deadlines are recalculated every morning so priorities stay current.</p>
+
+          <h2>4. Recovery estimate: dated rate, decimal precision</h2>
+          <p>The carrier's liability limit is calculated in SDR from the damaged kilograms or packages and converted with a dated rate entered by the handler. The recovery potential is the lower of the loss amount and the limit. If an air notice was missed, the potential is zero; for road and sea the file notes that the burden of proof has shifted. Every estimate is stored as a separate record with its rule version and rate date.</p>
+
+          <h2>5. Data protection: masking and external AI off by default</h2>
+          <p>National ID numbers, tax numbers, phone numbers, IBANs and email addresses are masked by a rule-based layer before any text reaches the model, English documents included. Insured details are encrypted at rest. Use of AI services hosted abroad starts switched off per insurer. I cover this in detail in <a href="generative-ai-insurance-data-privacy.html">Generative AI and Data Privacy in Insurance</a>.</p>
+
+          <h2>6. Traceability and rules</h2>
+          <p>Every AI suggestion is stored with its model and prompt version, every calculation with its rule version; handlers' accept, reject and edit decisions are measured; every status change is written to an immutable audit log. Periods, limits, holiday calendars and document lists are not hard-coded; they live in versioned rule sets per insurer, designed to be signed off by counsel.</p>
+
+          <h2>Why does the demo run in the browser?</h2>
+          <p>The <a href="../../hasarai/">HasarAI demo</a> (interface in Turkish) runs entirely in the browser on synthetic data; nothing is sent to a server. Visitors can pick one of three scenarios (wet cartons, a container short-landed, an air shipment with a missed deadline) or enter their own regime, delivery date and damaged weight to see the deadline calendar and recovery limit.</p>
+
+          <h2>What's next</h2>
+          <p>The next two modules are a cover pre-check that matches the policy clause with the cause of loss and the Incoterms transfer of risk, and HasarAI Verify, a second pair of eyes on survey reports: counted packages against the transport document, cause of loss and its basis, packing assessment and consistency of the depreciation calculation. Here too the output is a finding; the decision stays with people.</p>
+
+          <h2>Lessons from this case</h2>
+          <ul>
+            <li><strong>Draw the line first.</strong> What AI will not do is a more important design decision than what it will.</li>
+            <li><strong>Don't let the model do the arithmetic.</strong> Numbers with legal consequences, such as deadlines and limits, should be calculated by versioned, traceable rules.</li>
+            <li><strong>Don't leave critical signals to a single model.</strong> A rule-based second check for clauses like "said to contain" is cheap and effective.</li>
+            <li><strong>You can't improve what you don't measure.</strong> Timely-notice rate and suggestion acceptance rate are the most honest indicators of whether the system helps.</li>
+          </ul>
+        </div>
+
+        <div class="article-cta">
+          <h3>The full analysis</h3>
+          <p>22 business rules, AI boundaries, requirements, scope decisions and open questions are in the cargo claims case study (in Turkish).</p>
+          <a class="btn btn-primary" href="../../analiz/hasarai.html">Read the analysis (TR) →</a>
+        </div>
+
+        <nav class="article-nav">
+          <a href="./">← All articles</a>
+          <a href="case-study-construction-management-platform.html">Next: Case study: Construction Management Platform →</a>
+        </nav>
+      </article>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <a href="/en/" class="brand gd-brand" aria-label="Mustafa Ender Doğan, English summary"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="1.5" y="1.5" width="45" height="45" rx="13" fill="#0B0D10" stroke="#D6DCE4" stroke-width="2"/><text x="24" y="31.5" text-anchor="middle" font-size="19" font-weight="700" fill="#FFFFFF">ED</text></svg><span class="gd-bt"><span class="gd-bn">Mustafa Ender Doğan</span><span class="gd-bs">BUSINESS ANALYSIS PORTFOLIO</span></span></a>
+      <nav class="footer-links">
+        <a href="/en/#cases">Case studies</a>
+        <a href="/en/#experience">Experience</a>
+        <a href="/blog/en/">Blog</a>
+        <a href="https://www.linkedin.com/in/mustafa-ender-do%C4%9Fan-02273b30/" target="_blank" rel="noopener">LinkedIn ↗</a>
+        <a href="/gizlilik.html#en">Privacy</a>
+      </nav>
+      <p class="footer-copy">© <span id="year"></span> Mustafa Ender Doğan — Business Analysis Portfolio</p>
+    </div>
+  </footer>
+
+  <script src="/js/blog.js?v=1"></script>
+</body>
+</html>
