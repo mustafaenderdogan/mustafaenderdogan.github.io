@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bankasürans Entegrasyonu — İş Analizi Vakası · Mustafa Ender Doğan</title>
+  <meta name="description" content="Temsili vaka: bankasürans kanalında poliçe yaşam döngüsü entegrasyonu ve T-1 ortak veri altyapısı. BPMN, veri modeli, kaynak-hedef eşleme, REST ve Kafka sözleşmesi, Oracle SQL mutabakatı ve UAT planı." />
+  <link rel="canonical" href="https://mustafaenderdogan.github.io/analiz/bankasurans.html" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#0B0D10" />
+  <meta property="og:title" content="Bankasürans Entegrasyonu — İş Analizi Vakası" />
+  <meta property="og:description" content="Teklif, poliçe, zeyil/iptal ve tahsilat verisinin REST, Kafka ve T-1 dosyasıyla iki kurum arasında tek doğruya bağlanması. Temsili vaka." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://mustafaenderdogan.github.io/analiz/bankasurans.html" />
+  <meta property="og:image" content="https://mustafaenderdogan.github.io/assets/img/og-portfolyo.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:locale" content="tr_TR" />
+  <meta property="og:site_name" content="Mustafa Ender Doğan — İş Analizi Portfolyosu" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" href="/assets/favicon.svg?v=1" type="image/svg+xml" />
+  <link rel="icon" href="/assets/favicon-32.png?v=1" type="image/png" sizes="32x32" />
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=1" />
+  <link rel="stylesheet" href="/assets/fonts/portfolyo.css?v=1" />
+  <link rel="stylesheet" href="/css/v2.css?v=1" />
+  <link rel="stylesheet" href="/css/analiz.css?v=1" />
+</head>
+<body class="az">
+
+<header class="hd" id="hd">
+  <div class="wrap hd-in">
+    <a href="/" class="brand" aria-label="Mustafa Ender Doğan, ana sayfa"><svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true"><rect x="1.5" y="1.5" width="45" height="45" rx="13" fill="#0B0D10" stroke="#D6DCE4" stroke-width="2"/><text x="24" y="31.5" text-anchor="middle" font-size="19" font-weight="700" fill="#FFFFFF">ED</text></svg><span class="brand-txt"><span class="brand-name">Mustafa Ender Doğan</span><span class="brand-sub">İŞ ANALİZİ PORTFOLYOSU</span></span></a>
+    <nav class="hd-nav" aria-label="Ana menü">
+      <a href="/#hikaye">Vakalar</a>
+      <a href="/#hakkimda">Hakkımda</a>
+      <a href="/nasil-calisirim.html">Nasıl çalışırım</a>
+      <a href="/blog/">Blog</a>
+      <a href="/#lab">Lab</a>
+      <a href="/en/" class="hd-lang" lang="en" hreflang="en">EN</a>
+    </nav>
+    <div class="hd-act">
+      <a href="https://www.linkedin.com/in/mustafa-ender-do%C4%9Fan-02273b30/" class="btn-ghost hd-cta" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a>
+      <button type="button" class="burger" id="burger" aria-label="Menüyü aç" aria-expanded="false" aria-controls="menu"><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<div class="menu" id="menu" hidden>
+  <nav class="menu-nav" aria-label="Mobil menü">
+    <a href="/#hikaye">Vakalar</a>
+    <a href="/analiz/bankasurans.html">Vaka 01 · Bankasürans</a>
+    <a href="/analiz/hasarai.html">Vaka 02 · Nakliyat</a>
+    <a href="/analiz/buro.html">Vaka 03 · Hukuk</a>
+    <a href="/analiz/isyonetim.html">Vaka 04 · İnşaat</a>
+    <a href="/nasil-calisirim.html">Nasıl çalışırım</a>
+    <a href="/blog/">Blog</a>
+  </nav>
+  <a href="https://www.linkedin.com/in/mustafa-ender-do%C4%9Fan-02273b30/" class="btn-light menu-cta" target="_blank" rel="noopener">LinkedIn profili <span aria-hidden="true">↗</span></a>
+</div>
+
+<main>
+  <section class="az-hero">
+    <img src="/assets/img/v2/sehir.webp" srcset="/assets/img/v2/sehir-800.webp 800w, /assets/img/v2/sehir.webp 1800w" sizes="100vw" alt="" fetchpriority="high" />
+    <div class="az-hero-shade" aria-hidden="true"></div>
+    <div class="wrap az-hero-in">
+      <nav class="az-crumb" aria-label="breadcrumb"><a href="/">Portfolyo</a> › <a href="/#hikaye">Vakalar</a> › Vaka 01 · Bankasürans</nav>
+      <p class="az-call"><strong>Bu vaka temsilidir.</strong> Benzer projelerdeki deneyimime dayanır; kurum adları ve veriler kurgusaldır.</p>
+      <h1 class="az-title">Bir poliçe, iki kurum, tek doğru.</h1>
+      <p class="az-lead">Bir bankanın bankasürans kanalında anlaşmalı sigorta şirketiyle teklif, poliçe, zeyil/iptal ve tahsilat verisini çevrim içi servis, olay ve günlük (T-1) aktarımla ortak bir veri altyapısında buluşturan entegrasyonun analizi. Ağırlık arayüz sözleşmesinde, veri eşlemede ve mutabakatta.</p>
+      <div class="az-acts">
+        <a class="btn-light" href="#problem">Analizi oku <span aria-hidden="true">↓</span></a>
+        <a class="btn-ghost" href="/nasil-calisirim.html">Bu vakadan sprint planı <span aria-hidden="true">→</span></a>
+      </div>
+      <p class="az-note">Kural, gereksinim, hikâye ve test numaraları bu envanter için atanmıştır. Mevzuat atıfları kaynaklıdır ve "doğrulanacak" olarak işaretlidir. Sayfadaki hiçbir değer ölçülmüş sonuç değildir; başarı ölçütleri hedeftir.</p>
+    </div>
+  </section>
+
+  <div class="wrap az-facts"><div class="az-fact"><b>3</b><span>veri yolu: REST, Kafka olayı, T-1 dosyası</span></div><div class="az-fact"><b>24</b><span>iş kuralı envanterde</span></div><div class="az-fact"><b>21</b><span>alan kaynak-hedef eşlemede</span></div><div class="az-fact"><b>13</b><span>UAT senaryosu: pozitif, negatif, sınır</span></div></div>
+
+  <div class="wrap az-body">
+    <nav class="az-toc" aria-label="İçindekiler"><p>Envanter</p><a href="#problem">Problem ve bağlam</a><a href="#paydas">Paydaşlar ve yetki</a><a href="#surec">Süreç (BPMN)</a><a href="#kurallar">İş kuralları</a><a href="#gereksinim">Gereksinimler</a><a href="#hikaye">User story'ler</a><a href="#veri">Veri modeli</a><a href="#esleme">Kaynak-hedef eşleme</a><a href="#servis">Servis sözleşmesi</a><a href="#mutabakat">Mutabakat (SQL)</a><a href="#uat">UAT planı</a><a href="#kapsam">Kapsam dışı</a><a href="#risk">Risk ve açık sorular</a><a href="#kpi">Başarı ölçütleri</a></nav>
+    <div class="az-main">
+
+<section class="az-sec rv" id="problem"><p class="az-k">01 · Problem</p><h2 class="az-h">Satış anında doğru, ertesi gün belirsiz.</h2>
+<p>Banka, anlaşmalı bir sigorta şirketinin hayat ve elementer ürünlerini şube ve mobil kanalda satıyor. Satış anında teklif ve poliçe sigorta şirketinin servisinden alınıyor. Sonrasında poliçenin yaşamı (zeyil, iptal, tahsilat) çoğunlukla sigorta şirketinin sisteminde ilerliyor ve bankaya ertesi gün gelen bir dosyayla yansıyor.</p>
+<p>Sonuç: kanal bir gün boyunca eski durumu görüyor; zaman aşımında poliçenin oluşup oluşmadığı bilinmiyor ve tekrar deneme mükerrer poliçe riski taşıyor; mutabakat Excel'de, ay sonunda yapılıyor; prim ve komisyon farkları geç fark ediliyor.</p>
+<p><strong>Analiz sorusu:</strong> iki kurum arasında poliçe verisinin tek doğrusu nasıl kurulur? Hangi veri çevrim içi, hangisi olayla, hangisi gece dosyasıyla taşınır ve farklar her sabah nasıl yakalanır?</p>
+<div class="az-quote">Her verinin tek sahibi ve tek taşıma yolu olsun: poliçenin sahibi sigorta şirketi, müşterinin sahibi banka. Mutabakat bu iki doğruyu her sabah karşılaştırır.</div></section>
+
+<section class="az-sec rv" id="paydas"><p class="az-k">02 · Paydaşlar</p><h2 class="az-h">Kim neye karar verir, kim neyi değiştiremez?</h2><div class="az-tw"><table class="az-t"><thead><tr><th scope="col">Rol</th><th scope="col">Sorumluluk</th><th scope="col">Temel ihtiyaç</th><th scope="col">Yetki sınırı</th></tr></thead><tbody>
+<tr><td>Bankasürans ürün sahibi (banka)</td><td>Önceliklendirme, kapsam, UAT kabulü</td><td>Kesintisiz satış, güvenilir veri</td><td>Kapsam ve kabul kararı; veri düzeltmez</td></tr>
+<tr><td>Şube ve mobil kanal kullanıcısı</td><td>Teklif, poliçe, iptal talebi</td><td>Hızlı yanıt, anlaşılır hata mesajı</td><td>Yalnız kendi müşterisi; primi değiştiremez</td></tr>
+<tr><td>Bankasürans operasyon</td><td>Mutabakat istisnaları, sigorta şirketiyle yazışma</td><td>Sınıflanmış fark listesi</td><td>Not ekler ve iletir; kaydı değiştiremez (BR-20)</td></tr>
+<tr><td>Entegrasyon ekibi (banka)</td><td>API ağ geçidi, Kafka, dosya yükleme</td><td>Net sözleşme, hata kodları</td><td>Teknik işletim; iş verisini değiştirmez</td></tr>
+<tr><td>Veri ve raporlama ekibi</td><td>Ortak veri alanı, raporlar</td><td>Kararlı şema, zamanında dosya</td><td>Okur; eşleme tablosu değişikliği ürün sahibi onayıyla</td></tr>
+<tr><td>Sigorta şirketi (iş ve BT)</td><td>Ürün kuralları, prim, poliçe, T-1 dosyası</td><td>Bankadan eksiksiz ve doğru veri</td><td>Poliçe kaydının sahibi; bankanın sistemine erişmez</td></tr>
+<tr><td>Bilgi güvenliği ve uyum</td><td>KVKK, sır saklama, paylaşılan alan listesi</td><td>Veri minimizasyonu, denetim izi</td><td>Alan listesini onaylar; onaysız değişiklik yayına çıkmaz</td></tr>
+<tr><td>Komisyon ve muhasebe</td><td>Komisyon tahakkuku</td><td>Mutabık kayıt</td><td>Yalnız mutabık kayıtlar üzerinden (BR-21)</td></tr>
+<tr><td>Müşteri</td><td>—</td><td>Doğru poliçe, zamanında iptal ve iade</td><td>Sistem kullanıcısı değil</td></tr>
+</tbody></table></div></section>
+
+<section class="az-sec rv" id="surec"><p class="az-k">03 · Süreç</p><h2 class="az-h">Her veri için bir yol: çevrim içi, olay, gece dosyası.</h2>
+<div class="az-tw"><table class="az-t"><thead><tr><th scope="col">Veri</th><th scope="col">Yol</th><th scope="col">Gerekçe</th></tr></thead><tbody>
+<tr><td>Teklif, poliçe</td><td>REST, senkron</td><td>Müşteri kanalda bekliyor; yanıt anında gerekir</td></tr>
+<tr><td>Zeyil, iptal, tahsilat durumu</td><td>Olay (Kafka)</td><td>Dakikalar içinde yansıma yeterli; birden çok banka sistemi aynı olayı tüketir</td></tr>
+<tr><td>Günün tüm hareketleri</td><td>T-1 dosyası</td><td>Eksiksizlik ve mutabakat için kesin kaynak; kontrol toplamıyla gelir</td></tr>
+</tbody></table></div>
+<h3 class="az-h3">1 · Mevcut süreç (temsili)</h3>
+<div class="az-dg" tabindex="0" role="region" aria-label="Mevcut süreç BPMN diyagramı, yatay kaydırılabilir"><!--SVG:asis--><svg class="bp" viewBox="0 0 960 504" role="img" aria-labelledby="bpa-t bpa-d" xmlns="http://www.w3.org/2000/svg"><title id="bpa-t">Mevcut süreç (temsili): bankasürans satışı ve gün sonu dosyası</title><desc id="bpa-d">BPMN diyagramı. Banka havuzunda üç kulvar (banka kanalı, banka sistemi, entegrasyon katmanı), ayrı havuzda anlaşmalı sigorta şirketi. Satış: müşteri talebi, bilgi girişi, teklif ve poliçe isteği, noktadan noktaya SOAP çağrısı, sigorta şirketinde teklif ve poliçe üretimi, poliçenin yerel tabloya yazılması ve müşteriye teslim. Gün sonu: sigorta şirketi zeyil ve iptalleri CSV dosyasına yazar, banka dosyayı SFTP&#x27;den alır, operasyon Excel&#x27;de elle eşleştirir, farkları e-postayla sorar; kapanış ay sonunda. Beş numaralı işaret sorun noktalarını gösterir.</desc><defs><marker id="bpa-sf" viewBox="0 0 10 10" refX="9.5" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#D6DCE4"/></marker><marker id="bpa-me" viewBox="0 0 10 10" refX="9.5" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M1,1 L9.5,5 L1,9 z" fill="#090B0E" stroke="#9AA5B3" stroke-width="1.2"/></marker><marker id="bpa-ms" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7"><circle cx="5" cy="5" r="3.4" fill="#090B0E" stroke="#9AA5B3" stroke-width="1.2"/></marker></defs><rect class="bp-pool" x="8" y="8" width="944" height="354"/><rect class="bp-lane" x="34" y="8" width="918" height="118"/><line class="bp-sep" x1="128" y1="8" x2="128" y2="126"/><text class="bp-ln" text-anchor="middle"><tspan x="81" y="71">Banka kanalı</tspan></text><rect class="bp-lane alt" x="34" y="126" width="918" height="118"/><line class="bp-sep" x1="128" y1="126" x2="128" y2="244"/><text class="bp-ln" text-anchor="middle"><tspan x="81" y="189">Banka sistemi</tspan></text><rect class="bp-lane" x="34" y="244" width="918" height="118"/><line class="bp-sep" x1="128" y1="244" x2="128" y2="362"/><text class="bp-ln" text-anchor="middle"><tspan x="81" y="299.5">Entegrasyon</tspan><tspan x="81" y="314.5">katmanı</tspan></text><line class="bp-sep" x1="34" y1="8" x2="34" y2="362"/><text class="bp-pn" text-anchor="middle" transform="translate(25 185) rotate(-90)">BANKA</text><rect class="bp-pool" x="8" y="386" width="944" height="110"/><rect class="bp-lane" x="34" y="386" width="918" height="110"/><line class="bp-sep" x1="128" y1="386" x2="128" y2="496"/><line class="bp-sep" x1="34" y1="386" x2="34" y2="496"/><text class="bp-ln" text-anchor="middle"><tspan x="81" y="437.5">Anlaşmalı</tspan><tspan x="81" y="452.5">sigorta şirketi</tspan></text><text class="bp-pn" text-anchor="middle" transform="translate(25 441) rotate(-90)">SİGORTA</text><circle class="bp-ev" cx="152" cy="67" r="12"/><text class="bp-sm" text-anchor="middle"><tspan x="152" y="93">Talep</tspan></text><rect class="bp-task" x="180" y="42" width="124" height="50" rx="9"/><text class="bp-tx" text-anchor="middle"><tspan x="242" y="64">Müşteri ve ürün</tspan><tspan x="242" y="78">bilgisini gir</tspan></text><polyline class="bp-sf" points="164,67 180,67" marker-end="url(#bpa-sf)"/><rect class="bp-task" x="180" y="160" width="124" height="50" rx="9"/><text class="bp-tx" text-anchor="middle"><tspan x="242" y="182">Teklif / poliçe</tspan><tspan x="242" y="196">isteği oluştur</tspan></text><polyline class="bp-sf" points="242,92 242,160" marker-end="url(#bpa-sf)"/><rect class="bp-task" x="180" y="278" width="124" height="50" rx="9"/><text class="bp-tx" text-anchor="middle"><tspan x="242" y="300">SOAP çağrısı</tspan><tspan x="242" y="314">(noktadan noktaya)</tspan></text><polyline class="bp-sf" points="242,210 242,278" marker-end="url(#bpa-sf)"/><rect class="bp-task" x="180" y="416" width="124" height="50" rx="9"/><text class="bp-tx" text-anchor="middle"><tspan x="242" y="438">Teklifi hesapla,</tspan><tspan x="242" y="452">poliçeyi üret</tspan></text><polyline class="bp-mf" points="224,328 224,416" marker-start="url(#bpa-ms)" marker-end="url(#bpa-me)"/><polyline class="bp-mf" points="260,416 260,328" marker-start="url(#bpa-ms)" marker-end="url(#bpa-me)"/><rect class="bp-task" x="340" y="160" width="124" height="50" rx="9"/><text class="bp-tx" text-anchor="middle"><tspan x="402" y="182">Poliçeyi yerel</tspan><tspan x="402" y="196">tabloya yaz</tspan></text><polyline class="bp-sf" points="304,303 402,303 402,210" marker-end="url(#bpa-sf)"/><rect class="bp-task" x="340" y="42" width="124" height="50" rx="9"/><text class="bp-tx" text-anchor="middle"><tspan x="402" y="64">Poliçeyi müşteriye</tspan><tspan x="402" y="78">teslim et</tspan></text><polyline class="bp-sf" points="402,160 402,92" marker-end="url(#bpa-sf)"/><circle class="bp-ev bp-end" cx="500" cy="67" r="12"/><text class="bp-sm" text-anchor="middle"><tspan x="500" y="93">Poliçe teslim</tspan></text><polyline class="bp-sf" points="464,67 488,67" marker-end="url(#bpa-sf)"/><circle class="bp-ev" cx="560" cy="441" r="12"/><circle class="bp-ev-in" cx="560" cy="441" r="8.5"/><path class="bp-clock" d="M560 435.5 V441 L564 443.5"/><text class="bp-sm" text-anchor="middle"><tspan x="560" y="467">Gün sonu</tspan></text><rect class="bp-task" x="588" y="416" width="124" height="50" rx="9"/><text class="bp-tx" text-anchor="middle"><tspan x="650" y="438">Zeyil ve iptalleri</tspan><tspan x="650" y="452">CSV&#x27;ye yaz</tspan></text><polyline class="bp-sf" points="572,441 588,441" marker-end="url(#bpa-sf)"/><rect class="bp-task" x="588" y="278" width="124" height="50" rx="9"/><text class="bp-tx" text-anchor="middle"><tspan x="650" y="300">Dosyayı SFTP&#x27;den</tspan><tspan x="650" y="314">al, tabloya yükle</tspan></text><polyline class="bp-mf" points="650,416 650,328" marker-start="url(#bpa-ms)" marker-end="url(#bpa-me)"/><text class="bp-ml" x="658" y="378" text-anchor="start">CSV dosyası</text><rect class="bp-task man" x="748" y="160" width="124" height="50" rx="9"/><text class="bp-tag" x="755" y="171">elle</text><text class="bp-tx" text-anchor="middle"><tspan x="810" y="184">Excel&#x27;de elle</tspan><tspan x="810" y="198">eşleştir</tspan></text><polyline class="bp-sf" points="712,303 810,303 810,210" marker-end="url(#bpa-sf)"/><rect class="bp-task" x="748" y="416" width="124" height="50" rx="9"/><text class="bp-tx" text-anchor="middle"><tspan x="810" y="438">Farkları</tspan><tspan x="810" y="452">yanıtla</tspan></text><polyline class="bp-mf" points="790,210 790,416" marker-start="url(#bpa-ms)" marker-end="url(#bpa-me)"/><text class="bp-ml" x="796" y="378" text-anchor="start">e-posta</text><circle class="bp-ev bp-end" cx="912" cy="185" r="12"/><text class="bp-sm" text-anchor="middle"><tspan x="912" y="211">Ay sonu</tspan><tspan x="912" y="223">kapanış</tspan></text><polyline class="bp-sf" points="872,185 900,185" marker-end="url(#bpa-sf)"/><circle class="bp-pin" cx="304" cy="278" r="9"/><text class="bp-pint" x="304" y="282" text-anchor="middle">1</text><circle class="bp-pin" cx="636" cy="374" r="9"/><text class="bp-pint" x="636" y="378" text-anchor="middle">2</text><circle class="bp-pin" cx="712" cy="278" r="9"/><text class="bp-pint" x="712" y="282" text-anchor="middle">3</text><circle class="bp-pin" cx="872" cy="160" r="9"/><text class="bp-pint" x="872" y="164" text-anchor="middle">4</text><circle class="bp-pin" cx="464" cy="160" r="9"/><text class="bp-pint" x="464" y="164" text-anchor="middle">5</text></svg><!--/SVG:asis--></div>
+<p class="az-hint">Diyagram yatay kaydırılabilir.</p>
+<ol class="az-ol"><li>Zaman aşımında poliçenin oluşup oluşmadığı bilinmiyor; tekrar deneme mükerrer poliçe üretebiliyor.</li><li>Sigorta şirketinde yapılan zeyil ve iptal bankaya ancak ertesi gün dosyayla ulaşıyor; kanal bu arada eski durumu görüyor.</li><li>Dosya şeması yazılı değil; tek hatalı satır tüm yüklemeyi durduruyor.</li><li>Mutabakat Excel'de ve ay sonunda yapılıyor; prim ve komisyon farkları geç fark ediliyor.</li><li>Banka müşteri numarası ile sigorta şirketinin müşteri numarası arasında ortak anahtar yok; eşleştirme elle yapılıyor.</li></ol>
+<h3 class="az-h3">2a · Hedef süreç: çevrim içi teklif ve poliçe</h3>
+<div class="az-dg" tabindex="0" role="region" aria-label="Hedef süreç 2a BPMN diyagramı, yatay kaydırılabilir"><!--SVG:tobe-a--><svg class="bp" viewBox="0 0 960 504" role="img" aria-labelledby="bpb-t bpb-d" xmlns="http://www.w3.org/2000/svg"><title id="bpb-t">Hedef süreç 2a: çevrim içi teklif ve poliçe</title><desc id="bpb-d">BPMN diyagramı. Talep, teklif isteği, banka sisteminin yalnız gerekli müşteri alanlarını eklemesi, entegrasyon katmanında POST /teklifler ile şema doğrulaması ve sigorta şirketine iletim, sigorta şirketinde teklif hesabı, kanalda teklifin sunulması. Kabul edilmezse teklif kapanır. Kabul edilirse POST /policeler Idempotency-Key ile çağrılır, sigorta şirketi poliçeyi üretir. Paralel olarak poliçe belgesi müşteriye iletilir ve POLICE_OLUSTU olayı Kafka&#x27;ya yayınlanır; CRM, komisyon ve raporlama olayı tüketerek güncellenir. Zaman aşımında aynı anahtarla en çok üç deneme yapılır.</desc><defs><marker id="bpb-sf" viewBox="0 0 10 10" refX="9.5" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#D6DCE4"/></marker><marker id="bpb-me" viewBox="0 0 10 10" refX="9.5" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M1,1 L9.5,5 L1,9 z" fill="#090B0E" stroke="#9AA5B3" stroke-width="1.2"/></marker><marker id="bpb-ms" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7"><circle cx="5" cy="5" r="3.4" fill="#090B0E" stroke="#9AA5B3" stroke-width="1.2"/></marker></defs><rect class="bp-pool" x="8" y="8" width="944" height="354"/><rect class="bp-lane" x="34" y="8" width="918" height="118"/><line class="bp-sep" x1="128" y1="8" x2="128" y2="126"/><text class="bp-ln" text-anchor="middle"><tspan x="81" y="71">Banka kanalı</tspan></text><rect class="bp-lane alt" x="34" y="126" width="918" height="118"/><line class="bp-sep" x1="128" y1="126" x2="128" y2="244"/><text class="bp-ln" text-anchor="middle"><tspan x="81" y="189">Banka sistemi</tspan></text><rect class="bp-lane" x="34" y="244" width="918" height="118"/><line class="bp-sep" x1="128" y1="244" x2="128" y2="362"/><text class="bp-ln" text-anchor="middle"><tspan x="81" y="299.5">Entegrasyon</tspan><tspan x="81" y="314.5">katmanı</tspan></text><line class="bp-sep" x1="34" y1="8" x2="34" y2="362"/><text class="bp-pn" text-anchor="middle" transform="translate(25 185) rotate(-90)">BANKA</text><rect class="bp-pool" x="8" y="386" width="944" height="110"/><rect class="bp-lane" x="34" y="386" width="918" height="110"/><line class="bp-sep" x1="128" y1="386" x2="128" y2="496"/><line class="bp-sep" x1="34" y1="386" x2="34" y2="496"/><text class="bp-ln" text-anchor="middle"><tspan x="81" y="437.5">Anlaşmalı</tspan><tspan x="81" y="452.5">sigorta şirketi</tspan></text><text class="bp-pn" text-anchor="middle" transform="translate(25 441) rotate(-90)">SİGORTA</text><circle class="bp-ev" cx="152" cy="67" r="12"/><text class="bp-sm" text-anchor="middle"><tspan x="152" y="93">Talep</tspan></text><rect class="bp-task" x="180" y="42" width="124" height="50" rx="9"/><text class="bp-tx" text-anchor="middle"><tspan x="242" y="64">Teklif iste</tspan><tspan x="242" y="78">(şube, mobil)</tspan></text><polyline class="bp-sf" points="164,67 180,67" marker-end="url(#bpb-sf)"/><rect class="bp-task" x="180" y="160" width="124" height="50" rx="9"/><text class="bp-tx" text-anchor="middle"><tspan x="242" y="175">Müşteri verisini</tspan><tspan x="242" y="189">ekle: yalnız</tspan><tspan x="242" y="203">gerekli alanlar</tspan></text><polyline class="bp-sf" points="242,92 242,160" marker-end="url(#bpb-sf)"/><rect class="bp-task" x="180" y="278" width="124" height="50" rx="9"/><text class="bp-tx" text-anchor="middle"><tspan x="242" y="300">POST /teklifler:</tspan><tspan x="242" y="314">şemayı doğrula, ilet</tspan></text><polyline class="bp-sf" points="242,210 242,278" marker-end="url(#bpb-sf)"/><rect class="bp-task" x="180" y="416" width="124" height="50" rx="9"/><text class="bp-tx" text-anchor="middle"><tspan x="242" y="445">Teklifi hesapla</tspan></text><polyline class="bp-mf" points="224,328 224,416" marker-start="url(#bpb-ms)" marker-end="url(#bpb-me)"/><polyline class="bp-mf" points="260,416 260,328" marker-start="url(#bpb-ms)" marker-end="url(#bpb-me)"/><rect class="bp-task" x="340" y="42" width="124" height="50" rx="9"/><text class="bp-tx" text-anchor="middle"><tspan x="402" y="71">Teklifi sun</tspan></text><polyline class="bp-sf" points="304,303 322,303 322,67 340,67" marker-end="url(#bpb-sf)"/><path class="bp-gw" d="M510 49 L528 67 L510 85 L492 67 Z"/><path class="bp-gwm" d="M504 61 L516 73 M516 61 L504 73"/><text class="bp-sm" text-anchor="middle"><tspan x="510" y="45">Kabul?</tspan></text><polyline class="bp-sf" points="464,67 492,67" marker-end="url(#bpb-sf)"/><circle class="bp-ev bp-end" cx="572" cy="67" r="12"/><text class="bp-sm" text-anchor="middle"><tspan x="572" y="93">Teklif kapanır</tspan></text><polyline class="bp-sf" points="528,67 560,67" marker-end="url(#bpb-sf)"/><text class="bp-fl" x="531" y="61" text-anchor="start">Hayır</text><rect class="bp-task" x="448" y="278" width="124" height="50" rx="9"/><text class="bp-tx" text-anchor="middle"><tspan x="510" y="300">POST /policeler</tspan><tspan x="510" y="314">Idempotency-Key</tspan></text><polyline class="bp-sf" points="510,85 510,278" marker-end="url(#bpb-sf)"/><text class="bp-fl" x="516" y="107" text-anchor="start">Evet</text><rect class="bp-task" x="448" y="416" width="124" height="50" rx="9"/><text class="bp-tx" text-anchor="middle"><tspan x="510" y="445">Poliçeyi üret</tspan></text><polyline class="bp-mf" points="492,328 492,416" marker-start="url(#bpb-ms)" marker-end="url(#bpb-me)"/><polyline class="bp-mf" points="528,416 528,328" marker-start="url(#bpb-ms)" marker-end="url(#bpb-me)"/><path class="bp-gw" d="M612 285 L630 303 L612 321 L594 303 Z"/><path class="bp-gwm" d="M612 295 V311 M604 303 H620"/><polyline class="bp-sf" points="572,303 594,303" marker-end="url(#bpb-sf)"/><rect class="bp-task" x="650" y="42" width="124" height="50" rx="9"/><text class="bp-tx" text-anchor="middle"><tspan x="712" y="64">Poliçe belgesini</tspan><tspan x="712" y="78">müşteriye ilet</tspan></text><polyline class="bp-sf" points="612,285 612,67 650,67" marker-end="url(#bpb-sf)"/><circle class="bp-ev bp-end" cx="804" cy="67" r="12"/><text class="bp-sm" text-anchor="middle"><tspan x="804" y="93">Poliçe yürürlükte</tspan></text><polyline class="bp-sf" points="774,67 792,67" marker-end="url(#bpb-sf)"/><rect class="bp-task" x="650" y="278" width="124" height="50" rx="9"/><text class="bp-tx" text-anchor="middle"><tspan x="712" y="300">Olayı yayınla:</tspan><tspan x="712" y="314">POLICE_OLUSTU</tspan></text><polyline class="bp-sf" points="630,303 650,303" marker-end="url(#bpb-sf)"/><path class="bp-store" d="M810 291 a20 6 0 0 0 40 0 a20 6 0 0 0 -40 0 V315 a20 6 0 0 0 40 0 V291"/><text class="bp-sm" text-anchor="middle"><tspan x="830" y="339">Kafka konusu</tspan></text><polyline class="bp-assoc" points="774,303 810,303"/><rect class="bp-task" x="650" y="160" width="124" height="50" rx="9"/><text class="bp-tx" text-anchor="middle"><tspan x="712" y="182">CRM, komisyon ve</tspan><tspan x="712" y="196">raporlama günceller</tspan></text><polyline class="bp-sf" points="712,278 712,210" marker-end="url(#bpb-sf)"/><circle class="bp-ev bp-end" cx="804" cy="185" r="12"/><text class="bp-sm" text-anchor="middle"><tspan x="804" y="211">Kayıtlar güncel</tspan></text><polyline class="bp-sf" points="774,185 792,185" marker-end="url(#bpb-sf)"/><path class="bp-ann" d="M343 248 H334 V282 H343"/><text class="bp-sm"><tspan x="341" y="263">Zaman aşımı: aynı</tspan><tspan x="341" y="276">anahtarla ≤3 deneme</tspan></text><polyline class="bp-assoc" points="338,282 450,280"/></svg><!--/SVG:tobe-a--></div>
+<h3 class="az-h3">2b · Hedef süreç: zeyil ve iptal olayı, T-1 aktarımı, mutabakat</h3>
+<div class="az-dg" tabindex="0" role="region" aria-label="Hedef süreç 2b BPMN diyagramı, yatay kaydırılabilir"><!--SVG:tobe-b--><svg class="bp" viewBox="0 0 960 504" role="img" aria-labelledby="bpc-t bpc-d" xmlns="http://www.w3.org/2000/svg"><title id="bpc-t">Hedef süreç 2b: zeyil ve iptal olayı, T-1 aktarımı ve mutabakat</title><desc id="bpc-d">BPMN diyagramı. Sol: kredi erken kapanınca kanal iptal zeyili talebi oluşturur, entegrasyon katmanı POST /zeyiller ile sigorta şirketine iletir; sigorta şirketi zeyili işler ve olay gönderir; entegrasyon katmanı olayı doğrulayıp Kafka&#x27;ya yazar; banka sistemi olayı tüketir, poliçe kaydı yoksa olayı bekletir. Sağ: gün sonunda sigorta şirketi T-1 dosyasını üretir; entegrasyon katmanı dosyayı alır, doğrular ve ortak veri alanına yükler, hatalı satırları red dosyasıyla geri gönderir; banka sistemi mutabakat kontrollerini çalıştırır. Fark yoksa kayıtlar mutabıktır; fark varsa operasyon istisnayı sınıflar ve sigorta şirketine iletir.</desc><defs><marker id="bpc-sf" viewBox="0 0 10 10" refX="9.5" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#D6DCE4"/></marker><marker id="bpc-me" viewBox="0 0 10 10" refX="9.5" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M1,1 L9.5,5 L1,9 z" fill="#090B0E" stroke="#9AA5B3" stroke-width="1.2"/></marker><marker id="bpc-ms" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7"><circle cx="5" cy="5" r="3.4" fill="#090B0E" stroke="#9AA5B3" stroke-width="1.2"/></marker></defs><rect class="bp-pool" x="8" y="8" width="944" height="354"/><rect class="bp-lane" x="34" y="8" width="918" height="118"/><line class="bp-sep" x1="128" y1="8" x2="128" y2="126"/><text class="bp-ln" text-anchor="middle"><tspan x="81" y="71">Banka kanalı</tspan></text><rect class="bp-lane alt" x="34" y="126" width="918" height="118"/><line class="bp-sep" x1="128" y1="126" x2="128" y2="244"/><text class="bp-ln" text-anchor="middle"><tspan x="81" y="189">Banka sistemi</tspan></text><rect class="bp-lane" x="34" y="244" width="918" height="118"/><line class="bp-sep" x1="128" y1="244" x2="128" y2="362"/><text class="bp-ln" text-anchor="middle"><tspan x="81" y="299.5">Entegrasyon</tspan><tspan x="81" y="314.5">katmanı</tspan></text><line class="bp-sep" x1="34" y1="8" x2="34" y2="362"/><text class="bp-pn" text-anchor="middle" transform="translate(25 185) rotate(-90)">BANKA</text><rect class="bp-pool" x="8" y="386" width="944" height="110"/><rect class="bp-lane" x="34" y="386" width="918" height="110"/><line class="bp-sep" x1="128" y1="386" x2="128" y2="496"/><line class="bp-sep" x1="34" y1="386" x2="34" y2="496"/><text class="bp-ln" text-anchor="middle"><tspan x="81" y="437.5">Anlaşmalı</tspan><tspan x="81" y="452.5">sigorta şirketi</tspan></text><text class="bp-pn" text-anchor="middle" transform="translate(25 441) rotate(-90)">SİGORTA</text><circle class="bp-ev" cx="152" cy="67" r="12"/><text class="bp-sm" text-anchor="middle"><tspan x="152" y="93">Kredi</tspan><tspan x="152" y="105">kapandı</tspan></text><rect class="bp-task" x="180" y="42" width="124" height="50" rx="9"/><text class="bp-tx" text-anchor="middle"><tspan x="242" y="64">İptal zeyili</tspan><tspan x="242" y="78">talebi oluştur</tspan></text><polyline class="bp-sf" points="164,67 180,67" marker-end="url(#bpc-sf)"/><rect class="bp-task" x="180" y="278" width="124" height="50" rx="9"/><text class="bp-tx" text-anchor="middle"><tspan x="242" y="307">POST /zeyiller</tspan></text><polyline class="bp-sf" points="242,92 242,278" marker-end="url(#bpc-sf)"/><rect class="bp-task" x="180" y="416" width="124" height="50" rx="9"/><text class="bp-tx" text-anchor="middle"><tspan x="242" y="438">Zeyili işle,</tspan><tspan x="242" y="452">olayı gönder</tspan></text><polyline class="bp-mf" points="242,328 242,416" marker-start="url(#bpc-ms)" marker-end="url(#bpc-me)"/><rect class="bp-task" x="330" y="278" width="124" height="50" rx="9"/><text class="bp-tx" text-anchor="middle"><tspan x="392" y="300">Olayı al, doğrula,</tspan><tspan x="392" y="314">Kafka&#x27;ya yaz</tspan></text><polyline class="bp-mf" points="290,416 290,374 392,374 392,328" marker-start="url(#bpc-ms)" marker-end="url(#bpc-me)"/><text class="bp-ml" x="398" y="383" text-anchor="start">Olay (webhook)</text><rect class="bp-task" x="330" y="160" width="124" height="50" rx="9"/><text class="bp-tx" text-anchor="middle"><tspan x="392" y="182">Olayı tüket; poliçe</tspan><tspan x="392" y="196">yoksa beklet</tspan></text><polyline class="bp-sf" points="392,278 392,210" marker-end="url(#bpc-sf)"/><circle class="bp-ev bp-end" cx="492" cy="185" r="12"/><text class="bp-sm" text-anchor="middle"><tspan x="492" y="211">Kayıtlar güncel</tspan></text><polyline class="bp-sf" points="454,185 480,185" marker-end="url(#bpc-sf)"/><circle class="bp-ev" cx="540" cy="441" r="12"/><circle class="bp-ev-in" cx="540" cy="441" r="8.5"/><path class="bp-clock" d="M540 435.5 V441 L544 443.5"/><text class="bp-sm" text-anchor="middle"><tspan x="540" y="467">Gün sonu</tspan></text><rect class="bp-task" x="568" y="416" width="124" height="50" rx="9"/><text class="bp-tx" text-anchor="middle"><tspan x="630" y="431">T-1 dosyasını üret:</tspan><tspan x="630" y="445">satır + kontrol</tspan><tspan x="630" y="459">toplamı</tspan></text><polyline class="bp-sf" points="552,441 568,441" marker-end="url(#bpc-sf)"/><rect class="bp-task" x="568" y="278" width="124" height="50" rx="9"/><text class="bp-tx" text-anchor="middle"><tspan x="630" y="293">Dosyayı al ve</tspan><tspan x="630" y="307">doğrula; ortak</tspan><tspan x="630" y="321">veri alanına yükle</tspan></text><polyline class="bp-mf" points="630,416 630,328" marker-start="url(#bpc-ms)" marker-end="url(#bpc-me)"/><rect class="bp-task" x="568" y="160" width="124" height="50" rx="9"/><text class="bp-tx" text-anchor="middle"><tspan x="630" y="175">Mutabakat</tspan><tspan x="630" y="189">kontrollerini</tspan><tspan x="630" y="203">çalıştır</tspan></text><polyline class="bp-sf" points="630,278 630,210" marker-end="url(#bpc-sf)"/><path class="bp-gw" d="M730 167 L748 185 L730 203 L712 185 Z"/><path class="bp-gwm" d="M724 179 L736 191 M736 179 L724 191"/><text class="bp-sm" text-anchor="middle"><tspan x="730" y="162">Fark?</tspan></text><polyline class="bp-sf" points="692,185 712,185" marker-end="url(#bpc-sf)"/><circle class="bp-ev bp-end" cx="730" cy="228" r="12"/><polyline class="bp-sf" points="730,203 730,216" marker-end="url(#bpc-sf)"/><text class="bp-fl" x="737" y="212" text-anchor="start">Yok</text><text class="bp-sm" x="748" y="232">Mutabık</text><rect class="bp-task usr" x="780" y="160" width="124" height="50" rx="9"/><circle class="bp-ico" cx="792" cy="168.5" r="2.6"/><path class="bp-ico" d="M787.5 175.5 q4.5 -6 9 0"/><text class="bp-tx" text-anchor="middle"><tspan x="842" y="184">İstisnayı sınıfla,</tspan><tspan x="842" y="198">sigortaya ilet</tspan></text><polyline class="bp-sf" points="748,185 780,185" marker-end="url(#bpc-sf)"/><text class="bp-fl" x="751" y="178" text-anchor="start">Var</text><circle class="bp-ev bp-end" cx="930" cy="185" r="12"/><text class="bp-sm" text-anchor="middle"><tspan x="930" y="211">Fark</tspan><tspan x="930" y="223">kapandı</tspan></text><polyline class="bp-sf" points="904,185 918,185" marker-end="url(#bpc-sf)"/><rect class="bp-task" x="780" y="416" width="124" height="50" rx="9"/><text class="bp-tx" text-anchor="middle"><tspan x="842" y="438">Red ve fark</tspan><tspan x="842" y="452">bildirimini işle</tspan></text><polyline class="bp-mf" points="680,328 680,374 812,374 812,416" marker-start="url(#bpc-ms)" marker-end="url(#bpc-me)"/><text class="bp-ml" x="690" y="383" text-anchor="start">Red dosyası</text><polyline class="bp-mf" points="894,210 894,416" marker-start="url(#bpc-ms)" marker-end="url(#bpc-me)"/><path class="bp-ann" d="M721 258 H712 V305 H721"/><text class="bp-sm"><tspan x="719" y="273">Kontrol toplamı tutmazsa dosya</tspan><tspan x="719" y="286">bütünüyle reddedilir; satır</tspan><tspan x="719" y="299">hatası red dosyasına yazılır.</tspan></text><polyline class="bp-assoc" points="712,281.5 692,300"/></svg><!--/SVG:tobe-b--></div>
+<p class="az-cap">Gösterim: düz ok sıra akışı, kesik çizgi kurumlar arası mesaj akışı, X'li karo özel karar, artılı karo paralel dallanma, saatli daire zamanlayıcıyla başlayan akış, kalın daire bitiş. "Elle" etiketli görev mevcut durumdaki el işidir; kişi simgeli görev operasyon kullanıcısının görevidir.</p>
+<div class="az-flow"><div class="az-col"><h3>Bugün</h3><ol><li>Teklif ve poliçe noktadan noktaya SOAP çağrısıyla alınıyor; zaman aşımında durum bilinmiyor</li><li>Zeyil ve iptal sigorta şirketinde işleniyor, bankaya ertesi gün CSV dosyasıyla geliyor</li><li>Dosya elle tabloya yükleniyor; hatalı satır yüklemeyi durduruyor</li><li>Operasyon farkları Excel'de eşleştiriyor, e-postayla soruyor</li><li>Mutabakat ve komisyon kapanışı ay sonunda</li></ol></div><div class="az-col to"><h3>Hedef süreç</h3><ol><li>Teklif ve poliçe REST ile; poliçe isteği Idempotency-Key taşır, zaman aşımında aynı anahtarla yeniden denenir</li><li>Giden müşteri alanları sözleşmedeki listeyle sınırlıdır</li><li>Poliçe olayları Kafka'ya yayınlanır; CRM, komisyon ve raporlama dakikalar içinde güncellenir</li><li>Bankadan başlayan iptal (kredi erken kapama) POST /zeyiller ile gider, sonucu olayla döner</li><li>T-1 dosyası kontrol toplamıyla doğrulanır; hatalı satırlar red dosyasıyla geri gider, geçerliler yüklenir</li><li>Mutabakat her sabah çalışır; farklar beş sınıfta operasyonun önüne düşer</li></ol></div></div></section>
+
+<section class="az-sec rv" id="kurallar"><p class="az-k">04 · İş kuralları</p><h2 class="az-h">24 kural; dördü dosyayı, beşi parayı korur.</h2><p>Her kural bir tür ve kaynakla etiketli. "Sözleşme" kuralları arayüz sözleşmesine, "veri" kuralları yükleme ve eşlemeye, "mutabakat" kuralları sabah kontrollerine işlenir.</p><div class="az-tw"><table class="az-t"><thead><tr><th scope="col">ID</th><th scope="col">Kural</th><th scope="col">Tür / kaynak</th></tr></thead><tbody>
+<tr><td class="az-id">BR-01</td><td>Primi sigorta şirketi hesaplar; banka yeniden hesaplamaz, yalnız gösterir ve saklar</td><td>Sözleşme</td></tr>
+<tr><td class="az-id">BR-02</td><td>Süresi dolan teklif poliçeleştirilemez (422 TEKLIF_SURESI_DOLDU); bir teklif yalnız bir kez poliçeleşir</td><td>Sözleşme</td></tr>
+<tr><td class="az-id">BR-03</td><td>Poliçe isteği Idempotency-Key taşır; aynı anahtar ikinci poliçe üretmez, ilk yanıtı döndürür (anahtar 24 saat saklanır, temsili)</td><td>Sözleşme</td></tr>
+<tr><td class="az-id">BR-04</td><td>Eşleştirme anahtarı banka müşteri numarasıdır; TCKN/VKN yalnız doğrulamada kullanılır, ortak veri alanına açık metin yazılmaz (özet + maske)</td><td>Veri · uyum</td></tr>
+<tr><td class="az-id">BR-05</td><td>T-1 dosyasında poliçe no + zeyil no tekildir; tekrar eden ikinci satır yüklenmez, istisna olur</td><td>Veri</td></tr>
+<tr><td class="az-id">BR-06</td><td>Zeyil no 0 ilk tanzimdir, sonrakiler sırayla artar; atlanan numara "eksik zeyil" bulgusudur</td><td>Veri</td></tr>
+<tr><td class="az-id">BR-07</td><td>İptal zeyilinde geçerlilik tarihi ve neden kodu zorunludur</td><td>Sözleşme</td></tr>
+<tr><td class="az-id">BR-08</td><td>Kredi bağlantılı poliçede kredinin erken kapanması iptal zeyilini başlatır; iade primini sigorta şirketi hesaplar</td><td>Ürün · <span class="az-tag o">doğrulanacak</span></td></tr>
+<tr><td class="az-id">BR-09</td><td>Para birimi TRY değilse kur ve kur tarihi zorunludur; banka kuru yeniden hesaplamaz</td><td>Veri</td></tr>
+<tr><td class="az-id">BR-10</td><td>Tutarlar kuruş hassasiyetinde karşılaştırılır; mutabakatta tolerans 0'dır</td><td>Mutabakat</td></tr>
+<tr><td class="az-id">BR-11</td><td>Başlık satırındaki iş tarihi dosya adındaki tarihle aynı olmalı; değilse dosya reddedilir</td><td>Dosya</td></tr>
+<tr><td class="az-id">BR-12</td><td>Kontrol satırındaki adet ve prim toplamı satırlarla tutmazsa dosyanın tamamı reddedilir; kısmi yükleme yapılmaz</td><td>Dosya</td></tr>
+<tr><td class="az-id">BR-13</td><td>Satır düzeyinde hatada geçerli satırlar yüklenir; hatalılar hata koduyla red dosyasına yazılır, sigorta şirketine aynı gün gider</td><td>Dosya</td></tr>
+<tr><td class="az-id">BR-14</td><td>Dosyanın şema sürümü başlıkta yazar; tanınmayan sürüm dosyayı durdurur ve uyarı üretir</td><td>Dosya</td></tr>
+<tr><td class="az-id">BR-15</td><td>Kafka olayları poliçe numarasıyla anahtarlanır; tüketici olay kimliğiyle tekrarı eler</td><td>Sözleşme</td></tr>
+<tr><td class="az-id">BR-16</td><td>Poliçe kaydından önce gelen zeyil olayı en çok 24 saat bekletilir; sonra istisnaya düşer</td><td>Veri</td></tr>
+<tr><td class="az-id">BR-17</td><td>Zaman aşımından sonra durum BEKLEMEDE'dir; kesin durum olayla ya da T-1 dosyasıyla kapanır; kanal aynı teklif için yeni poliçe isteyemez</td><td>Sözleşme</td></tr>
+<tr><td class="az-id">BR-18</td><td>Gün sonu saatleri farklıysa T günündeki kayıt T+1 dosyasında görünebilir; bu fark "zamanlama" sınıfıdır, 1 iş günü içinde kapanırsa hata sayılmaz</td><td>Mutabakat</td></tr>
+<tr><td class="az-id">BR-19</td><td>Fark sınıfları: eksik (bankada var, dosyada yok), fazla (dosyada var, bankada yok), tutar farkı, mükerrer, zamanlama</td><td>Mutabakat</td></tr>
+<tr><td class="az-id">BR-20</td><td>Operasyon kullanıcısı farkı veri üzerinde düzeltemez; sınıflar, not ekler, iletir. Düzeltme kaynağında yapılır ve sonraki dosyayla gelir</td><td>Mutabakat</td></tr>
+<tr><td class="az-id">BR-21</td><td>Komisyon tahakkuku yalnız mutabık (farksız ya da açıklanmış) kayıtlar üzerinden yapılır</td><td>Mutabakat</td></tr>
+<tr><td class="az-id">BR-22</td><td>Sigorta şirketine yalnız ürün için gerekli müşteri alanları gider (izin listesi); şemada olmayan alan isteği reddettirir</td><td>Uyum · <span class="az-tag o">doğrulanacak</span></td></tr>
+<tr><td class="az-id">BR-23</td><td>Ürün kodu eşleme tablosunda olmayan satır yüklenmez, istisnaya düşer; eşleme değişikliği ürün sahibinin onayıyla yapılır</td><td>Veri</td></tr>
+<tr><td class="az-id">BR-24</td><td>Primi banka tahsil eder; sigorta şirketine hesap ya da kart bilgisi gitmez, yalnız tahsilat sonucu gider</td><td>Sözleşme · uyum</td></tr>
+</tbody></table></div></section>
+
+<section class="az-sec rv" id="gereksinim"><p class="az-k">05 · Gereksinimler</p><h2 class="az-h">On fonksiyonel gereksinim, kurallara bağlı.</h2><div class="az-tw"><table class="az-t"><thead><tr><th scope="col">ID</th><th scope="col">Gereksinim</th><th scope="col">Bileşen</th><th scope="col">Kurallar</th></tr></thead><tbody>
+<tr><td class="az-id">FR-01</td><td>Kanal, müşteri ve ürün bilgisiyle sigorta şirketinden çevrim içi teklif alır</td><td>API ağ geçidi</td><td>BR-01, BR-22</td></tr>
+<tr><td class="az-id">FR-02</td><td>Geçerli teklifi Idempotency-Key ile poliçeleştirir, belgeyi kanala iletir</td><td>API ağ geçidi</td><td>BR-02, BR-03, BR-17</td></tr>
+<tr><td class="az-id">FR-03</td><td>Bankadan başlayan zeyil ve iptal taleplerini iletir (kredi erken kapama dahil)</td><td>API ağ geçidi</td><td>BR-07, BR-08</td></tr>
+<tr><td class="az-id">FR-04</td><td>Sigorta şirketinin yaşam döngüsü bildirimlerini alır, doğrular, Kafka'ya yayınlar</td><td>Olay köprüsü</td><td>BR-15, BR-16</td></tr>
+<tr><td class="az-id">FR-05</td><td>T-1 dosyasını alır; dosya ve satır düzeyinde doğrular, ortak veri alanına yükler</td><td>T-1 yükleyici</td><td>BR-05, BR-06, BR-09, BR-11–BR-14, BR-23</td></tr>
+<tr><td class="az-id">FR-06</td><td>Hatalı satırlar için hata kodlu red dosyası üretir ve gönderir</td><td>T-1 yükleyici</td><td>BR-13</td></tr>
+<tr><td class="az-id">FR-07</td><td>Sabah mutabakat kontrollerini çalıştırır, farkları sınıflar</td><td>Mutabakat işi</td><td>BR-10, BR-18, BR-19</td></tr>
+<tr><td class="az-id">FR-08</td><td>İstisna ekranı: farkı görme, not ekleme, sigorta şirketine iletme, kapatma</td><td>Operasyon ekranı</td><td>BR-20</td></tr>
+<tr><td class="az-id">FR-09</td><td>Komisyon tahakkukuna yalnız mutabık kayıtları verir</td><td>Mutabakat işi</td><td>BR-21</td></tr>
+<tr><td class="az-id">FR-10</td><td>Aktarım, olay ve kullanıcı işlemlerinin denetim izini tutar (kim, ne zaman, hangi kayıt)</td><td>Ortak</td><td>BR-04, BR-20</td></tr>
+</tbody></table></div>
+<p style="margin-top:14px"><strong>Fonksiyonel olmayan:</strong> teklif yanıtı p95 ≤ 3 sn (hedef); T-1 yüklemesi ve mutabakat 08:30'dan önce biter (hedef); kişisel veri loglarda maskeli; servisler arası iletişim karşılıklı TLS; her istek korelasyon kimliği taşır.</p></section>
+
+<section class="az-sec rv" id="hikaye"><p class="az-k">06 · User story</p><h2 class="az-h">Sekiz hikâye, kural değerleriyle kabul kriterleri.</h2><div class="az-cards">
+<article class="az-card"><span class="az-id">US-01 · Şube satış temsilcisi</span><h3>Müşterinin kredisine bağlı hayat sigortası için anında teklif almak isterim.</h3><dl class="az-gwt"><dt>Given</dt><dd>Kredisi onaylanmış müşteri, ürün KBH01, zorunlu alanlar tam</dd><dt>When</dt><dd>Teklif istenir</dd><dt>Then</dt><dd>Teklif no, brüt prim, teminatlar ve geçerlilik bitişi görünür; sigorta servisi kapalıysa "şu an teklif alınamıyor" mesajı çıkar, kayıt oluşmaz</dd></dl></article>
+<article class="az-card"><span class="az-id">US-02 · Şube satış temsilcisi</span><h3>Poliçeleştir düğmesine iki kez bassam da tek poliçe oluşsun isterim.</h3><dl class="az-gwt"><dt>Given</dt><dd>Geçerli teklif; aynı Idempotency-Key ile iki istek</dd><dt>When</dt><dd>İkinci istek gelir</dd><dt>Then</dt><dd>İlk yanıttaki poliçe numarası döner; sigorta şirketinde ikinci poliçe oluşmaz (BR-03)</dd></dl></article>
+<article class="az-card"><span class="az-id">US-03 · Kredi operasyon uzmanı</span><h3>Kredi erken kapandığında bağlı poliçenin iptalinin kendiliğinden başlamasını isterim.</h3><dl class="az-gwt"><dt>Given</dt><dd>Kredisi kapanan müşterinin yürürlükte KBH01 poliçesi</dd><dt>When</dt><dd>Kapama işlenir</dd><dt>Then</dt><dd>İptal zeyili isteği gider; sonuç POLICE_IPTAL olayıyla, iade primiyle döner; poliçe bulunamazsa istisna kaydı açılır</dd></dl></article>
+<article class="az-card"><span class="az-id">US-04 · CRM ekibi</span><h3>Sigorta şirketinde yapılan iptalin müşteri kaydına dakikalar içinde yansımasını isterim.</h3><dl class="az-gwt"><dt>Given</dt><dd>Sigorta şirketinde iptal edilen poliçe</dd><dt>When</dt><dd>POLICE_IPTAL olayı yayınlanır</dd><dt>Then</dt><dd>CRM'de durum IPTAL olur; aynı olay ikinci kez gelirse yeniden işlenmez (BR-15)</dd></dl></article>
+<article class="az-card"><span class="az-id">US-05 · Bankasürans operasyon uzmanı</span><h3>Dosyada hatalı satır varsa geri kalanının yüklenmesini isterim.</h3><dl class="az-gwt"><dt>Given</dt><dd>10.000 satırlık T-1 dosyasında 37 satır şema hatalı; kontrol satırı tutuyor</dd><dt>When</dt><dd>Dosya yüklenir</dd><dt>Then</dt><dd>9.963 satır yüklenir; 37 satır hata koduyla red dosyasına yazılır ve sigorta şirketine gider (BR-12, BR-13)</dd></dl></article>
+<article class="az-card"><span class="az-id">US-06 · Bankasürans operasyon uzmanı</span><h3>Sabah mutabakat farklarını sınıflanmış görmek isterim.</h3><dl class="az-gwt"><dt>Given</dt><dd>T-1 dosyası yüklendi, kontroller çalıştı</dd><dt>When</dt><dd>İstisna ekranı açılır</dd><dt>Then</dt><dd>Farklar beş sınıfta adet ve tutarla listelenir; kaydı değiştiremem, not ekleyip iletebilirim (BR-19, BR-20)</dd></dl></article>
+<article class="az-card"><span class="az-id">US-07 · Komisyon ve muhasebe</span><h3>Komisyonun yalnız mutabık kayıtlardan hesaplanmasını isterim.</h3><dl class="az-gwt"><dt>Given</dt><dd>Gün içinde 3 kayıt tutar farkıyla açık</dd><dt>When</dt><dd>Komisyon tahakkuku çalışır</dd><dt>Then</dt><dd>Açık 3 kayıt tahakkuka girmez; fark kapandığı gün girer (BR-21)</dd></dl></article>
+<article class="az-card"><span class="az-id">US-08 · Uyum uzmanı</span><h3>Sigorta şirketine yalnız ürün için gerekli müşteri alanlarının gitmesini isterim.</h3><dl class="az-gwt"><dt>Given</dt><dd>Teklif isteğine şemada olmayan bir alan (ör. e-posta) eklenmiş</dd><dt>When</dt><dd>İstek entegrasyon katmanından geçer</dd><dt>Then</dt><dd>İstek 400 ile reddedilir; giden alanlar sözleşmedeki listeyle sınırlı kalır (BR-22)</dd></dl></article>
+</div></section>
+
+<section class="az-sec rv" id="veri"><p class="az-k">07 · Veri modeli</p><h2 class="az-h">Yedi varlık; poliçe ortada, aktarım kaydı kenarda.</h2><p>Ortak veri alanının mantıksal modeli. T-1 dosyası önce ara tabloya (<code>police_hareket</code>) satır satır yüklenir; mutabakattan sonra ana tablolar güncellenir. Her poliçe kaydı onu son güncelleyen aktarımı gösterir.</p>
+<div class="az-dg er-w" tabindex="0" role="region" aria-label="Veri modeli ER diyagramı, yatay kaydırılabilir"><!--SVG:er--><svg class="er" viewBox="0 0 960 630" role="img" aria-labelledby="erd-t erd-d" xmlns="http://www.w3.org/2000/svg"><title id="erd-t">Veri modeli: müşteri, teklif, poliçe, zeyil, teminat, prim/tahsilat ve aktarım kaydı</title><desc id="erd-d">Varlık-ilişki diyagramı. Müşteri birden çok teklife ve poliçeye sahip olabilir. Teklif en fazla bir poliçeye dönüşür. Poliçenin sıfır ya da çok zeyili, bir ya da çok teminatı, sıfır ya da çok prim/tahsilat kaydı vardır. Aktarım kaydı dosya başına bir satırdır ve yüklediği poliçe kayıtlarıyla ilişkilidir.</desc><rect class="er-box" x="16" y="16" width="232" height="142" rx="8"/><path class="er-hd" d="M16 24 a8 8 0 0 1 8 -8 h216 a8 8 0 0 1 8 8 v26 h-232 z"/><text class="er-en" x="30" y="38">MUSTERI</text><text class="er-k" x="30" y="68">PK</text><text class="er-a pk" x="62" y="68">MUSTERI_ID</text><text class="er-a" x="62" y="88">KIMLIK_OZET</text><text class="er-a" x="62" y="108">AD_SOYAD</text><text class="er-a" x="62" y="128">DOGUM_TARIHI</text><text class="er-a" x="62" y="148">ILETISIM_IZNI</text><rect class="er-box" x="364" y="16" width="232" height="162" rx="8"/><path class="er-hd" d="M364 24 a8 8 0 0 1 8 -8 h216 a8 8 0 0 1 8 8 v26 h-232 z"/><text class="er-en" x="378" y="38">TEKLIF</text><text class="er-k" x="378" y="68">PK</text><text class="er-a pk" x="410" y="68">TEKLIF_NO</text><text class="er-k" x="378" y="88">FK</text><text class="er-a" x="410" y="88">MUSTERI_ID</text><text class="er-a" x="410" y="108">URUN_KODU</text><text class="er-a" x="410" y="128">BRUT_PRIM</text><text class="er-a" x="410" y="148">GECERLILIK_BITIS</text><text class="er-a" x="410" y="168">DURUM</text><rect class="er-box" x="364" y="232" width="232" height="202" rx="8"/><path class="er-hd" d="M364 240 a8 8 0 0 1 8 -8 h216 a8 8 0 0 1 8 8 v26 h-232 z"/><text class="er-en" x="378" y="254">POLICE</text><text class="er-k" x="378" y="284">PK</text><text class="er-a pk" x="410" y="284">POLICE_NO</text><text class="er-k" x="378" y="304">FK</text><text class="er-a" x="410" y="304">TEKLIF_NO</text><text class="er-k" x="378" y="324">FK</text><text class="er-a" x="410" y="324">MUSTERI_ID</text><text class="er-k" x="378" y="344">FK</text><text class="er-a" x="410" y="344">SON_AKTARIM_ID</text><text class="er-a" x="410" y="364">URUN_KODU · KANAL</text><text class="er-a" x="410" y="384">BASLANGIC · BITIS</text><text class="er-a" x="410" y="404">BRUT_PRIM · NET_PRIM</text><text class="er-a" x="410" y="424">DURUM</text><rect class="er-box" x="712" y="232" width="232" height="162" rx="8"/><path class="er-hd" d="M712 240 a8 8 0 0 1 8 -8 h216 a8 8 0 0 1 8 8 v26 h-232 z"/><text class="er-en" x="726" y="254">AKTARIM_KAYDI</text><text class="er-k" x="726" y="284">PK</text><text class="er-a pk" x="758" y="284">AKTARIM_ID</text><text class="er-a" x="758" y="304">IS_TARIHI (T-1)</text><text class="er-a" x="758" y="324">DOSYA_ADI</text><text class="er-a" x="758" y="344">BEYAN_ADET · BEYAN_TUTAR</text><text class="er-a" x="758" y="364">YUKLENEN · HATALI</text><text class="er-a" x="758" y="384">DURUM</text><rect class="er-box" x="16" y="490" width="232" height="122" rx="8"/><path class="er-hd" d="M16 498 a8 8 0 0 1 8 -8 h216 a8 8 0 0 1 8 8 v26 h-232 z"/><text class="er-en" x="30" y="512">ZEYIL</text><text class="er-k" x="30" y="542">PK</text><text class="er-a pk" x="62" y="542">POLICE_NO + ZEYIL_NO</text><text class="er-a" x="62" y="562">ZEYIL_TIPI · NEDEN_KODU</text><text class="er-a" x="62" y="582">GECERLILIK_TARIHI</text><text class="er-a" x="62" y="602">PRIM_FARKI</text><rect class="er-box" x="364" y="490" width="232" height="122" rx="8"/><path class="er-hd" d="M364 498 a8 8 0 0 1 8 -8 h216 a8 8 0 0 1 8 8 v26 h-232 z"/><text class="er-en" x="378" y="512">TEMINAT</text><text class="er-k" x="378" y="542">PK</text><text class="er-a pk" x="410" y="542">POLICE_NO + TEMINAT_KODU</text><text class="er-k" x="378" y="562">FK</text><text class="er-a" x="410" y="562">ZEYIL_NO (boş olabilir)</text><text class="er-a" x="410" y="582">BEDEL</text><text class="er-a" x="410" y="602">PRIM</text><rect class="er-box" x="712" y="490" width="232" height="122" rx="8"/><path class="er-hd" d="M712 498 a8 8 0 0 1 8 -8 h216 a8 8 0 0 1 8 8 v26 h-232 z"/><text class="er-en" x="726" y="512">PRIM_TAHSILAT</text><text class="er-k" x="726" y="542">PK</text><text class="er-a pk" x="758" y="542">POLICE_NO + TAKSIT_NO</text><text class="er-a" x="758" y="562">VADE_TARIHI · TUTAR</text><text class="er-a" x="758" y="582">TAHSIL_TARIHI</text><text class="er-a" x="758" y="602">TAHSIL_TUTARI · DURUM</text><polyline class="er-rel" points="248,62 364,62"/><line class="er-rel" x1="256" y1="55" x2="256" y2="69"/><line class="er-rel" x1="262" y1="55" x2="262" y2="69"/><line class="er-rel" x1="352" y1="62" x2="364" y2="55"/><line class="er-rel" x1="352" y1="62" x2="364" y2="62"/><line class="er-rel" x1="352" y1="62" x2="364" y2="69"/><circle class="er-o" cx="344" cy="62" r="4"/><polyline class="er-rel" points="480,178 480,232"/><line class="er-rel" x1="487" y1="186" x2="473" y2="186"/><line class="er-rel" x1="487" y1="192" x2="473" y2="192"/><line class="er-rel" x1="473" y1="224" x2="487" y2="224"/><circle class="er-o" cx="480" cy="212" r="4"/><polyline class="er-rel" points="132,158 132,300 364,300"/><line class="er-rel" x1="139" y1="166" x2="125" y2="166"/><line class="er-rel" x1="139" y1="172" x2="125" y2="172"/><line class="er-rel" x1="352" y1="300" x2="364" y2="293"/><line class="er-rel" x1="352" y1="300" x2="364" y2="300"/><line class="er-rel" x1="352" y1="300" x2="364" y2="307"/><circle class="er-o" cx="344" cy="300" r="4"/><polyline class="er-rel" points="420,434 420,456 132,456 132,490"/><line class="er-rel" x1="427" y1="442" x2="413" y2="442"/><line class="er-rel" x1="427" y1="448" x2="413" y2="448"/><line class="er-rel" x1="132" y1="478" x2="139" y2="490"/><line class="er-rel" x1="132" y1="478" x2="132" y2="490"/><line class="er-rel" x1="132" y1="478" x2="125" y2="490"/><circle class="er-o" cx="132" cy="470" r="4"/><polyline class="er-rel" points="480,434 480,490"/><line class="er-rel" x1="487" y1="442" x2="473" y2="442"/><line class="er-rel" x1="487" y1="448" x2="473" y2="448"/><line class="er-rel" x1="480" y1="478" x2="487" y2="490"/><line class="er-rel" x1="480" y1="478" x2="480" y2="490"/><line class="er-rel" x1="480" y1="478" x2="473" y2="490"/><line class="er-rel" x1="473" y1="472" x2="487" y2="472"/><polyline class="er-rel" points="540,434 540,456 828,456 828,490"/><line class="er-rel" x1="547" y1="442" x2="533" y2="442"/><line class="er-rel" x1="547" y1="448" x2="533" y2="448"/><line class="er-rel" x1="828" y1="478" x2="835" y2="490"/><line class="er-rel" x1="828" y1="478" x2="828" y2="490"/><line class="er-rel" x1="828" y1="478" x2="821" y2="490"/><circle class="er-o" cx="828" cy="470" r="4"/><polyline class="er-rel" points="712,300 596,300"/><line class="er-rel" x1="704" y1="307" x2="704" y2="293"/><circle class="er-o" cx="692" cy="300" r="4"/><line class="er-rel" x1="608" y1="300" x2="596" y2="307"/><line class="er-rel" x1="608" y1="300" x2="596" y2="300"/><line class="er-rel" x1="608" y1="300" x2="596" y2="293"/><circle class="er-o" cx="616" cy="300" r="4"/><text class="er-c" x="284" y="54">açar</text><text class="er-c" x="492" y="206">dönüşür</text><text class="er-c" x="140" y="292">sahibi</text><text class="er-c" x="628" y="292">son aktarım</text></svg><!--/SVG:er--></div>
+<p class="az-hint">Diyagram yatay kaydırılabilir.</p>
+<p class="az-cap">Gösterim (kaz ayağı): iki çizgi "bir", halka + çizgi "sıfır ya da bir", halka + kaz ayağı "sıfır ya da çok", çizgi + kaz ayağı "bir ya da çok". Örnek: bir poliçenin en az bir teminatı olur; bir teklif en fazla bir poliçeye dönüşür.</p>
+<ul><li><strong>Anahtarlar:</strong> poliçe no sigorta şirketinden gelir; müşteri kimliği bankanındır (BR-04). Zeyil, teminat ve tahsilat poliçe no ile birleşik anahtar taşır.</li><li><strong>Kişisel veri:</strong> kimlik numarası yalnız özet (hash) ve maskeli biçimde; ad soyad ve doğum tarihi ürün gerekli kıldığı için var, iletişim bilgisi yok.</li><li><strong>Tarihçe:</strong> poliçe ve zeyil satırları kaynak değişiklik zamanıyla saklanır; aynı anahtar için en yeni zaman damgası geçerlidir.</li></ul></section>
+
+<section class="az-sec rv" id="esleme"><p class="az-k">08 · Kaynak-hedef eşleme</p><h2 class="az-h">T-1 dosyasının 21 alanı, nereye ve nasıl gider?</h2><p>Kaynak: sigorta şirketinin günlük poliçe hareket dosyası (<code>POLICE_HAREKET_YYYYMMDD.csv</code>, UTF-8, noktalı virgül ayraçlı; H başlık, D satır, T kontrol satırı). Hedef: veri modelindeki varlık ve alan.</p>
+<div class="az-tw"><table class="az-t sm"><thead><tr><th scope="col">Kaynak alan</th><th scope="col">Tip</th><th scope="col">Dönüşüm kuralı</th><th scope="col">Hedef alan</th><th scope="col">Zorunlu</th><th scope="col">Hata davranışı</th></tr></thead><tbody>
+<tr><td><code>POLICE_NO</code></td><td>VARCHAR2(20)</td><td>Boşluk temizlenir, büyük harfe çevrilir</td><td>POLICE.POLICE_NO</td><td>Evet</td><td>Satır red (E01)</td></tr>
+<tr><td><code>ZEYIL_NO</code></td><td>NUMBER(4)</td><td>0 ilk tanzim; &gt; 0 ise zeyil kaydı</td><td>ZEYIL.ZEYIL_NO</td><td>Evet</td><td>Boş ya da negatif: satır red (E02)</td></tr>
+<tr><td><code>ZEYIL_TIPI</code></td><td>CHAR(1)</td><td>T → TANZIM, D → DEGISIKLIK, I → IPTAL</td><td>ZEYIL.ZEYIL_TIPI</td><td>Evet</td><td>Bilinmeyen kod: istisna (E03)</td></tr>
+<tr><td><code>SIGORTA_URUN_KODU</code></td><td>VARCHAR2(6)</td><td>Ürün eşleme tablosu (ör. H210 → KBH01)</td><td>POLICE.URUN_KODU</td><td>Evet</td><td>Eşleme yok: istisna, yüklenmez (E04, BR-23)</td></tr>
+<tr><td><code>BANKA_MUSTERI_NO</code></td><td>NUMBER(12)</td><td>Doğrudan; MUSTERI'de bulunmalı</td><td>POLICE.MUSTERI_ID</td><td>Evet</td><td>Bulunamazsa istisna (E05)</td></tr>
+<tr><td><code>KIMLIK_NO</code></td><td>VARCHAR2(11)</td><td>TCKN/VKN algoritma kontrolü; hedefe SHA-256 özeti yazılır, açık metin yazılmaz</td><td>MUSTERI.KIMLIK_OZET</td><td>Evet</td><td>Geçersiz: satır red (E06, BR-04)</td></tr>
+<tr><td><code>TEKLIF_NO</code></td><td>VARCHAR2(20)</td><td>Doğrudan</td><td>POLICE.TEKLIF_NO</td><td>Zeyil 0 ise</td><td>Eksik: uyarı, yüklenir (W01)</td></tr>
+<tr><td><code>TANZIM_TARIHI</code></td><td>CHAR(8) YYYYMMDD</td><td>TO_DATE; iş tarihinden ileri olamaz</td><td>ZEYIL.TANZIM_TARIHI</td><td>Evet</td><td>Biçim ya da ileri tarih: satır red (E07)</td></tr>
+<tr><td><code>BASLANGIC_TARIHI</code></td><td>CHAR(8)</td><td>TO_DATE</td><td>POLICE.BASLANGIC_TARIHI</td><td>Evet</td><td>Satır red (E07)</td></tr>
+<tr><td><code>BITIS_TARIHI</code></td><td>CHAR(8)</td><td>TO_DATE; başlangıçtan önce olamaz</td><td>POLICE.BITIS_TARIHI</td><td>Evet</td><td>Satır red (E08)</td></tr>
+<tr><td><code>GECERLILIK_TARIHI</code></td><td>CHAR(8)</td><td>Başlangıç–bitiş aralığında olmalı</td><td>ZEYIL.GECERLILIK_TARIHI</td><td>Zeyil &gt; 0 ise</td><td>Aralık dışı: satır red (E09)</td></tr>
+<tr><td><code>BRUT_PRIM</code></td><td>NUMBER(15,2)</td><td>Nokta ondalık; yuvarlama yok; iptal zeyilinde negatif olabilir</td><td>POLICE.BRUT_PRIM / ZEYIL.PRIM_FARKI</td><td>Evet</td><td>Sayı değil: satır red (E10)</td></tr>
+<tr><td><code>NET_PRIM</code></td><td>NUMBER(15,2)</td><td>Mutlak değeri brüt primi aşamaz</td><td>POLICE.NET_PRIM</td><td>Evet</td><td>Kural ihlali: uyarı, yüklenir (W02)</td></tr>
+<tr><td><code>PARA_BIRIMI</code></td><td>CHAR(3)</td><td>ISO 4217; boşsa TRY</td><td>POLICE.PARA_BIRIMI</td><td>Varsayılanlı</td><td>Liste dışı: satır red (E11)</td></tr>
+<tr><td><code>DOVIZ_KURU</code></td><td>NUMBER(12,6)</td><td>TRY ise 1; döviz ise kur tarihiyle birlikte</td><td>POLICE.KUR</td><td>Döviz ise</td><td>Eksik: satır red (E12, BR-09)</td></tr>
+<tr><td><code>POLICE_DURUMU</code></td><td>CHAR(1)</td><td>Y → YURURLUKTE, I → IPTAL, S → SONA_ERDI</td><td>POLICE.DURUM</td><td>Evet</td><td>Bilinmeyen kod: istisna (E13)</td></tr>
+<tr><td><code>IPTAL_NEDEN_KODU</code></td><td>VARCHAR2(3)</td><td>Neden kodu sözlüğü (ör. KEK → KREDI_ERKEN_KAPAMA)</td><td>ZEYIL.NEDEN_KODU</td><td>ZEYIL_TIPI = I ise</td><td>Eksik: satır red (E14, BR-07)</td></tr>
+<tr><td><code>TEMINAT_n_KODU / _BEDELI</code></td><td>VARCHAR2(10) / NUMBER(15,2)</td><td>Tekrarlanan grup (en çok 5) ayrı teminat kayıtlarına bölünür</td><td>TEMINAT.TEMINAT_KODU, TEMINAT.BEDEL</td><td>En az 1</td><td>Hiç teminat yok: satır red (E15)</td></tr>
+<tr><td><code>KOMISYON_TUTARI</code></td><td>NUMBER(15,2)</td><td>Kuruş hassasiyeti; iptal zeyilinde negatif</td><td>POLICE.KOMISYON</td><td>Evet</td><td>Sayı değil: satır red (E10)</td></tr>
+<tr><td><code>KANAL_KODU</code></td><td>VARCHAR2(4)</td><td>Kanal sözlüğü (ör. 0412 → SUBE, MB01 → MOBIL)</td><td>POLICE.SATIS_KANALI</td><td>Evet</td><td>Eşleşmezse BILINMIYOR + uyarı (W03)</td></tr>
+<tr><td><code>DEGISIKLIK_ZAMANI</code></td><td>TIMESTAMP</td><td>Kaynak sistemdeki son değişiklik; aynı anahtar için en yenisi geçerli</td><td>POLICE.KAYNAK_ZAMANI</td><td>Evet</td><td>Daha eski zaman damgası: atlanır, loglanır (W04)</td></tr>
+</tbody></table></div>
+<p class="az-src"><strong>Başlık ve kontrol satırı:</strong> H satırındaki <code>IS_TARIHI</code> ve <code>SEMA_SURUMU</code> → AKTARIM_KAYDI.IS_TARIHI (BR-11, BR-14); T satırındaki <code>KAYIT_ADEDI</code> ve <code>TOPLAM_BRUT_PRIM</code> → AKTARIM_KAYDI.BEYAN_ADET, BEYAN_TUTAR (BR-12). <strong>Hata sınıfları:</strong> E = satır reddedilir ve red dosyasına yazılır; W = satır yüklenir, uyarı üretilir; istisna = yüklenmez, operasyon kuyruğuna düşer.</p></section>
+
+<section class="az-sec rv" id="servis"><p class="az-k">09 · Servis sözleşmesi</p><h2 class="az-h">Üç uç nokta, bir olay konusu, açık hata davranışı.</h2><p>Banka tarafındaki entegrasyon katmanının yayınladığı sözleşme. Kanal uygulamaları yalnız bu uçları çağırır; sigorta şirketine giden çağrıyı katman yapar. Tüm isteklerde <code>X-Korelasyon-Id</code> başlığı zorunlu, gövdeler JSON, tarih ve saatler ISO 8601.</p>
+
+<p class="az-ep"><span class="az-m">POST</span>/bankasurans/v1/teklifler</p>
+<pre class="az-code"><code><span class="c">// İstek</span>
+{
+  "talepNo": "KNL-20260312-000731",
+  "kanal": "SUBE",
+  "subeKodu": "0412",
+  "urunKodu": "KBH01",
+  "musteri": {
+    "bankaMusteriNo": "100245781",
+    "kimlikNo": "&lt;11 haneli TCKN&gt;",
+    "dogumTarihi": "1986-05-14"
+  },
+  "kredi": { "krediRef": "KRD-5512093", "tutar": 450000.00, "paraBirimi": "TRY", "vadeAy": 36 },
+  "baslangicTarihi": "2026-03-12"
+}
+
+<span class="c">// Yanıt · 201 Created</span>
+{
+  "teklifNo": "TKL-2026-004512",
+  "brutPrim": 6875.40,
+  "paraBirimi": "TRY",
+  "teminatlar": [
+    { "kod": "VEFAT", "bedel": 450000.00 },
+    { "kod": "MALULIYET", "bedel": 450000.00 }
+  ],
+  "gecerlilikBitis": "2026-03-19T23:59:59+03:00"
+}</code></pre>
+<ul><li><code>talepNo</code> zorunlu ve kanal içinde tekil; aynı talep ikinci teklif üretmez.</li><li><code>urunKodu</code> ürün listesinde olmalı (BR-23); <code>kimlikNo</code> 11 hane ve TCKN algoritmasına uygun (tüzel kişide 10 haneli VKN).</li><li><code>dogumTarihi</code> hayat ürünlerinde zorunlu; yaş, ürün kuralındaki aralıkta (temsili: 18–65).</li><li><code>kredi.tutar</code> &gt; 0, <code>paraBirimi</code> ISO 4217, <code>vadeAy</code> 1–120 (temsili); <code>baslangicTarihi</code> bugünden önce olamaz.</li><li>Şemada olmayan alan isteği 400 ile reddettirir (izin listesi, BR-22).</li></ul>
+
+<p class="az-ep"><span class="az-m">POST</span>/bankasurans/v1/policeler</p>
+<pre class="az-code"><code><span class="c">// Başlıklar: Idempotency-Key: 6f1c2a7e-0b4d-4c55-9a3e-2d7f91e04b18 · X-Korelasyon-Id: KNL-20260312-000731</span>
+{
+  "teklifNo": "TKL-2026-004512",
+  "onayZamani": "2026-03-12T10:41:07+03:00",
+  "tahsilat": { "yontem": "BANKA_TAHSIL_EDER", "taksitSayisi": 1 },
+  "belgeTeslimKanali": "MOBIL"
+}
+
+<span class="c">// Yanıt · 201 Created (aynı anahtarla tekrar: 200 + Idempotent-Replay: true, aynı gövde)</span>
+{
+  "policeNo": "BNS-2026-000184",
+  "zeyilNo": 0,
+  "durum": "YURURLUKTE",
+  "baslangicTarihi": "2026-03-12",
+  "bitisTarihi": "2029-03-12",
+  "brutPrim": 6875.40,
+  "belgeRef": "DOC-88412"
+}</code></pre>
+<ul><li><code>Idempotency-Key</code> zorunlu (UUID). Aynı anahtar ve aynı gövde ilk yanıtı döndürür; aynı anahtar ve farklı gövde 409 IDEMPOTENCY_CAKISMA (BR-03).</li><li>Teklif geçerli ve kullanılmamış olmalı: süresi dolmuşsa 422 TEKLIF_SURESI_DOLDU, poliçeleşmişse 409 TEKLIF_KULLANILDI (BR-02).</li><li>Tahsilatı banka yapar; istekte hesap ya da kart bilgisi yoktur (BR-24).</li></ul>
+
+<p class="az-ep"><span class="az-m">POST</span>/bankasurans/v1/policeler/{policeNo}/zeyiller</p>
+<pre class="az-code"><code><span class="c">// İstek: kredi erken kapandı, bağlı poliçe iptal ediliyor</span>
+{
+  "zeyilTipi": "IPTAL",
+  "gecerlilikTarihi": "2026-09-30",
+  "nedenKodu": "KREDI_ERKEN_KAPAMA",
+  "krediRef": "KRD-5512093"
+}
+
+<span class="c">// Yanıt · 202 Accepted (kesin sonuç POLICE_IPTAL olayıyla gelir)</span>
+{
+  "islemNo": "ZYL-2026-019733",
+  "durum": "ISLENIYOR",
+  "sonucOlayi": "POLICE_IPTAL"
+}</code></pre>
+<ul><li>Poliçe YURURLUKTE olmalı; <code>gecerlilikTarihi</code> poliçe başlangıç ve bitişi arasında (BR-07).</li><li><code>nedenKodu</code> sözlükte olmalı; KREDI_ERKEN_KAPAMA ise <code>krediRef</code> poliçenin bağlı olduğu krediyle aynı olmalı (BR-08).</li></ul>
+
+<h3 class="az-h3">Hata senaryoları, yeniden deneme ve idempotency</h3>
+<div class="az-tw"><table class="az-t sm"><thead><tr><th scope="col">Senaryo</th><th scope="col">Belirti</th><th scope="col">Sistem davranışı</th><th scope="col">Yeniden deneme</th><th scope="col">Sonuç</th></tr></thead><tbody>
+<tr><td>Zaman aşımı</td><td>Sigorta şirketi 10 sn içinde yanıt vermez; 504</td><td>Kanal "işlem sürüyor" der; durum BEKLEMEDE</td><td>Aynı Idempotency-Key ile 2, 4, 8 sn arayla en çok 3 deneme</td><td>Poliçe oluştuysa aynısı döner, ikincisi oluşmaz; yanıt yoksa kesin durum olayla ya da T-1 ile kapanır (BR-17)</td></tr>
+<tr><td>Mükerrer istek</td><td>Aynı anahtar, aynı gövde</td><td>İlk yanıt aynen döner; <code>Idempotent-Replay: true</code></td><td>Gerekmez</td><td>Tek poliçe</td></tr>
+<tr><td>Anahtar çakışması</td><td>Aynı anahtar, farklı gövde; 409</td><td>İstek reddedilir, alarm üretilir</td><td>Yok</td><td>Veri değişmez; kanal hatası olarak incelenir</td></tr>
+<tr><td>Şema hatası</td><td>Zorunlu alan yok, tip yanlış ya da fazla alan; 400 + hata listesi</td><td>Kanal ilgili alanı işaretler</td><td>Yok; istek düzeltilmeden tekrar edilmez</td><td>Kayıt oluşmaz</td></tr>
+<tr><td>İş kuralı ihlali</td><td>Yaş aralığı dışı, süresi dolmuş teklif; 422 + iş hata kodu</td><td>Kullanıcıya anlaşılır mesaj</td><td>Yok</td><td>Kayıt oluşmaz</td></tr>
+<tr><td>Servis kapalı</td><td>503 ya da bağlantı hatası</td><td>Devre kesici açılır; kanal "şu an teklif alınamıyor" der</td><td>60 sn sonra tek deneme (yarı açık devre)</td><td>Talep kaydı kalır, kullanıcı yeniden dener</td></tr>
+<tr><td>Kısmi başarı: poliçe var, tahsilat talimatı yok</td><td>Poliçe 201; banka tarafında tahsilat adımı hata</td><td>Poliçe iptal edilmez; durum TAHSILAT_BEKLIYOR, olay ve istisna kaydı açılır</td><td>Tahsilat adımı kendi anahtarıyla yeniden denenir</td><td>1 iş günü içinde kurulamazsa operasyon iptal zeyilini başlatır</td></tr>
+<tr><td>Kısmi başarı: dosyada hatalı satır</td><td>Kontrol toplamı tutuyor, bazı satırlar şema dışı</td><td>Geçerli satırlar yüklenir, hatalılar red dosyasına (BR-13)</td><td>Sigorta şirketi düzeltip sonraki dosyada gönderir</td><td>Düzeltilmiş satır mükerrer sayılmaz: anahtar poliçe + zeyil + değişiklik zamanı</td></tr>
+<tr><td>Olay tekrarı</td><td>Kafka en az bir kez teslim eder; aynı olay kimliği ikinci kez</td><td>Tüketici işlenmiş olaylar tablosuna bakar, atlar</td><td>—</td><td>Tek güncelleme (BR-15)</td></tr>
+<tr><td>Sıra dışı olay</td><td>Zeyil olayı poliçe kaydından önce gelir</td><td>Olay bekletilir, 5 dk arayla yeniden denenir</td><td>24 saate kadar otomatik</td><td>Gelmezse istisna (BR-16)</td></tr>
+</tbody></table></div>
+
+<h3 class="az-h3">Olay akışı: Kafka konusu ve olay örneği</h3>
+<ul><li><strong>Konu:</strong> <code>bankasurans.police-olaylari.v1</code>; hatalı olaylar için <code>bankasurans.police-olaylari.v1.dlq</code>.</li><li><strong>Anahtar:</strong> <code>policeNo</code>; aynı poliçenin olayları aynı bölümde, sırasıyla işlenir (BR-15).</li><li><strong>Olay tipleri:</strong> POLICE_OLUSTU, ZEYIL_OLUSTU, POLICE_IPTAL, TAHSILAT_ALINDI, TAHSILAT_IADE.</li><li><strong>Tüketiciler:</strong> CRM, komisyon, muhasebe ve raporlama; her biri kendi tüketici grubuyla.</li><li><strong>Şema:</strong> sürümlüdür; yalnız geriye uyumlu alan eklenir, alan silmek yeni sürüm (v2) ister. Bölüm sayısı ve saklama süresi (temsili: 12 bölüm, 7 gün) kapasite analiziyle kesinleşir.</li></ul>
+<pre class="az-code"><code><span class="c">// anahtar: BNS-2026-000184</span>
+{
+  "olayId": "7d0c9a52-3b8e-4f43-9a51-2f6c0e1b7a10",
+  "olayTipi": "POLICE_IPTAL",
+  "olayZamani": "2026-09-30T14:05:22+03:00",
+  "semaSurumu": 1,
+  "kaynak": "SIGORTA_SIRKETI",
+  "korelasyonId": "KNL-20260930-001922",
+  "policeNo": "BNS-2026-000184",
+  "zeyilNo": 3,
+  "veri": {
+    "durum": "IPTAL",
+    "iptalTarihi": "2026-09-30",
+    "nedenKodu": "KREDI_ERKEN_KAPAMA",
+    "iadePrim": 3120.55,
+    "paraBirimi": "TRY"
+  }
+}</code></pre></section>
+
+<section class="az-sec rv" id="mutabakat"><p class="az-k">10 · Veri doğrulama ve mutabakat</p><h2 class="az-h">Her sabah beş sorgu: adet, tutar, eksik, mükerrer, fark.</h2><p>Sorgular sabah çalışan mutabakat işinin mantığını gösterir (Oracle). Tablolar: <code>aktarim_kaydi</code> dosya başına bir satır (kontrol satırındaki beyan adet ve tutar dahil), <code>police_hareket</code> T-1 dosyasından yüklenen satırlar, <code>police_hareket_red</code> hata koduyla reddedilen satırlar, <code>bns_satis</code> bankanın kendi kayıtları (kanal işlemleri ve tüketilen olaylar). <code>:is_tarihi</code> T-1 iş günüdür; tarih kolonları saat içermez.</p>
+
+<h3 class="az-h3">1 · Dosyadaki her satır ya yüklendi ya reddedildi mi?</h3>
+<pre class="az-code"><code><span class="c">-- Beyan edilen adet = yüklenen + reddedilen satır mı? Satır dönerse okuma ile yükleme arasında kayıp var.
+-- (Kontrol satırının ham dosyayla tutmaması ayrıca yüklemeden önce dosyayı durdurur, BR-12.)</span>
+SELECT a.aktarim_id,
+       a.beyan_adet,
+       y.adet          AS yuklenen,
+       NVL(r.adet, 0)  AS reddedilen
+FROM   aktarim_kaydi a
+JOIN  (SELECT aktarim_id, COUNT(*) AS adet
+       FROM   police_hareket
+       GROUP BY aktarim_id) y
+       ON y.aktarim_id = a.aktarim_id
+LEFT JOIN (SELECT aktarim_id, COUNT(*) AS adet
+           FROM   police_hareket_red
+           GROUP BY aktarim_id) r
+       ON r.aktarim_id = a.aktarim_id
+WHERE  a.is_tarihi = :is_tarihi
+AND    a.beyan_adet &lt;&gt; y.adet + NVL(r.adet, 0);</code></pre>
+
+<h3 class="az-h3">2 · Ürün bazında banka ve sigorta toplamları</h3>
+<pre class="az-code"><code><span class="c">-- İki kaynağı alt alta koyup ürün bazında say ve topla; yalnız farklı olan ürünleri göster.</span>
+SELECT *
+FROM (
+  SELECT urun_kodu,
+         SUM(CASE WHEN kaynak = 'BANKA'   THEN 1 ELSE 0 END)         AS banka_adet,
+         SUM(CASE WHEN kaynak = 'SIGORTA' THEN 1 ELSE 0 END)         AS sigorta_adet,
+         SUM(CASE WHEN kaynak = 'BANKA'   THEN brut_prim ELSE 0 END) AS banka_tutar,
+         SUM(CASE WHEN kaynak = 'SIGORTA' THEN brut_prim ELSE 0 END) AS sigorta_tutar
+  FROM (
+    SELECT urun_kodu, brut_prim, 'BANKA' AS kaynak
+    FROM   bns_satis
+    WHERE  islem_tarihi = :is_tarihi
+    UNION ALL
+    SELECT urun_kodu, brut_prim, 'SIGORTA'
+    FROM   police_hareket
+    WHERE  is_tarihi = :is_tarihi
+  )
+  GROUP BY urun_kodu
+)
+WHERE banka_adet  &lt;&gt; sigorta_adet
+   OR banka_tutar &lt;&gt; sigorta_tutar;</code></pre>
+
+<h3 class="az-h3">3 · Eksik kayıt: bankada var, dosyada yok</h3>
+<pre class="az-code"><code><span class="c">-- NOT EXISTS: alt sorguda NULL olsa da doğru çalışır (NOT IN, NULL görünce hiç satır döndürmez).</span>
+SELECT s.police_no, s.zeyil_no, s.brut_prim
+FROM   bns_satis s
+WHERE  s.islem_tarihi = :is_tarihi
+AND    NOT EXISTS (
+         SELECT 1
+         FROM   police_hareket h
+         WHERE  h.is_tarihi = :is_tarihi
+         AND    h.police_no = s.police_no
+         AND    h.zeyil_no  = s.zeyil_no
+       );
+<span class="c">-- Ters yön (dosyada var, bankada yok) aynı sorgunun tabloları yer değiştirmiş hâlidir.
+-- Bulunan kayıt ertesi günün dosyasında görünürse "zamanlama" sınıfına geçer (BR-18).</span></code></pre>
+
+<h3 class="az-h3">4 · Mükerrer kayıt</h3>
+<pre class="az-code"><code><span class="c">-- Aynı poliçe ve zeyil numarası dosyada birden fazla geldi mi? (BR-05)</span>
+SELECT police_no, zeyil_no, COUNT(*) AS adet
+FROM   police_hareket
+WHERE  is_tarihi = :is_tarihi
+GROUP BY police_no, zeyil_no
+HAVING COUNT(*) &gt; 1;</code></pre>
+
+<h3 class="az-h3">5 · Eşleşen kayıtta tutar farkı</h3>
+<pre class="az-code"><code><span class="c">-- İki tarafta da olan kayıtlarda prim kuruşu kuruşuna aynı mı? Tolerans 0 (BR-10).</span>
+SELECT s.police_no,
+       s.zeyil_no,
+       s.brut_prim               AS banka_prim,
+       h.brut_prim               AS sigorta_prim,
+       s.brut_prim - h.brut_prim AS fark
+FROM   bns_satis s
+JOIN   police_hareket h
+       ON  h.police_no = s.police_no
+       AND h.zeyil_no  = s.zeyil_no
+       AND h.is_tarihi = :is_tarihi
+WHERE  s.islem_tarihi = :is_tarihi
+AND    s.brut_prim &lt;&gt; h.brut_prim;</code></pre>
+<p style="margin-top:14px">Sorguların çıktısı istisna tablosuna sınıfıyla (BR-19) yazılır; operasyon ekranı bu tablodan beslenir. Sorgu 1 satır döndürürse dosya bütünlüğü bozuktur ve diğer kontroller çalıştırılmaz.</p></section>
+
+<section class="az-sec rv" id="uat"><p class="az-k">11 · UAT planı</p><h2 class="az-h">Kabul testi: kim, ne zaman başlar, ne zaman biter?</h2>
+<p><strong>Kapsam:</strong> teklif, poliçe, zeyil ve iptal (kredi erken kapama dahil), olay akışı, T-1 yükleme, mutabakat, istisna ekranı, komisyon tahakkukuna giden veri. <strong>Kapsam dışı:</strong> performans testi (ayrı plan), sızma testi (bilgi güvenliği), sigorta şirketinin iç süreçleri.</p>
+<h3 class="az-h3">Roller</h3>
+<div class="az-tw"><table class="az-t"><thead><tr><th scope="col">Rol</th><th scope="col">Sorumluluk</th></tr></thead><tbody>
+<tr><td>UAT koordinatörü (iş analisti)</td><td>Plan, senaryolar, günlük durum raporu, hata triyajının yürütülmesi</td></tr>
+<tr><td>İş birimi test kullanıcıları</td><td>Bankasürans operasyon ve şube temsilcisi; senaryoları koşar, sonucu ve kanıtı girer</td></tr>
+<tr><td>Sigorta şirketi test ekibi</td><td>Kendi tarafında poliçe ve zeyil oluşturur, T-1 test dosyasını üretir</td></tr>
+<tr><td>Entegrasyon ve geliştirme ekibi</td><td>Ortam, hata düzeltme, yeniden dağıtım</td></tr>
+<tr><td>Ürün sahibi</td><td>Kabul kararı ve yazılı onay</td></tr>
+<tr><td>Bilgi güvenliği ve uyum</td><td>Test verisinin sentetik ya da maskeli olduğunu onaylar</td></tr>
+</tbody></table></div>
+<div class="az-flow"><div class="az-col"><h3>Giriş kriterleri</h3><ol><li>Sistem entegrasyon testi bitti; açık Kritik ya da Yüksek hata yok</li><li>UAT ortamı sigorta şirketinin test ortamına bağlı; uçtan uca bağlantı testi geçti</li><li>Test verisi sentetik ya da maskeli; gerçek müşteri verisi yok</li><li>Senaryolar ürün sahibi ve sigorta şirketiyle gözden geçirildi</li><li>T-1 test dosyası şemaya uygun ve en az bir bilinçli hatalı satır içeriyor</li></ol></div><div class="az-col to"><h3>Çıkış kriterleri</h3><ol><li>Kritik senaryoların tamamı, tüm senaryoların en az %95'i geçti (hedef)</li><li>Açık Kritik ve Yüksek hata yok; Orta hataların geçici çözümü ve takvimi var</li><li>UAT gününün T-1 dosyasında açıklanamayan mutabakat farkı 0</li><li>Ürün sahibi ve sigorta şirketi yazılı onay verdi</li></ol></div></div>
+<h3 class="az-h3">Test senaryoları</h3>
+<div class="az-tw"><table class="az-t sm"><thead><tr><th scope="col">ID</th><th scope="col">Senaryo</th><th scope="col">Tür</th><th scope="col">Veri / ön koşul</th><th scope="col">Beklenen sonuç</th><th scope="col">İz</th></tr></thead><tbody>
+<tr><td class="az-id">UAT-01</td><td>Kredi bağlantılı hayat teklifi al</td><td>Pozitif</td><td>Onaylı kredi, KBH01, tam alan</td><td>201; teklif no, prim, teminat, geçerlilik bitişi</td><td>US-01</td></tr>
+<tr><td class="az-id">UAT-02</td><td>Teklifi poliçeleştir</td><td>Pozitif</td><td>UAT-01 teklifi</td><td>201; poliçe no; POLICE_OLUSTU olayı; ertesi gün T-1 dosyasında</td><td>US-02</td></tr>
+<tr><td class="az-id">UAT-03</td><td>Geçersiz TCKN ile teklif</td><td>Negatif</td><td>Algoritmaya uymayan kimlik no</td><td>400; alan hatası; kayıt oluşmaz</td><td>BR-22</td></tr>
+<tr><td class="az-id">UAT-04</td><td>Aynı anahtarla ikinci poliçe isteği</td><td>Negatif</td><td>UAT-02 isteği aynen tekrar</td><td>200 + Idempotent-Replay; aynı poliçe no; ikinci poliçe yok</td><td>BR-03</td></tr>
+<tr><td class="az-id">UAT-05</td><td>Zaman aşımı</td><td>Negatif</td><td>Sigorta test servisi 15 sn gecikmeli</td><td>3 deneme, durum BEKLEMEDE; kesin durum olay ya da T-1 ile kapanır</td><td>BR-17</td></tr>
+<tr><td class="az-id">UAT-06</td><td>Giriş yaşı sınırları</td><td>Sınır</td><td>Yaş 17, 18, 65, 66 (temsili aralık 18–65)</td><td>17 ve 66 için 422; 18 ve 65 için teklif</td><td>US-01</td></tr>
+<tr><td class="az-id">UAT-07</td><td>Teklif geçerliliğinin son anı</td><td>Sınır</td><td>Bitiş 23:59:59; istek 23:59:30 ve ertesi gün 00:00:30</td><td>İlki poliçe; ikincisi 422 TEKLIF_SURESI_DOLDU</td><td>BR-02</td></tr>
+<tr><td class="az-id">UAT-08</td><td>Kredi erken kapama ile iptal</td><td>Pozitif</td><td>Yürürlükte KBH01, kredi kapanır</td><td>202; POLICE_IPTAL olayı iade primiyle; CRM'de IPTAL</td><td>US-03, US-04</td></tr>
+<tr><td class="az-id">UAT-09</td><td>Dosyada mükerrer satır</td><td>Negatif</td><td>Aynı poliçe + zeyil iki satır</td><td>İkinci satır yüklenmez; mükerrer istisnası</td><td>BR-05</td></tr>
+<tr><td class="az-id">UAT-10</td><td>Kontrol satırı tutmuyor</td><td>Negatif</td><td>Beyan adedi 1 eksik</td><td>Dosya bütünüyle reddedilir; sigorta şirketine bildirim</td><td>BR-12</td></tr>
+<tr><td class="az-id">UAT-11</td><td>Hatalı satırlı dosya</td><td>Negatif</td><td>1.000 satırdan 3'ü şema dışı, kontrol satırı doğru</td><td>997 satır yüklenir; 3 satır red dosyasında hata koduyla</td><td>US-05</td></tr>
+<tr><td class="az-id">UAT-12</td><td>Bir kuruşluk fark</td><td>Sınır</td><td>Bankada 6.875,40; dosyada 6.875,39</td><td>Tutar farkı sınıfında listelenir; komisyona girmez</td><td>BR-10, BR-21</td></tr>
+<tr><td class="az-id">UAT-13</td><td>Sıra dışı zeyil olayı</td><td>Negatif</td><td>Zeyil olayı poliçe olayından önce</td><td>Olay bekletilir; poliçe gelince işlenir; 24 saatte gelmezse istisna</td><td>BR-16</td></tr>
+</tbody></table></div>
+<h3 class="az-h3">Hata önceliklendirme</h3>
+<div class="az-tw"><table class="az-t sm"><thead><tr><th scope="col">Öncelik</th><th scope="col">Tanım</th><th scope="col">Örnek</th><th scope="col">Hedef (UAT içinde)</th></tr></thead><tbody>
+<tr><td>Kritik</td><td>Para, müşteri verisi ya da yasal yükümlülük etkilenir; akış durur</td><td>Mükerrer poliçe; yanlış müşteriye poliçe; başka müşterinin verisi görünür</td><td>Aynı gün düzeltme; UAT o akışta durur</td></tr>
+<tr><td>Yüksek</td><td>Ana akış çalışır ama sonuç yanlış; geçici çözüm yok</td><td>İptal zeyilinde iade tutarı yanlış görünür</td><td>2 iş günü</td></tr>
+<tr><td>Orta</td><td>Geçici çözümü olan hata</td><td>Kanal kodu yanlış eşleniyor, rapor elle düzeltilebiliyor</td><td>Sprint içinde</td></tr>
+<tr><td>Düşük</td><td>Metin, görünüm</td><td>Hata mesajında yazım hatası</td><td>Backlog</td></tr>
+</tbody></table></div>
+<p style="margin-top:14px">Önem (etki) ile öncelik (sıra) ayrı tutulur. Her gün 15 dakikalık triyaj: ürün sahibi, geliştirme lideri ve sigorta şirketi temsilcisi. Sigorta şirketi tarafındaki hata ortak kayıtta izlenir, kapanışı iki taraf birlikte onaylar.</p></section>
+
+<section class="az-sec rv" id="kapsam"><p class="az-k">12 · Kapsam dışı</p><h2 class="az-h">Bilinçli olarak dışarıda bırakılanlar.</h2><ul><li>Ürün tasarımı, fiyatlama ve prim hesabı (sigorta şirketinde kalır, BR-01)</li><li>Hasar ihbarı ve hasar süreçleri</li><li>BES ve yatırım fonu işlemleri (ayrı entegrasyon)</li><li>Çağrı merkezi kanalı (sonraki faz)</li><li>Geçmiş poliçelerin toplu taşınması (ayrı veri taşıma işi)</li><li>Muhasebe fişi üretimi (mevcut muhasebe sistemi; bu iş yalnız girdi sağlar)</li><li>Sigorta şirketinin iç sistem değişiklikleri (yalnız arayüz sözleşmesi bu kapsamda)</li></ul></section>
+
+<section class="az-sec rv" id="risk"><p class="az-k">13 · Risk</p><h2 class="az-h">Riskler, varsayımlar, açık sorular.</h2><div class="az-tw"><table class="az-t"><thead><tr><th scope="col">Risk</th><th scope="col">Etki</th><th scope="col">Önlem</th></tr></thead><tbody>
+<tr><td>Sigorta şirketinin test ve sürüm takvimi bankanınkiyle örtüşmez</td><td>UAT gecikir</td><td>Önce sözleşme: OpenAPI ve örnek dosyayla sahte servis; ortak takvim; haftalık bağımlılık toplantısı</td></tr>
+<tr><td>Dosya şeması habersiz değişir</td><td>Gece yüklemesi durur</td><td>Şema sürümü başlıkta; tanınmayan sürüm dosyayı durdurur ve uyarır (BR-14)</td></tr>
+<tr><td>Gün sonu saat farkları yanlış alarm üretir</td><td>Operasyon yükü artar</td><td>Zamanlama sınıfı ve 1 iş günü pencere (BR-18)</td></tr>
+<tr><td>Paylaşım dayanağı netleşmez</td><td>Paylaşılan alanlar daralır, kapsam değişir</td><td>Alan listesi uyum onayına bağlı; izin listesi (BR-22)</td></tr>
+<tr><td>Kampanya dönemlerinde istek artışı</td><td>Zaman aşımları çoğalır</td><td>Hız sınırı, devre kesici, kapasite testi</td></tr>
+<tr><td>Aynı teklif iki kez poliçeleştirilir</td><td>Mükerrer poliçe, iade süreci</td><td>Idempotency-Key ve tek kullanımlık teklif (BR-02, BR-03)</td></tr>
+</tbody></table></div>
+<p style="margin-top:14px"><strong>Varsayımlar:</strong> sigorta şirketi REST servisleri ve olay bildirimi (webhook) sağlar, sağlayamazsa SOAP için adaptör yazılır; T-1 dosyası her iş günü 06:00'a kadar SFTP'ye bırakılır (temsili saat); banka müşteri numarası sigorta şirketinde saklanır ve dosyada döner; primi banka tahsil eder.</p>
+<p><strong>Açık sorular:</strong> hafta sonu ve resmî tatilde "T-1" hangi günleri kapsar? Dosya gecikirse kim, kaç dakika içinde bilgilendirilir? İade primi hangi kurala dayanıyor: genel şartlar mı, ürün özel şartları mı? Olaylar ne kadar saklanır, yeniden oynatma gerekir mi? Kanal kodu sözlüğünün sahibi kim?</p>
+<h3 class="az-h3">Mevzuat ve uyum</h3>
+<ul><li><strong>6698 sayılı Kişisel Verilerin Korunması Kanunu:</strong> müşteri verisinin sigorta şirketine aktarımının işleme şartları (m.5) ve aktarım hükümleri (m.8) kapsamında değerlendirilmesi uyum ekibinin onayına bağlı. <span class="az-tag o">doğrulanacak</span></li><li><strong>5411 sayılı Bankacılık Kanunu m.73 (sırların saklanması):</strong> banka müşteri bilgisinin üçüncü tarafla paylaşımına getirdiği koşullar ve istisnalar. <span class="az-tag o">doğrulanacak</span></li><li><strong>Kredi bağlantılı sigortada erken kapama ve prim iadesi:</strong> uygulanacak düzenleme ve ürün şartı belirlenmedi; BR-08 bu nedenle açık. <span class="az-tag o">doğrulanacak</span></li></ul>
+<p class="az-src">Kaynaklar: <a href="https://www.mevzuat.gov.tr/mevzuat?MevzuatNo=6698&amp;MevzuatTur=1&amp;MevzuatTertip=5" target="_blank" rel="noopener">6698 sayılı Kanun, mevzuat.gov.tr</a> · <a href="https://www.mevzuat.gov.tr/mevzuat?MevzuatNo=5411&amp;MevzuatTur=1&amp;MevzuatTertip=5" target="_blank" rel="noopener">5411 sayılı Kanun, mevzuat.gov.tr</a>. Madde düzeyindeki yorumlar hukuki görüş değildir.</p></section>
+
+<section class="az-sec rv" id="kpi"><p class="az-k">14 · Başarı</p><h2 class="az-h">Başarı neyle ölçülecek?</h2><p>Aşağıdakilerin hepsi hedeftir; hiçbiri ölçülmüş sonuç değildir. Taban değer olmayan ölçütlerde önce taban ölçülür.</p><div class="az-tw"><table class="az-t"><thead><tr><th scope="col">Ölçüt</th><th scope="col">Hedef</th><th scope="col">Ölçüm kaynağı</th></tr></thead><tbody>
+<tr><td>T-1 yüklemesi ve mutabakatın bitiş saati</td><td>Her iş günü 08:30'dan önce</td><td>Aktarım kaydı zaman damgası</td></tr>
+<tr><td>Açıklanamayan mutabakat farkı (adet ve tutar)</td><td>0</td><td>Mutabakat istisna tablosu</td></tr>
+<tr><td>Mükerrer poliçe</td><td>0</td><td>Sorgu 4 ve idempotency kayıtları</td></tr>
+<tr><td>Sigortada yapılan iptalin banka kayıtlarına yansıma süresi</td><td>≤ 15 dakika</td><td>Olay zamanı → tüketim zamanı</td></tr>
+<tr><td>Teklif yanıt süresi (p95)</td><td>≤ 3 saniye <span class="az-tag o">doğrulanacak</span></td><td>API ağ geçidi ölçümü; sigorta şirketinin servis seviyesine bağlı</td></tr>
+<tr><td>Elle mutabakat eforu</td><td>Önce taban ölçülecek</td><td>Operasyon zaman kaydı</td></tr>
+</tbody></table></div></section>
+
+    </div>
+  </div>
+
+  <section class="az-next">
+    <div class="wrap az-next-in">
+      <div><p>Sıradaki vaka</p><h2>Vaka 02 · Nakliyat sigortası</h2></div>
+      <div class="az-acts"><a class="btn-light" href="/analiz/hasarai.html">Analizi oku →</a><a class="btn-accent" href="https://www.linkedin.com/in/mustafa-ender-do%C4%9Fan-02273b30/" target="_blank" rel="noopener">LinkedIn'den yaz <span aria-hidden="true">↗</span></a></div>
+    </div>
+  </section>
+</main>
+
+<footer class="ft">
+  <div class="wrap ft-in">
+    <div class="ft-brand">
+      <a href="/" class="brand" aria-label="Mustafa Ender Doğan, ana sayfa"><svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true"><rect x="1.5" y="1.5" width="45" height="45" rx="13" fill="#0B0D10" stroke="#D6DCE4" stroke-width="2"/><text x="24" y="31.5" text-anchor="middle" font-size="19" font-weight="700" fill="#FFFFFF">ED</text></svg><span class="brand-txt"><span class="brand-name">Mustafa Ender Doğan</span><span class="brand-sub">İŞ ANALİZİ PORTFOLYOSU</span></span></a>
+      <p>Kıdemli İş Analisti &amp; Scrum Master. Sigorta ve bankasüransta iş birimleri ile teknoloji ekipleri arasında köprü.</p>
+    </div>
+    <div class="ft-col">
+      <p class="ft-h">Vakalar</p>
+      <a href="/analiz/bankasurans.html">Bankasürans entegrasyonu</a>
+      <a href="/analiz/hasarai.html">HasarAI · Nakliyat</a>
+      <a href="/analiz/buro.html">Büro · Hukuk</a>
+      <a href="/analiz/isyonetim.html">İYP · İnşaat</a>
+    </div>
+    <div class="ft-col">
+      <p class="ft-h">Site</p>
+      <a href="/#hakkimda">Hakkımda</a>
+      <a href="/#uzman">Yetkinlikler</a>
+      <a href="/nasil-calisirim.html">Nasıl çalışırım</a>
+      <a href="/blog/">Blog</a>
+      <a href="/en/" lang="en" hreflang="en">English</a>
+      <a href="/gizlilik.html">Gizlilik</a>
+    </div>
+    <div class="ft-col">
+      <p class="ft-h">Demolar</p>
+      <a href="/hasarai/">HasarAI demosu</a>
+      <a href="/buro/">Büro demosu</a>
+      <a href="/isyonetim/">İYP demosu</a>
+    </div>
+    <div class="ft-col">
+      <p class="ft-h">İletişim</p>
+      <a href="https://www.linkedin.com/in/mustafa-ender-do%C4%9Fan-02273b30/" target="_blank" rel="noopener">LinkedIn ↗</a>
+      <a href="/#lab">Lab</a>
+    </div>
+    <p class="ft-copy">© <span id="year">2026</span> Mustafa Ender Doğan — İş Analizi Portfolyosu</p>
+  </div>
+</footer>
+
+<script src="/js/analiz.js?v=1" defer></script>
+</body>
+</html>
