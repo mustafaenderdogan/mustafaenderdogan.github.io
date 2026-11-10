@@ -119,10 +119,10 @@
         <div class="article-body">
 <p>Most of the time spent on a motor claim goes into getting the file ready for a decision. The policyholder describes the incident in two sentences over a messaging app, the date is missing, the other vehicle's plate isn't there, and the accident report arrives three days later. When the claims handler opens the file, a large part of the job is chasing what's missing.</p>
 
-          <p>Generative AI is genuinely useful for this preparation work. Still, "let's put AI into claims" doesn't say much on its own, because the level of risk is different at each step of the process and the role AI can take changes with it. Below I go through a motor claim step by step and look at what can be handed over and what should stay with the expert.</p>
+          <p>Generative AI is genuinely useful for this preparation work. Still, "let's put AI into claims" doesn't say much on its own, because the level of risk is different at each step of the process and the role AI can take changes with it. The sections below go through a motor claim step by step and look at what can be handed over and what should stay with the expert.</p>
 
           <h2>The line between preparation and decision</h2>
-          <p>Accepting from the start that AI will sometimes be wrong makes the design simpler. If the model extracts a field incorrectly, the handler fixes it in seconds. A wrong rejection is a different matter, because it turns into a complaint, reputational damage and regulatory risk. That's why I would draw the line like this:</p>
+          <p>Accepting from the start that AI will sometimes be wrong makes the design simpler. If the model extracts a field incorrectly, the handler fixes it in seconds. A wrong rejection is a different matter, because it turns into a complaint, reputational damage and regulatory risk. That's why the line is best drawn like this:</p>
           <ul>
             <li><strong>Can be handed over:</strong> extracting information from text, spotting gaps, classifying documents, flagging inconsistencies, suggesting priority.</li>
             <li><strong>Can support, cannot decide:</strong> coverage pre-checks, payment amount suggestions, suspicious-file flags.</li>
@@ -139,7 +139,7 @@
 
           <h2>2. Filling in missing information</h2>
           <p>When a mandatory field is missing, the system can ask the policyholder a targeted question instead of sending a generic "please complete your details": "What time did it happen?" or "Do you know the other vehicle's plate?" That alone cuts down the back-and-forth.</p>
-          <p>The loop needs a limit, though. A file that is still incomplete after two or three rounds should go to a human handler, because in my view leaving a policyholder stuck in a long exchange with a machine is worse than having an incomplete file.</p>
+          <p>The loop needs a limit, though. A file that is still incomplete after two or three rounds should go to a human handler, because leaving a policyholder stuck in a long exchange with a machine is worse than having an incomplete file.</p>
 
           <h2>3. Prioritising injury claims</h2>
           <p>A file involving injury or death shouldn't wait in the same queue as a cracked windscreen. The model usually picks up injury details in the text, but "usually" isn't good enough here. A rule-based second check (phrases such as "injured", "ambulance", "hospital") catches what the model misses and moves the file into a human-priority queue. Moving a file with no injury up the queue by mistake costs a little time, whereas an injury claim left waiting is a serious failure. The check should be built with that in mind.</p>
@@ -166,7 +166,7 @@
           <p>With this record you can show what happened when a dispute comes in. You can also measure which suggestions are actually accepted and use that to improve the system.</p>
 
           <h2>Versioned rule sets</h2>
-          <p>Which fields are mandatory, which questions are asked and which documents each claim type requires vary from insurer to insurer, and even between agencies. If they are hard-coded, every change needs a software release. I prefer to keep them in configuration as versioned rule sets. The operations team can then change the process themselves, and each file records which rule version it was processed under.</p>
+          <p>Which fields are mandatory, which questions are asked and which documents each claim type requires vary from insurer to insurer, and even between agencies. If they are hard-coded, every change needs a software release. It is better to keep them in configuration as versioned rule sets. The operations team can then change the process themselves, and each file records which rule version it was processed under.</p>
 
           <h2>How to measure it</h2>
           <p>Whether the AI "worked" should be answered with a few numbers. For a pilot, these three are a good start:</p>
@@ -178,12 +178,12 @@
           <p>Keep the pilot small, with one line of business, one claim type and a few dozen anonymised historical files, and don't expand the scope until the results are clear.</p>
 
           <h2>Conclusion</h2>
-          <p>If you are evaluating a product or a project against the steps in this article, I think the first thing to check is the authority boundary: can the model reject a claim or approve a payment on its own? If it can, fix that first, however good the other features are.</p>
+          <p>If you are evaluating a product or a project against the steps in this article, the first thing to check is the authority boundary: can the model reject a claim or approve a payment on its own? If it can, fix that first, however good the other features are.</p>
         </div>
 
         <div class="article-cta">
           <h3>How does this look in a case study?</h3>
-          <p>In the cargo claims analysis I drew the line between AI and the expert's decision rule by rule. The <a href="../../hasarai/">HasarAI demo</a> tests that analysis with synthetic data (interface in Turkish).</p>
+          <p>The cargo claims analysis draws the line between AI and the expert's decision rule by rule. The <a href="../../hasarai/">HasarAI demo</a> tests that analysis with synthetic data (interface in Turkish).</p>
           <a class="btn btn-primary" href="../../analiz/hasarai.html">Review the analysis (TR)</a>
         </div>
 

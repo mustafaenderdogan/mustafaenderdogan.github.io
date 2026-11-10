@@ -4,12 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>A work management platform for construction and contracting firms</title>
-  <meta name="description" content="Our Work Management Platform brings subcontractor documents, timesheets, site stock, quote comparison and tablet field reports into one system. This article covers the decisions behind it: role-based screens, 138 API endpoints, 269 automated tests on every release and an in-browser demo." />
+  <meta name="description" content="The Work Management Platform brings subcontractor documents, timesheets, site stock, quote comparison and tablet field reports into one system. This article covers the decisions behind it: role-based screens, 138 API endpoints, 269 automated tests on every release and an in-browser demo." />
   <link rel="canonical" href="https://mustafaenderdogan.github.io/blog/en/case-study-construction-management-platform.html" />
   <meta name="robots" content="index, follow" />
 
   <meta property="og:title" content="A work management platform for construction and contracting firms" />
-  <meta property="og:description" content="Our Work Management Platform brings subcontractor documents, timesheets, site stock, quote comparison and tablet field reports into one system. This article covers the decisions behind it: role-based screens, 138 API endpoints, 269 automated tests on every release and an in-browser demo." />
+  <meta property="og:description" content="The Work Management Platform brings subcontractor documents, timesheets, site stock, quote comparison and tablet field reports into one system. This article covers the decisions behind it: role-based screens, 138 API endpoints, 269 automated tests on every release and an in-browser demo." />
   <meta property="og:type" content="article" />
   <meta property="og:url" content="https://mustafaenderdogan.github.io/blog/en/case-study-construction-management-platform.html" />
   <meta property="og:image" content="https://mustafaenderdogan.github.io/assets/img/og-portfolyo.png" />
@@ -17,7 +17,7 @@
   <meta property="og:site_name" content="Mustafa Ender Doğan — İş Analizi Portfolyosu" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="A work management platform for construction and contracting firms" />
-  <meta name="twitter:description" content="Our Work Management Platform brings subcontractor documents, timesheets, site stock, quote comparison and tablet field reports into one system. This article covers the decisions behind it: role-based screens, 138 API endpoints, 269 automated tests on every release and an in-browser demo." />
+  <meta name="twitter:description" content="The Work Management Platform brings subcontractor documents, timesheets, site stock, quote comparison and tablet field reports into one system. This article covers the decisions behind it: role-based screens, 138 API endpoints, 269 automated tests on every release and an in-browser demo." />
   <meta name="twitter:image" content="https://mustafaenderdogan.github.io/assets/img/og-portfolyo.png" />
 
   <link rel="alternate" hreflang="tr" href="https://mustafaenderdogan.github.io/blog/vaka-insaat-is-yonetim-platformu.html" />
@@ -29,7 +29,7 @@
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   "headline": "A work management platform for construction and contracting firms",
-  "description": "Our Work Management Platform brings subcontractor documents, timesheets, site stock, quote comparison and tablet field reports into one system. This article covers the decisions behind it: role-based screens, 138 API endpoints, 269 automated tests on every release and an in-browser demo.",
+  "description": "The Work Management Platform brings subcontractor documents, timesheets, site stock, quote comparison and tablet field reports into one system. This article covers the decisions behind it: role-based screens, 138 API endpoints, 269 automated tests on every release and an in-browser demo.",
   "image": "https://mustafaenderdogan.github.io/assets/img/og-portfolyo.png",
   "datePublished": "2026-10-09",
   "dateModified": "2026-10-09",
@@ -119,7 +119,7 @@
         <div class="article-body">
 <p>In construction and contracting, information usually sits in spreadsheets, messaging groups and the site manager's notebook. Questions such as whether a subcontractor worker's safety certificate has expired, how much rebar is left at the Kartal site or what was paid for the same material last month all have answers, but finding them takes a chain of phone calls.</p>
 
-          <p>The Work Management Platform (İYP in Turkish) is a web application I built to bring that information into one system. This article explains what I built and why.</p>
+          <p>The Work Management Platform (İYP in Turkish) is a web application that brings that information into one system. This article explains what it does and why.</p>
 
           <h2>Scope</h2>
           <ul>
@@ -128,7 +128,7 @@
             <li><strong>Quote comparison:</strong> a new quote is instantly compared with past purchase prices for the same material.</li>
             <li><strong>Field reports:</strong> reports from a tablet, with photos and location.</li>
           </ul>
-          <p>I kept the scope narrow on purpose. I wasn't trying to build an ERP that does everything; the aim was to do the four jobs that waste the most time on site, and to do them well.</p>
+          <p>The scope is deliberately narrow. The platform is not meant to be an ERP that does everything; the aim is to do the four jobs that waste the most time on site, and to do them well.</p>
 
           <h2>Role-based screens</h2>
           <p>If a site manager and a board member see the same screen, both find it harder to do their jobs. So in the platform every user sees the screens for their own role. The demo has seven sample accounts: company administrator, HR and administration, two site managers responsible for different sites, purchasing and warehouse, field staff, and read-only management.</p>
@@ -136,7 +136,7 @@
 
           <h2>Timesheets and Excel</h2>
           <p>On site, timesheets are usually kept in Excel and copied into payroll by hand at the end of the month. In the platform, the timesheet is a table for each project and month. You tap a cell to record the day (worked, leave, sick, overtime), or fill in today for everyone at once. HR approves and closes the month, and a closed month can only be reopened with a reason. At month end, payroll gets an Excel export.</p>
-          <p>Rather than ignore Excel, I chose to work with it. Employee and material lists can be imported from a ready-made Excel template. You see a preview first, and invalid or duplicate rows are left out.</p>
+          <p>Rather than ignore Excel, the platform works with it. Employee and material lists can be imported from a ready-made Excel template. You see a preview first, and invalid or duplicate rows are left out.</p>
 
           <h2>Data and security</h2>
           <p>Subcontractor and staff records include sensitive fields such as national ID numbers and IBANs. These fields are stored encrypted. Only an authorised user can reveal them on a person's record, and every reveal is logged. Two-factor authentication is available at login. When a data subject request comes in, the person's details, documents and timesheets, along with a record of who accessed their data, can be prepared as a single file. Because the data belongs to the company, the company administrator can export all of it as Excel and JSON at any time.</p>
@@ -145,7 +145,7 @@
           <p>The platform has 138 API endpoints, and 269 automated tests run on every release. Having that many tests is a necessity, because in areas such as stock, cost and document compliance, the price of a bug is paid on site. Whenever a new feature is added, the tests check that existing calculations still hold, so making changes is nothing to be afraid of.</p>
 
           <h2>Why does the demo run in the browser?</h2>
-          <p>I think the best way to explain business software is to let people use it. A demo can't use real data, though, and setting up a server for every visitor would be an unnecessary cost. So I built the <a href="../../isyonetim/">platform demo</a> (interface in Turkish) to run in the browser:</p>
+          <p>The best way to explain business software is to let people use it. A demo can't use real data, though, and setting up a server for every visitor would be an unnecessary cost. So the <a href="../../isyonetim/">platform demo</a> (interface in Turkish) runs in the browser:</p>
           <ul>
             <li>It uses the real interface, with an in-browser demo API in place of the server.</li>
             <li>The data is entirely synthetic, with no real national ID numbers, IBANs or email addresses.</li>
@@ -156,7 +156,7 @@
 
           <h2>Lessons from this project</h2>
           <ul>
-            <li><strong>Starting narrow</strong> works better, in my view. Picking the few jobs that waste the most time on site pays off sooner than a broad but half-finished system.</li>
+            <li><strong>Starting narrow</strong> works better. Picking the few jobs that waste the most time on site pays off sooner than a broad but half-finished system.</li>
             <li>The design should <strong>start from the user's role</strong>, because a screen that shows everyone everything ends up helping no one.</li>
             <li>Permissions have to be <strong>enforced on the server</strong>. Hiding something in the interface isn't security.</li>
             <li>For calculations like cost and stock, <strong>write the tests from day one</strong>. Automated tests are the only safe way to grow the system.</li>

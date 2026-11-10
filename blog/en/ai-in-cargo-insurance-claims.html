@@ -119,10 +119,10 @@
         <div class="article-body">
 <p>Money in a cargo claim is usually lost through documents that don't agree with each other or deadlines that pass unnoticed. The consignee opens the cartons three days after delivery, finds water damage and tells the exporter, who writes to the insurer a week later. By then the period for written notice to the carrier may already have run out. So the value of the file depends less on the damage itself than on getting this chain right.</p>
 
-          <p>This kind of preparation is where generative AI really helps. Even so, "let's put AI into cargo claims" isn't much of a plan on its own, since the risk differs from step to step and so does the role AI can safely play. For each step below I ask the same question: does this work belong to AI, to a rules engine or to the claims handler?</p>
+          <p>This kind of preparation is where generative AI really helps. Even so, "let's put AI into cargo claims" isn't much of a plan on its own, since the risk differs from step to step and so does the role AI can safely play. For each step below, the question is the same: does this work belong to AI, to a rules engine or to the claims handler?</p>
 
           <h2>Three kinds of work in a cargo file</h2>
-          <p>A cargo file involves three kinds of work, and I think each needs a different owner:</p>
+          <p>A cargo file involves three kinds of work, and each needs a different owner:</p>
           <ul>
             <li><strong>Reading and classifying (AI):</strong> extracting the transport mode, package count, gross weight, delivery date and any reservation noted at delivery from the notice and the documents. The documents are often scanned and in English, which is the kind of material language models handle well.</li>
             <li><strong>Calculating (rules engine):</strong> notice deadlines, time bars, the carrier's liability limit and the recovery potential. International conventions define these, and because the calculations are deterministic they are not left to AI.</li>
@@ -148,7 +148,7 @@
           <p>What these checks produce are findings. The system notes, for example, "there is a 60 kg difference", and the handler decides whether that is a weighing difference or something to investigate.</p>
 
           <h2>3. The deadline calendar</h2>
-          <p>In my view, a missed deadline is the most expensive mistake in a cargo file. Preserving rights against the carrier starts with written notice given in time, and the periods depend on the transport regime:</p>
+          <p>A missed deadline is arguably the most expensive mistake in a cargo file. Preserving rights against the carrier starts with written notice given in time, and the periods depend on the transport regime:</p>
           <ul>
             <li><strong>Road (CMR):</strong> apparent damage calls for a reservation at delivery. For non-apparent damage, written notice is due within 7 days of delivery, Sundays and public holidays excepted. If that is missed, the goods are presumed, until proven otherwise, to have been delivered in good condition, and the burden of proof shifts to the claimant (the consignee, or the insurer by subrogation).</li>
             <li><strong>Sea (Hague-Visby / Turkish Commercial Code):</strong> 3 days for non-apparent damage. Missing it again leads to a presumption.</li>
@@ -185,12 +185,12 @@
           <p>Keep the pilot small, with one transport mode and a few dozen anonymised closed files. With closed files, finding out which deadline was missed and which recovery was never attempted is usually the most convincing result.</p>
 
           <h2>Where to start</h2>
-          <p>If only one piece could go into the first release of a cargo project, I would pick the deadline calendar. It needs no AI and can be tested on closed files straight away. The AI steps, such as reading documents and drafting the notice to the carrier, can be added once the calendar works correctly.</p>
+          <p>If only one piece could go into the first release of a cargo project, it should be the deadline calendar. It needs no AI and can be tested on closed files straight away. The AI steps, such as reading documents and drafting the notice to the carrier, can be added once the calendar works correctly.</p>
         </div>
 
         <div class="article-cta">
           <h3>How does this look in a case study?</h3>
-          <p>I collected the notice deadlines and carrier liability limits for each transport regime in the cargo claims analysis, together with the points where AI has to stop. The <a href="../../hasarai/">HasarAI demo</a> tests that analysis with synthetic data (interface in Turkish).</p>
+          <p>The cargo claims analysis lists the notice deadlines and carrier liability limits for each transport regime, together with the points where AI has to stop. The <a href="../../hasarai/">HasarAI demo</a> tests that analysis with synthetic data (interface in Turkish).</p>
           <a class="btn btn-primary" href="../../analiz/hasarai.html">Review the analysis (TR)</a>
         </div>
 

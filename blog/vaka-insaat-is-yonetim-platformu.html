@@ -4,12 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>İnşaat ve taahhüt firmaları için iş yönetim platformu</title>
-  <meta name="description" content="İYP, taşeron belgelerini, puantajı, şantiye stokunu, teklif karşılaştırmayı ve tabletten saha raporunu tek sistemde topluyor. Bu yazıda onu geliştirirken verdiğim kararları anlatıyorum: rol bazlı ekranlar, 138 API uç noktası, her sürümde 269 otomatik test ve tarayıcıda çalışan demo." />
+  <meta name="description" content="İYP, taşeron belgelerini, puantajı, şantiye stokunu, teklif karşılaştırmayı ve tabletten saha raporunu tek sistemde toplar. Bu yazı platformun tasarım kararlarını anlatır: rol bazlı ekranlar, 138 API uç noktası, her sürümde 269 otomatik test ve tarayıcıda çalışan demo." />
   <link rel="canonical" href="https://mustafaenderdogan.github.io/blog/vaka-insaat-is-yonetim-platformu.html" />
   <meta name="robots" content="index, follow" />
 
   <meta property="og:title" content="İnşaat ve taahhüt firmaları için iş yönetim platformu" />
-  <meta property="og:description" content="İYP, taşeron belgelerini, puantajı, şantiye stokunu, teklif karşılaştırmayı ve tabletten saha raporunu tek sistemde topluyor. Bu yazıda onu geliştirirken verdiğim kararları anlatıyorum: rol bazlı ekranlar, 138 API uç noktası, her sürümde 269 otomatik test ve tarayıcıda çalışan demo." />
+  <meta property="og:description" content="İYP, taşeron belgelerini, puantajı, şantiye stokunu, teklif karşılaştırmayı ve tabletten saha raporunu tek sistemde toplar. Bu yazı platformun tasarım kararlarını anlatır: rol bazlı ekranlar, 138 API uç noktası, her sürümde 269 otomatik test ve tarayıcıda çalışan demo." />
   <meta property="og:type" content="article" />
   <meta property="og:url" content="https://mustafaenderdogan.github.io/blog/vaka-insaat-is-yonetim-platformu.html" />
   <meta property="og:image" content="https://mustafaenderdogan.github.io/assets/img/og-portfolyo.png" />
@@ -17,7 +17,7 @@
   <meta property="og:site_name" content="Mustafa Ender Doğan — İş Analizi Portfolyosu" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="İnşaat ve taahhüt firmaları için iş yönetim platformu" />
-  <meta name="twitter:description" content="İYP, taşeron belgelerini, puantajı, şantiye stokunu, teklif karşılaştırmayı ve tabletten saha raporunu tek sistemde topluyor. Bu yazıda onu geliştirirken verdiğim kararları anlatıyorum: rol bazlı ekranlar, 138 API uç noktası, her sürümde 269 otomatik test ve tarayıcıda çalışan demo." />
+  <meta name="twitter:description" content="İYP, taşeron belgelerini, puantajı, şantiye stokunu, teklif karşılaştırmayı ve tabletten saha raporunu tek sistemde toplar. Bu yazı platformun tasarım kararlarını anlatır: rol bazlı ekranlar, 138 API uç noktası, her sürümde 269 otomatik test ve tarayıcıda çalışan demo." />
   <meta name="twitter:image" content="https://mustafaenderdogan.github.io/assets/img/og-portfolyo.png" />
 
   <link rel="alternate" hreflang="tr" href="https://mustafaenderdogan.github.io/blog/vaka-insaat-is-yonetim-platformu.html" />
@@ -29,7 +29,7 @@
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   "headline": "İnşaat ve taahhüt firmaları için iş yönetim platformu",
-  "description": "İYP, taşeron belgelerini, puantajı, şantiye stokunu, teklif karşılaştırmayı ve tabletten saha raporunu tek sistemde topluyor. Bu yazıda onu geliştirirken verdiğim kararları anlatıyorum: rol bazlı ekranlar, 138 API uç noktası, her sürümde 269 otomatik test ve tarayıcıda çalışan demo.",
+  "description": "İYP, taşeron belgelerini, puantajı, şantiye stokunu, teklif karşılaştırmayı ve tabletten saha raporunu tek sistemde toplar. Bu yazı platformun tasarım kararlarını anlatır: rol bazlı ekranlar, 138 API uç noktası, her sürümde 269 otomatik test ve tarayıcıda çalışan demo.",
   "image": "https://mustafaenderdogan.github.io/assets/img/og-portfolyo.png",
   "datePublished": "2026-10-09",
   "dateModified": "2026-10-09",
@@ -125,53 +125,53 @@
         <div class="article-body">
 <p>İnşaat ve taahhüt işlerinde bilgi genellikle Excel dosyalarında, WhatsApp gruplarında ve şantiye şefinin defterinde durur. Bir taşeron çalışanının iş güvenliği belgesinin süresinin dolup dolmadığını, Kartal şantiyesinde ne kadar demir kaldığını ya da geçen ay aynı malzemeye ne ödendiğini öğrenmek mümkündür, ama bunun için bir telefon zinciri gerekir.</p>
 
-          <p>İş Yönetim Platformu (İYP), bu bilgiyi tek bir sistemde toplamak için geliştirdiğim bir web uygulaması. Bu yazıda neyi neden böyle kurduğumu anlatıyorum.</p>
+          <p>İş Yönetim Platformu (İYP), bu bilgiyi tek bir sistemde toplayan bir web uygulaması. Bu yazı, platformdaki tasarım kararlarını ve gerekçelerini anlatır.</p>
 
           <h2>Kapsam</h2>
           <ul>
-            <li><strong>Taşeron belgeleri:</strong> Taşeron çalışanlarının belgeleri ve sahaya girmeye uygun olup olmadıkları izleniyor. Belgesi eksik olan çalışan puantajda uyarıyla görünüyor.</li>
-            <li><strong>Şantiye stoku:</strong> Stok, malzeme tüketimi ve maliyet şantiye bazında tutuluyor.</li>
-            <li><strong>Teklif karşılaştırma:</strong> Gelen yeni bir teklif, aynı malzemenin geçmiş alış fiyatlarıyla anında karşılaştırılıyor.</li>
-            <li><strong>Saha raporu:</strong> Rapor tabletten, fotoğraf ve konum bilgisiyle giriliyor.</li>
+            <li><strong>Taşeron belgeleri:</strong> Taşeron çalışanlarının belgeleri ve sahaya girmeye uygun olup olmadıkları izlenir. Belgesi eksik olan çalışan puantajda uyarıyla görünür.</li>
+            <li><strong>Şantiye stoku:</strong> Stok, malzeme tüketimi ve maliyet şantiye bazında tutulur.</li>
+            <li><strong>Teklif karşılaştırma:</strong> Gelen yeni bir teklif, aynı malzemenin geçmiş alış fiyatlarıyla anında karşılaştırılır.</li>
+            <li><strong>Saha raporu:</strong> Rapor tabletten, fotoğraf ve konum bilgisiyle girilir.</li>
           </ul>
-          <p>Kapsamı bilerek dar tuttum. Her şeyi yapan bir ERP kurmaya girişmedim; hedef, sahada en çok zaman kaybettiren bu dört işi iyi yapmaktı.</p>
+          <p>Kapsam bilerek dardır. Platform her şeyi yapan bir ERP olmayı hedeflemez; amacı, sahada en çok zaman kaybettiren bu dört işi iyi yapmaktır.</p>
 
           <h2>Rol bazlı ekranlar</h2>
-          <p>Bir şantiye şefiyle yönetim kurulu üyesinin aynı ekranı görmesi ikisinin de işini zorlaştırır. Bu yüzden İYP'de her kullanıcı kendi rolünün ekranlarını görüyor. Demoda yedi örnek hesap var: firma yöneticisi, İK ve idari işler, farklı şantiyelerden sorumlu iki şantiye şefi, satın alma ve depo, saha personeli ve salt okuma yetkili yönetim.</p>
-          <p>Saha personeli tablette rapor girebilir ama düzenleme yapamaz. Şantiye şefi yalnızca sorumlu olduğu şantiyeleri görür. Satın alma birimi stok, tedarikçi ve teklifleri yönetir, yönetim ise salt okunur özetleri görür. Yetki kontrolü sunucuda yapılıyor ve otomatik testlerin bir bölümü tam olarak bunu doğruluyor: bir rol, göremediği veriye API üzerinden de erişemiyor ve her firmanın verisi diğerlerinden yalıtılmış durumda.</p>
+          <p>Bir şantiye şefiyle yönetim kurulu üyesinin aynı ekranı görmesi ikisinin de işini zorlaştırır. Bu yüzden İYP'de her kullanıcı kendi rolünün ekranlarını görür. Demoda yedi örnek hesap var: firma yöneticisi, İK ve idari işler, farklı şantiyelerden sorumlu iki şantiye şefi, satın alma ve depo, saha personeli ve salt okuma yetkili yönetim.</p>
+          <p>Saha personeli tablette rapor girebilir ama düzenleme yapamaz. Şantiye şefi yalnızca sorumlu olduğu şantiyeleri görür. Satın alma birimi stok, tedarikçi ve teklifleri yönetir, yönetim ise salt okunur özetleri görür. Yetki kontrolü sunucuda yapılır ve otomatik testlerin bir bölümü tam olarak bunu doğrular: bir rol, göremediği veriye API üzerinden de erişemez ve her firmanın verisi diğerlerinden yalıtılmış durumda.</p>
 
           <h2>Puantaj ve Excel</h2>
-          <p>Şantiyede puantaj genellikle Excel'de tutulur ve ay sonunda bordroya elle aktarılır. İYP'de ise puantaj, proje ve ay bazında bir tablo. Bir hücreye dokunarak o günün kaydı (çalıştı, izinli, raporlu, fazla mesai) giriliyor, "bugünü doldur" ile de toplu giriş yapılabiliyor. Ayı İK onaylayıp kapatıyor ve kapanan aya ancak gerekçeyle yeniden giriş açılabiliyor. Ay sonunda bordro için Excel çıktısı alınıyor.</p>
-          <p>Excel'i yok saymak yerine onunla çalışmayı seçtim. Çalışan ve malzeme listeleri hazır bir şablonla Excel'den yüklenebiliyor. Yüklemeden önce bir önizleme gösteriliyor ve hatalı ya da tekrar eden satırlar eklenmiyor.</p>
+          <p>Şantiyede puantaj genellikle Excel'de tutulur ve ay sonunda bordroya elle aktarılır. İYP'de ise puantaj, proje ve ay bazında bir tablo. Bir hücreye dokunarak o günün kaydı (çalıştı, izinli, raporlu, fazla mesai) giriliyor, "bugünü doldur" ile de toplu giriş yapılabiliyor. Ayı İK onaylayıp kapatır ve kapanan aya ancak gerekçeyle yeniden giriş açılabilir. Ay sonunda bordro için Excel çıktısı alınır.</p>
+          <p>Platform Excel'i yok saymaz, onunla birlikte çalışır. Çalışan ve malzeme listeleri hazır bir şablonla Excel'den yüklenebilir. Yüklemeden önce bir önizleme gösterilir ve hatalı ya da tekrar eden satırlar eklenmez.</p>
 
           <h2>Veri ve güvenlik</h2>
-          <p>Taşeron ve personel kayıtlarında kimlik bilgisi ve IBAN gibi hassas alanlar bulunur. Bu alanlar şifreli saklanıyor. Kişi kartında bu bilgileri yalnızca yetkili bir kullanıcı "Göster" ile açabiliyor ve her açılış erişim kaydına düşüyor. Girişte iki aşamalı doğrulama kullanılabiliyor. Bir KVKK başvurusu geldiğinde, ilgili kişinin bilgileri, belgeleri, puantajı ve verisine kimin eriştiği tek bir dosya olarak hazırlanabiliyor. Veri firmaya ait olduğu için firma yöneticisi tüm veriyi istediği an Excel ve JSON olarak dışa aktarabiliyor.</p>
+          <p>Taşeron ve personel kayıtlarında kimlik bilgisi ve IBAN gibi hassas alanlar bulunur. Bu alanlar şifreli saklanır. Kişi kartında bu bilgileri yalnızca yetkili bir kullanıcı "Göster" ile açabiliyor ve her açılış erişim kaydına düşüyor. Girişte iki aşamalı doğrulama kullanılabilir. Bir KVKK başvurusu geldiğinde, ilgili kişinin bilgileri, belgeleri, puantajı ve verisine kimin eriştiği tek bir dosya olarak hazırlanabilir. Veri firmaya ait olduğu için firma yöneticisi tüm veriyi istediği an Excel ve JSON olarak dışa aktarabilir.</p>
 
           <h2>Otomatik testler</h2>
-          <p>Platformda 138 API uç noktası var ve her sürümde 269 otomatik test çalışıyor. Bu kadar çok test bir zorunluluk, çünkü stok, maliyet ve belge uygunluğu gibi alanlarda yapılan bir hatanın bedeli sahada ödeniyor. Yeni bir özellik eklendiğinde mevcut hesapların bozulmadığı her seferinde otomatik olarak kontrol ediliyor. Bu sayede değişiklik yapmaktan çekinmek gerekmiyor.</p>
+          <p>Platformda 138 API uç noktası var ve her sürümde 269 otomatik test çalışır. Bu kadar çok test bir zorunluluk, çünkü stok, maliyet ve belge uygunluğu gibi alanlarda yapılan bir hatanın bedeli sahada ödenir. Yeni bir özellik eklendiğinde mevcut hesapların bozulmadığı her seferinde otomatik olarak kontrol edilir. Bu sayede değişiklik yapmaktan çekinmek gerekmez.</p>
 
           <h2>Demo neden tarayıcıda çalışıyor?</h2>
-          <p>Bence bir iş yazılımını anlatmanın en iyi yolu onu kullandırmak. Ama gerçek veriyle demo yapılamaz, her ziyaretçi için ayrı bir sunucu kurmak da gereksiz bir maliyet olurdu. Bu yüzden <a href="../isyonetim/">İYP demosunu</a> tarayıcıda çalışacak şekilde hazırladım:</p>
+          <p>Bir iş yazılımını anlatmanın en iyi yolu onu kullandırmak. Ama gerçek veriyle demo yapılamaz, her ziyaretçi için ayrı bir sunucu kurmak da gereksiz bir maliyet olur. Bu yüzden <a href="../isyonetim/">İYP demosu</a> tarayıcıda çalışır:</p>
           <ul>
-            <li>Ürünün gerçek arayüzü kullanılıyor. Sunucunun yerini tarayıcının içinde çalışan bir demo API'si alıyor.</li>
+            <li>Ürünün gerçek arayüzü kullanılır. Sunucunun yerini tarayıcının içinde çalışan bir demo API'si alır.</li>
             <li>Veriler tamamen sentetik, içlerinde gerçek bir TC kimlik numarası, IBAN ya da e-posta yok.</li>
-            <li>Her rol için tek tıkla ve şifresiz giriş yapılabiliyor. "Demoyu sıfırla" ile her şey baştaki hâline dönüyor.</li>
-            <li>Yaptığınız değişiklikler yalnızca sizin tarayıcınızda kalıyor.</li>
+            <li>Her rol için tek tıkla ve şifresiz giriş yapılabilir. "Demoyu sıfırla" ile her şey baştaki hâline dönüyor.</li>
+            <li>Yaptığınız değişiklikler yalnızca sizin tarayıcınızda kalır.</li>
           </ul>
-          <p>Bu sayede ürün, statik bir barındırmada bile bütün işlevleriyle denenebiliyor.</p>
+          <p>Bu sayede ürün, statik bir barındırmada bile bütün işlevleriyle denenebilir.</p>
 
           <h2>Bu vakadan çıkan dersler</h2>
           <ul>
-            <li>Benim tercihim <strong>dar başlamak</strong>, çünkü sahada en çok zaman kaybettiren birkaç işi seçmek, kapsamlı ama yarım kalmış bir sistemden daha çabuk işe yarar.</li>
+            <li><strong>Dar başlamak</strong> önerilir, çünkü sahada en çok zaman kaybettiren birkaç işi seçmek, kapsamlı ama yarım kalmış bir sistemden daha çabuk işe yarar.</li>
             <li>Tasarımın merkezinde <strong>kullanıcının rolü</strong> olmalı, çünkü herkese her şeyi gösteren bir ekran kimsenin işine yaramaz.</li>
             <li>Yetki <strong>sunucuda kontrol edilmeli</strong>. Bir veriyi yalnızca arayüzde gizlemek güvenlik sağlamaz.</li>
-            <li>Maliyet ve stok gibi hesapların olduğu bir sistemde <strong>testleri en baştan yazmak</strong> gerekiyor. Sistemi güvenle büyütmenin tek yolu otomatik test.</li>
+            <li>Maliyet ve stok gibi hesapların olduğu bir sistemde <strong>testleri en baştan yazmak</strong> gerekir. Sistemi güvenle büyütmenin tek yolu otomatik test.</li>
           </ul>
         </div>
 
         <div class="article-cta">
           <h3>Analizin tamamı</h3>
-          <p>İYP vakasının analiz envanterinde yedi rolün yetkileri, 34 iş kuralı, 22 gereksinim, keşif soru seti ve kapsam kararları yer alıyor.</p>
+          <p>İYP vakasının analiz envanterinde yedi rolün yetkileri, 34 iş kuralı, 22 gereksinim, keşif soru seti ve kapsam kararları yer alır.</p>
           <a class="btn btn-primary" href="../analiz/isyonetim.html">Analizi incele</a>
         </div>
 

@@ -4,12 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Technical privacy measures for generative AI in insurance</title>
-  <meta name="description" content="A technical checklist I wrote for insurers and agencies that want to use language models with claims and policy data. It covers masking, special-category data, cross-border transfer, storage and audit trails, with Turkey&#x27;s KVKK in mind." />
+  <meta name="description" content="A technical checklist for insurers and agencies that want to use language models with claims and policy data. It covers masking, special-category data, cross-border transfer, storage and audit trails, with Turkey&#x27;s KVKK in mind." />
   <link rel="canonical" href="https://mustafaenderdogan.github.io/blog/en/generative-ai-insurance-data-privacy.html" />
   <meta name="robots" content="index, follow" />
 
   <meta property="og:title" content="Technical privacy measures for generative AI in insurance" />
-  <meta property="og:description" content="A technical checklist I wrote for insurers and agencies that want to use language models with claims and policy data. It covers masking, special-category data, cross-border transfer, storage and audit trails, with Turkey&#x27;s KVKK in mind." />
+  <meta property="og:description" content="A technical checklist for insurers and agencies that want to use language models with claims and policy data. It covers masking, special-category data, cross-border transfer, storage and audit trails, with Turkey&#x27;s KVKK in mind." />
   <meta property="og:type" content="article" />
   <meta property="og:url" content="https://mustafaenderdogan.github.io/blog/en/generative-ai-insurance-data-privacy.html" />
   <meta property="og:image" content="https://mustafaenderdogan.github.io/assets/img/og-portfolyo.png" />
@@ -17,7 +17,7 @@
   <meta property="og:site_name" content="Mustafa Ender Doğan — İş Analizi Portfolyosu" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Technical privacy measures for generative AI in insurance" />
-  <meta name="twitter:description" content="A technical checklist I wrote for insurers and agencies that want to use language models with claims and policy data. It covers masking, special-category data, cross-border transfer, storage and audit trails, with Turkey&#x27;s KVKK in mind." />
+  <meta name="twitter:description" content="A technical checklist for insurers and agencies that want to use language models with claims and policy data. It covers masking, special-category data, cross-border transfer, storage and audit trails, with Turkey&#x27;s KVKK in mind." />
   <meta name="twitter:image" content="https://mustafaenderdogan.github.io/assets/img/og-portfolyo.png" />
 
   <link rel="alternate" hreflang="tr" href="https://mustafaenderdogan.github.io/blog/sigortada-yapay-zeka-kvkk.html" />
@@ -29,7 +29,7 @@
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   "headline": "Technical privacy measures for generative AI in insurance",
-  "description": "A technical checklist I wrote for insurers and agencies that want to use language models with claims and policy data. It covers masking, special-category data, cross-border transfer, storage and audit trails, with Turkey's KVKK in mind.",
+  "description": "A technical checklist for insurers and agencies that want to use language models with claims and policy data. It covers masking, special-category data, cross-border transfer, storage and audit trails, with Turkey's KVKK in mind.",
   "image": "https://mustafaenderdogan.github.io/assets/img/og-portfolyo.png",
   "datePublished": "2026-10-09",
   "dateModified": "2026-10-09",
@@ -119,7 +119,7 @@
         <div class="article-body">
 <p>AI projects at insurers tend to slow down at the same point. The technical team wants to try reading claim notifications with a language model, and legal and information security ask, quite rightly, "where does this data go?" That question is part of designing the project properly, and most of the answer lies in the architecture.</p>
 
-          <p>This article is not legal advice. On any real project, make sure you work with your legal and data protection officers. The examples refer to Turkey's personal data protection law (KVKK), which was modeled on EU data protection law. Below is my checklist of the technical measures you can take before the data reaches the model and after it does.</p>
+          <p>This article is not legal advice. On any real project, make sure you work with your legal and data protection officers. The examples refer to Turkey's personal data protection law (KVKK), which was modeled on EU data protection law. Below is a checklist of the technical measures you can take before the data reaches the model and after it does.</p>
 
           <h2>1. Draw the data flow first</h2>
           <p>Saying "we use AI" isn't enough. Show on a single page which data goes to which component, from the moment a claim enters the system until it is archived. The diagram should answer these questions:</p>
@@ -166,7 +166,7 @@
           <p>Being able to show later what the AI suggested on a file, and what the handler did with that suggestion, matters for internal audit and for any request from the data subject. So every suggestion should be stored along with the model used, the prompt version and the masked input. Status changes on the file should go to a record that can't be altered afterwards.</p>
 
           <h2>8. The limit on automated decisions</h2>
-          <p>KVKK gives individuals the right to object when the automated analysis of their data alone produces a result against them. That's a strong reason for decisions with consequences, such as rejection or payment, to be made by a person with a written reason. My own preference is to leave preparation and suggestions to the AI and keep the decision with an authorised person.</p>
+          <p>KVKK gives individuals the right to object when the automated analysis of their data alone produces a result against them. That's a strong reason for decisions with consequences, such as rejection or payment, to be made by a person with a written reason. A sound approach is to leave preparation and suggestions to the AI and keep the decision with an authorised person.</p>
 
           <h2>Quick checklist</h2>
           <ol>
@@ -181,12 +181,12 @@
           </ol>
 
           <h2>Conclusion</h2>
-          <p>In my view, data protection law sets the frame for a good AI architecture in insurance. When these measures are designed in from the start, the conversation with legal and security moves from "why we can't" to "under which conditions we can".</p>
+          <p>Data protection law sets the frame for a good AI architecture in insurance. When these measures are designed in from the start, the conversation with legal and security moves from "why we can't" to "under which conditions we can".</p>
         </div>
 
         <div class="article-cta">
-          <h3>How I applied this checklist in the case studies</h3>
-          <p>I wrote masking, audit trail and field minimisation decisions as business rules and requirements in the cargo claims and bancassurance case studies. You can see an example flow in the <a href="../../hasarai/">HasarAI demo</a> (the interface is in Turkish).</p>
+          <h3>How the case studies apply this checklist</h3>
+          <p>The cargo claims and bancassurance case studies set out masking, audit trail and field minimisation decisions as business rules and requirements. You can see an example flow in the <a href="../../hasarai/">HasarAI demo</a> (the interface is in Turkish).</p>
           <a class="btn btn-primary" href="../../analiz/bankasurans.html">Read the bancassurance case (TR)</a>
         </div>
 

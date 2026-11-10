@@ -4,12 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>HasarAI nakliyat hasar asistanının tasarım kararları</title>
-  <meta name="description" content="HasarAI belge zincirini kontrol ediyor, süre takvimini ve rücu limitini kural motorunda hesaplıyor, kişisel verileri KVKK için maskeliyor. Bu kararların nedenlerini anlatıyorum." />
+  <meta name="description" content="HasarAI belge zincirini kontrol eder, süre takvimini ve rücu limitini kural motorunda hesaplar, kişisel verileri KVKK için maskeler. Yazı, bu kararların nedenlerini anlatır." />
   <link rel="canonical" href="https://mustafaenderdogan.github.io/blog/vaka-hasarai.html" />
   <meta name="robots" content="index, follow" />
 
   <meta property="og:title" content="HasarAI nakliyat hasar asistanının tasarım kararları" />
-  <meta property="og:description" content="HasarAI belge zincirini kontrol ediyor, süre takvimini ve rücu limitini kural motorunda hesaplıyor, kişisel verileri KVKK için maskeliyor. Bu kararların nedenlerini anlatıyorum." />
+  <meta property="og:description" content="HasarAI belge zincirini kontrol eder, süre takvimini ve rücu limitini kural motorunda hesaplar, kişisel verileri KVKK için maskeler. Yazı, bu kararların nedenlerini anlatır." />
   <meta property="og:type" content="article" />
   <meta property="og:url" content="https://mustafaenderdogan.github.io/blog/vaka-hasarai.html" />
   <meta property="og:image" content="https://mustafaenderdogan.github.io/assets/img/og-portfolyo.png" />
@@ -17,7 +17,7 @@
   <meta property="og:site_name" content="Mustafa Ender Doğan — İş Analizi Portfolyosu" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="HasarAI nakliyat hasar asistanının tasarım kararları" />
-  <meta name="twitter:description" content="HasarAI belge zincirini kontrol ediyor, süre takvimini ve rücu limitini kural motorunda hesaplıyor, kişisel verileri KVKK için maskeliyor. Bu kararların nedenlerini anlatıyorum." />
+  <meta name="twitter:description" content="HasarAI belge zincirini kontrol eder, süre takvimini ve rücu limitini kural motorunda hesaplar, kişisel verileri KVKK için maskeler. Yazı, bu kararların nedenlerini anlatır." />
   <meta name="twitter:image" content="https://mustafaenderdogan.github.io/assets/img/og-portfolyo.png" />
 
   <link rel="alternate" hreflang="tr" href="https://mustafaenderdogan.github.io/blog/vaka-hasarai.html" />
@@ -29,7 +29,7 @@
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   "headline": "HasarAI nakliyat hasar asistanının tasarım kararları",
-  "description": "HasarAI belge zincirini kontrol ediyor, süre takvimini ve rücu limitini kural motorunda hesaplıyor, kişisel verileri KVKK için maskeliyor. Bu kararların nedenlerini anlatıyorum.",
+  "description": "HasarAI belge zincirini kontrol eder, süre takvimini ve rücu limitini kural motorunda hesaplar, kişisel verileri KVKK için maskeler. Yazı, bu kararların nedenlerini anlatır.",
   "image": "https://mustafaenderdogan.github.io/assets/img/og-portfolyo.png",
   "datePublished": "2026-10-09",
   "dateModified": "2026-10-10",
@@ -123,41 +123,41 @@
         </header>
 
         <div class="article-body">
-<p>HasarAI, sigorta şirketleri, brokerler ve sörvey firmaları için geliştirdiğim bir nakliyat (emtia taşıma) hasar asistanı. Amacı, dağınık gelen belge paketini süresi ve rücu potansiyeli belli olan, incelemeye hazır bir dosyaya çevirmek. Bu yazıda onu tasarlarken verdiğim kararları ve bu kararların nedenlerini anlatıyorum.</p>
+<p>HasarAI, sigorta şirketleri, brokerler ve sörvey firmaları için bir nakliyat (emtia taşıma) hasar asistanı. Amacı, dağınık gelen belge paketini süresi ve rücu potansiyeli belli olan, incelemeye hazır bir dosyaya çevirmek. Bu yazı, asistanın tasarım kararlarını ve bu kararların nedenlerini anlatır.</p>
 
           <h2>Sorun</h2>
-          <p>Bir nakliyat dosyasında uzmanın asıl işi teminatı ve hasarı değerlendirmektir. Ama dosya o noktaya gelmeden önce bir dizi sorun çıkar. İhbar e-postayla, çoğu zaman da İngilizce gelir. Fatura, çeki listesi, taşıma belgesi ve teslim tutanağı farklı kişilerden, farklı günlerde ulaşır ve kap adedi ya da ağırlık belgeler arasında tutmaz. Üstelik taşıyıcıya yazılı ihbar için yalnızca birkaç gün vardır. Bu hazırlık, belli kurallara bağlı ve her dosyada tekrar eden bir iş, büyük kısmı da metin okumaktan oluşuyor. Süre ve limit hesabı ise tamamen kural işi.</p>
+          <p>Bir nakliyat dosyasında uzmanın asıl işi teminatı ve hasarı değerlendirmektir. Ama dosya o noktaya gelmeden önce bir dizi sorun çıkar. İhbar e-postayla, çoğu zaman da İngilizce gelir. Fatura, çeki listesi, taşıma belgesi ve teslim tutanağı farklı kişilerden, farklı günlerde ulaşır ve kap adedi ya da ağırlık belgeler arasında tutmaz. Üstelik taşıyıcıya yazılı ihbar için yalnızca birkaç gün vardır. Bu hazırlık, belli kurallara bağlı ve her dosyada tekrar eden bir iş, büyük kısmı da metin okumaktan oluşur. Süre ve limit hesabı ise tamamen kural işi.</p>
 
           <h2>Tasarım ilkesi</h2>
-          <p>İlk karar, sistemin neyi yapmayacağıydı. HasarAI red ya da ödeme kararı vermez ve süre, limit ya da tutar hesaplamak için dil modeli kullanmaz. Yapay zekânın işi belgeleri okumak. Hesapları kural motoru yapıyor, kararı da uzman veriyor. Bir dosya sırasıyla İhbar, Belge bekleniyor, İncelemede, Sörveyde, Onay bekliyor, Ödeme onaylandı ve Kapandı durumlarından geçer. Red ve ödeme onayı, yalnızca yetkili bir kişinin gerekçe yazarak yapabildiği adımlardır.</p>
+          <p>İlk tasarım kararı, sistemin neyi yapmayacağıdır. HasarAI red ya da ödeme kararı vermez ve süre, limit ya da tutar hesaplamak için dil modeli kullanmaz. Yapay zekânın işi belgeleri okumak. Hesapları kural motoru yapar, kararı da uzman verir. Bir dosya sırasıyla İhbar, Belge bekleniyor, İncelemede, Sörveyde, Onay bekliyor, Ödeme onaylandı ve Kapandı durumlarından geçer. Red ve ödeme onayı, yalnızca yetkili bir kişinin gerekçe yazarak yapabildiği adımlardır.</p>
 
           <h2>1. İhbar ve sevkiyat kaydı</h2>
-          <p>Türkçe ya da İngilizce gelen ihbardan hasar türü, taşıma modu, taşıma belgesi numarası, güzergâh, kap adedi, brüt ağırlık, hasarlı kısım, teslim tarihi ve teslimde çekince yazılıp yazılmadığı çıkarılıyor. Modelin cevabı tanımlı bir şemaya uymak zorunda ve metinde olmayan bilgi boş bırakılıyor. Taşıma modu ya da teslim tarihi eksikse sigortalıya hedefli bir soru gidiyor. Üç turda tamamlanmayan dosya uzmana devrediliyor.</p>
+          <p>Türkçe ya da İngilizce gelen ihbardan hasar türü, taşıma modu, taşıma belgesi numarası, güzergâh, kap adedi, brüt ağırlık, hasarlı kısım, teslim tarihi ve teslimde çekince yazılıp yazılmadığı çıkarılır. Modelin cevabı tanımlı bir şemaya uymak zorunda ve metinde olmayan bilgi boş bırakılır. Taşıma modu ya da teslim tarihi eksikse sigortalıya hedefli bir soru gider. Üç turda tamamlanmayan dosya uzmana devredilir.</p>
 
           <h2>2. Belge zinciri kontrolü</h2>
-          <p>Belgeler modele görüntü olarak gönderilmiyor. Önce sunucuda metne çevrilip maskeleniyor, sonra sınıflandırılıyor. Taşıma moduna ve hasar türüne göre hangi belgelerin gerektiği listeleniyor. Kap adedi, brüt ağırlık, konteyner ve mühür numarasının her belgede aynı olup olmadığına bakılıyor. Teslim sayımında çıkan eksik ise ayrı bir bulgu olarak gösteriliyor. Konşimentodaki "said to contain" kaydını model kaçırsa bile kural tabanlı ikinci bir kontrol bunu yakalıyor.</p>
+          <p>Belgeler modele görüntü olarak gönderilmez. Önce sunucuda metne çevrilip maskelenir, sonra sınıflandırılır. Taşıma moduna ve hasar türüne göre hangi belgelerin gerektiği listelenir. Kap adedi, brüt ağırlık, konteyner ve mühür numarasının her belgede aynı olup olmadığına bakılır. Teslim sayımında çıkan eksik ise ayrı bir bulgu olarak gösterilir. Konşimentodaki "said to contain" kaydını model kaçırsa bile kural tabanlı ikinci bir kontrol bunu yakalıyor.</p>
 
           <h2>3. Süre takvimi</h2>
-          <p>Taşıyıcıya ihbar için son gün ve zamanaşımı, taşıma rejimine göre (CMR, Lahey-Visby, Montreal) kural motorunda hesaplanıyor. CMR'de teslim ülkesinin resmî tatilleri süre hesabından düşülüyor. Tatil takvimi tanımlı olmayan bir ülkede ise yalnızca pazar günleri düşülüyor ve dosyaya uyarı yazılıyor. Son güne iki iş günü kalan ya da süresi kaçmış dosyalar "insan önceliği" kuyruğuna alınıyor. Süreler her sabah yeniden hesaplandığı için öncelik sırası da güncel kalıyor.</p>
+          <p>Taşıyıcıya ihbar için son gün ve zamanaşımı, taşıma rejimine göre (CMR, Lahey-Visby, Montreal) kural motorunda hesaplanır. CMR'de teslim ülkesinin resmî tatilleri süre hesabından düşülür. Tatil takvimi tanımlı olmayan bir ülkede ise yalnızca pazar günleri düşülür ve dosyaya uyarı yazılır. Son güne iki iş günü kalan ya da süresi kaçmış dosyalar "insan önceliği" kuyruğuna alınıyor. Süreler her sabah yeniden hesaplandığı için öncelik sırası da güncel kalır.</p>
 
           <h2>4. Rücu tahmini</h2>
-          <p>Taşıyıcının sorumluluk limiti, hasarlı kilogram ya da kap üzerinden SDR olarak hesaplanıyor ve uzmanın girdiği tarihli kurla TL'ye çevriliyor. Bu hesaplar ondalık hassasiyetle yapılıyor. Rücu potansiyeli, hasar tutarı ile limitten hangisi küçükse odur. Hava taşımasında ihbar süresi kaçırıldıysa potansiyel sıfırdır. Karayolu ve denizde ise ispat yükünün sigortalıya geçtiği dosyaya not ediliyor. Her tahmin, kural sürümü ve kur tarihiyle birlikte ayrı bir kayıt olarak saklanıyor.</p>
+          <p>Taşıyıcının sorumluluk limiti, hasarlı kilogram ya da kap üzerinden SDR olarak hesaplanır ve uzmanın girdiği tarihli kurla TL'ye çevrilir. Bu hesaplar ondalık hassasiyetle yapılır. Rücu potansiyeli, hasar tutarı ile limitten hangisi küçükse odur. Hava taşımasında ihbar süresi kaçırıldıysa potansiyel sıfırdır. Karayolu ve denizde ise ispat yükünün talepte bulunan tarafa geçtiği dosyaya not edilir. Her tahmin, kural sürümü ve kur tarihiyle birlikte ayrı bir kayıt olarak saklanır.</p>
 
           <h2>5. KVKK ve maskeleme</h2>
-          <p>TC kimlik numarası, vergi numarası, telefon, IBAN ve e-posta, metin modele gitmeden önce kural tabanlı bir katmanda maskeleniyor. Bu, İngilizce belgeler için de geçerli. Sigortalı bilgileri veritabanında şifreli tutuluyor. Yurt dışındaki yapay zekâ servislerinin kullanımı ise her şirket için varsayılan olarak kapalı. Bu konuyu ayrıntılı olarak <a href="sigortada-yapay-zeka-kvkk.html">sigortada üretken yapay zekâ ve KVKK</a> üzerine yazdığım yazıda ele aldım.</p>
+          <p>TC kimlik numarası, vergi numarası, telefon, IBAN ve e-posta, metin modele gitmeden önce kural tabanlı bir katmanda maskelenir. Bu, İngilizce belgeler için de geçerli. Sigortalı bilgileri veritabanında şifreli tutulur. Yurt dışındaki yapay zekâ servislerinin kullanımı ise her şirket için varsayılan olarak kapalı. Bu konu, <a href="sigortada-yapay-zeka-kvkk.html">sigortada üretken yapay zekâ ve KVKK</a> üzerine ayrı bir yazıda ayrıntılı olarak ele alınır.</p>
 
           <h2>6. İzlenebilirlik ve kurallar</h2>
-          <p>Her yapay zekâ önerisi, onu üreten modelin ve istemin sürümüyle saklanıyor; her hesapta da kural sürümü kayda geçiyor. Uzmanın hangi öneriyi kabul ettiği, reddettiği ya da düzelttiği ölçülüyor. Dosyadaki her durum geçişi de değiştirilemeyen bir denetim kaydına yazılıyor. Süreler, limitler, tatil takvimleri ve belge listeleri koda gömülü olmadığı için şirket bazında, sürümlü kural setleriyle güncellenebiliyor. Bu kural setleri hukukçu onayından geçecek şekilde tasarlandı.</p>
+          <p>Her yapay zekâ önerisi, onu üreten modelin ve istemin sürümüyle saklanır; her hesapta da kural sürümü kayda geçer. Uzmanın hangi öneriyi kabul ettiği, reddettiği ya da düzelttiği ölçülür. Dosyadaki her durum geçişi de değiştirilemeyen bir denetim kaydına yazılır. Süreler, limitler, tatil takvimleri ve belge listeleri koda gömülü olmadığı için şirket bazında, sürümlü kural setleriyle güncellenebilir. Tasarım, bu kural setlerinin hukukçu onayından geçmesini öngörür.</p>
 
           <h2>Tarayıcıda çalışan demo</h2>
-          <p><a href="../hasarai/">HasarAI demosu</a> tamamen tarayıcıda ve sentetik veriyle çalışıyor, hiçbir bilgi sunucuya gönderilmiyor. Üç hazır senaryodan birini seçebilirsiniz: ıslanmış koliler, konteynerde eksik kap ya da süresi kaçmış hava kargo. Kendi dosyanızın taşıma rejimini, teslim tarihini ve hasarlı ağırlığını girerek süre takvimini ve rücu limitini de görebilirsiniz.</p>
+          <p><a href="../hasarai/">HasarAI demosu</a> tamamen tarayıcıda ve sentetik veriyle çalışır, hiçbir bilgi sunucuya gönderilmez. Üç hazır senaryodan birini seçebilirsiniz: ıslanmış koliler, konteynerde eksik kap ya da süresi kaçmış hava kargo. Kendi dosyanızın taşıma rejimini, teslim tarihini ve hasarlı ağırlığını girerek süre takvimini ve rücu limitini de görebilirsiniz.</p>
 
           <h2>Sırada ne var</h2>
           <p>Sırada iki modül var. Birincisi, poliçe klozunu hasar nedeni ve Incoterms risk geçişiyle eşleştiren bir teminat ön kontrolü. İkincisi, sörvey raporlarına ikinci göz olan HasarAI Verify. Verify, sayılan kap ile taşıma belgesini, hasar nedenini ve dayanağını, ambalaj değerlendirmesini ve değer kaybı hesabının tutarlılığını kontrol edecek. Bu modüllerde de sistem yalnızca bulgu üretecek, kararı yine uzman verecek.</p>
 
           <h2>Bu vakadan çıkan dersler</h2>
           <ul>
-            <li>Bence <strong>yapay zekânın neyi yapmayacağı</strong>, neyi yapacağından daha önemli bir tasarım kararı ve bu yüzden en başta verilmeli.</li>
+            <li><strong>Yapay zekânın neyi yapmayacağı</strong>, neyi yapacağından daha önemli bir tasarım kararı ve bu yüzden en başta verilmeli.</li>
             <li>Süre ve limit gibi <strong>hukuki sonucu olan sayılar</strong> modele bırakılmamalı. Bu sayılar kuralla, sürümlü ve izlenebilir biçimde hesaplanmalı.</li>
             <li>Önemli kayıtlarda <strong>tek bir modele güvenmemek</strong> gerekir. "Said to contain" gibi bir kayıt için kural tabanlı ikinci bir kontrol ucuz ve etkili bir önlem.</li>
             <li>Sistemin gerçekten yardımcı olup olmadığını en dürüst gösteren iki ölçü, <strong>süresinde yapılan ihbar oranı ile öneri kabul oranı</strong>.</li>
@@ -166,7 +166,7 @@
 
         <div class="article-cta">
           <h3>Analizin tamamı</h3>
-          <p>Nakliyat vakasının analiz envanterinde 22 iş kuralı, yapay zekâ sınırları, gereksinimler, kapsam kararları ve açık sorular yer alıyor.</p>
+          <p>Nakliyat vakasının analiz envanterinde 22 iş kuralı, yapay zekâ sınırları, gereksinimler, kapsam kararları ve açık sorular yer alır.</p>
           <a class="btn btn-primary" href="../analiz/hasarai.html">Analizi incele</a>
         </div>
 
