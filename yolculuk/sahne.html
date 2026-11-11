@@ -6,51 +6,52 @@
 <title>Yolculuk · Mustafa Ender Doğan</title>
 <meta name="robots" content="noindex">
 <script>
-/* İÇERİK — Ekranda görünen bütün metinler yalnızca bu blokta durur.
-   Sahne ve zaman çizgisi metin uzunluğuna bağlı değildir; cümleler burada değiştirilebilir. */
+/* İÇERİK — Ekranda görünen bütün metinler yalnızca bu blokta durur; cümleler burada değiştirilebilir.
+   Her ekranın süresi cümlenin uzunluğuna göre kendiliğinden ayarlanır.
+   Bir durakta `metin` boş bırakılırsa başlığın altına cümle konmaz. */
 const ICERIK = {
   giris: {
     baslik: 'Mustafa Ender Doğan',
-    metin: 'Kıdemli iş analisti ve Scrum Master. Sigorta ve bankasürans projelerinde on yılı aşkın deneyim.',
-    ipucu: 'Yolculuk kendiliğinden ilerler. Kaydırarak hızlandırabilirsin.'
+    metin: 'Dört durak. Her birinde bir sorun, bir çözüm.',
+    ipucu: 'Yolculuk kendiliğinden ilerler; kaydırılarak hızlandırılabilir.'
   },
   duraklar: [
     {
       zaman: '2013, Hacettepe Üniversitesi',
-      baslik: 'Belirsizliği ölçmeyi öğrendim',
-      metin: 'Aktüerya bilimleri okudum. Riskin sayıyla konuşulduğu yerden başladım.',
-      sorun: 'Risk görünmez. Ölçülmeyen şey yönetilemez.',
-      analist: 'Belirsizliği olasılığa, olasılığı karara çevirmeyi burada öğrendim.'
+      baslik: 'Riski ölçmeyi öğrendi',
+      metin: '',
+      sorun: 'Risk vardı, ölçüsü yoktu.',
+      cozum: 'Aktüerya bilimleri okudu: olasılık, istatistik, sigorta matematiği. Riski modellemeyi öğrendi.'
     },
     {
       zaman: '2014 – 2017, Ankara',
-      baslik: 'İki sistemi birbirine bağladım',
-      metin: 'Ekspertiz firmalarının CRM uygulamaları ile sigorta şirketlerinin hasar sistemleri arasındaki entegrasyonu yürüttüm.',
-      sorun: 'Aynı hasar dosyası iki sistemde iki ayrı dille tutuluyordu.',
-      analist: 'Alanları tek tek eşleştirdim. Amaç, iki tarafın aynı dosyada aynı şeyi görmesiydi.'
+      baslik: "CRM'i hasar sistemlerine bağladı",
+      metin: '',
+      sorun: 'Her sigorta şirketinin hasar sistemi ve veri formatı ayrıydı.',
+      cozum: 'Gereksinimi çıkardı, veriyi eşledi, testleri yazdı. Dosya akışı takılınca kök nedeni buldu, çözümü koordine etti.'
     },
     {
       zaman: '2017 – 2019, Vakıf Emeklilik',
-      baslik: 'İşleyişi içeriden gördüm',
-      metin: 'Hayat ürünlerinin devreye alınmasında ve BES fon süreçlerinde çalıştım.',
-      sorun: 'Aynı iş her gün elle, baştan yapılıyordu.',
-      analist: 'Tekrarlayan adımları ayırdım. Onları otomasyona taşıyan ekipteydim.'
+      baslik: 'Hayat ürünlerini devreye aldı',
+      metin: '',
+      sorun: 'Bir ürün canlıya çıkana kadar çok ekipten geçiyordu. Tahsilat, tazminat ve operasyon ürüne uymalıydı.',
+      cozum: 'Hazine tarife onayından canlıya alıma kadar her adımı koordine etti. Süreçleri ürün kapsamıyla karşılaştırdı, ürünü hatasız devreye aldı.'
     },
     {
       zaman: '2019 – 2025, Softtech',
-      baslik: 'Her sprint bir tur daha',
-      metin: "Bankasürans ekibinde 50'den fazla sprint yönettim. 20 kişilik ekibin Scrum Master'ıydım.",
-      sorun: 'İş birimi bir şey ister, yazılım ekibi başka bir şey anlar.',
-      analist: 'İsteği gereksinime, gereksinimi teslim edilebilir işe çevirmek benim işimdi.'
+      baslik: "50'den fazla sprint yönetti",
+      metin: '',
+      sorun: 'İş birimi bir şey istiyor, yazılım ekibi başka bir şey anlıyordu.',
+      cozum: "İsteği gereksinime, gereksinimi user story'ye çevirdi. 20 kişilik ekibin Scrum Master'lığını yaptı."
     }
   ],
   bugun: {
     zaman: 'Bugün',
-    baslik: 'İş ile teknoloji arasında köprü',
-    metin: 'İş birimleri ile teknoloji ekipleri arasında köprü kuruyorum. Vakalar bu yolun nasıl yüründüğünü gösteriyor.',
-    kapanis: 'Sorun her gezegende başkaydı: ölçmek, bağlamak, düzene koymak, çevirmek.'
+    baslik: 'Dört durak, tek yöntem',
+    metin: 'İş ile teknoloji arasında köprü kurdu. Nasıl yaptığı, sitedeki analizlerde.',
+    kapanis: 'Ölçtü, bağladı, düzene koydu, çevirdi.'
   },
-  etiket: { sorun: 'Sorun', analist: 'Analist gözüyle', tur: '50+' },
+  etiket: { sorun: 'Sorun', cozum: 'Çözüm', tur: '50+' },
   harita: ['Başlangıç', '2013', '2014–2017', '2017–2019', '2019–2025', 'Bugün'],
   dugme: {
     linkedin: "LinkedIn'de yaz",
@@ -58,6 +59,14 @@ const ICERIK = {
     bastan: 'Baştan izle', duraklat: 'Duraklat', oynat: 'Oynat', duzOku: 'Düz oku', kapat: 'Kapat'
   },
   erisim: { duraklar: 'Duraklar', duzMetin: 'Düz metin' }
+};
+/* Small visual refinements, each on its own switch; false gives back the look before them. */
+const INCE = {
+  // On wide screens the caption's calm ground reaches as far right as its text does, so on a phone held sideways
+  // the comet's trail no longer runs through the words.
+  yatay: true,
+  // On phone-size screens the comet's head is drawn a little larger, so the swing reads at arm's length.
+  bas: true
 };
 </script>
 <link rel="stylesheet" href="/assets/fonts/portfolyo.css?v=1">
@@ -97,9 +106,9 @@ const ICERIK = {
   .cap h1, .cap h2 { margin: 0 0 .6rem; font-weight: 300; letter-spacing: -.03em; line-height: 1.08; text-wrap: balance; }
   .cap h1 { font-size: clamp(2.1rem, 8.6vw, 3.6rem); }
   .cap h2 { font-size: clamp(1.75rem, 7vw, 2.9rem); }
-  .cap p.body { margin: 0; max-width: 34ch; font-size: 1rem; line-height: 1.5; color: var(--soft); }
-  .cap .say { margin: 0; max-width: 22ch; font-size: clamp(1.4rem, 5.6vw, 2.1rem); font-weight: 300; line-height: 1.2; letter-spacing: -.02em; text-wrap: balance; }
-  .cap .cue { margin: 1rem 0 0; font-size: .84rem; font-weight: 500; letter-spacing: .04em; color: var(--muted); }
+  .cap p.body { margin: 0; max-width: 34ch; font-size: 1rem; line-height: 1.5; color: var(--soft); text-wrap: balance; }
+  .cap .say { margin: 0; max-width: 25ch; font-size: clamp(1.22rem, 5vw, 1.9rem); font-weight: 300; line-height: 1.2; letter-spacing: -.02em; text-wrap: balance; }
+  .cap .cue { margin: 1rem 0 0; font-size: .84rem; font-weight: 500; letter-spacing: .04em; color: var(--muted); text-wrap: balance; }
   #tag { position: absolute; left: 0; top: 0; font: 500 .8rem/1 var(--font); letter-spacing: .04em; color: var(--pale); opacity: 0; pointer-events: none; white-space: nowrap; }
 
   /* The stop map: the start at the bottom, today at the top, like the journey itself. */
@@ -161,9 +170,9 @@ const ICERIK = {
   $('#stage').setAttribute('aria-label', D.giris.ipucu);
   cap([el('h1', null, D.giris.baslik), el('p', 'body', D.giris.metin), el('p', 'cue', D.giris.ipucu)]);
   D.duraklar.forEach((d) => {
-    cap([el('p', 'when', d.zaman), el('h2', null, d.baslik), el('p', 'body', d.metin)]);
+    cap([el('p', 'when', d.zaman), el('h2', null, d.baslik)].concat(d.metin ? [el('p', 'body', d.metin)] : []));
     cap([el('p', 'when', D.etiket.sorun), el('p', 'say', d.sorun)]);
-    cap([el('p', 'when', D.etiket.analist), el('p', 'say', d.analist)]);
+    cap([el('p', 'when', D.etiket.cozum), el('p', 'say', d.cozum)]);
   });
   cap([el('p', 'when', D.bugun.zaman), el('h2', null, D.bugun.baslik), el('p', 'body', D.bugun.metin)]);
   cap([el('p', 'say', D.bugun.kapanis)], 'last');
@@ -180,8 +189,8 @@ const ICERIK = {
   const pl = $('#plain'); pl.setAttribute('aria-label', D.erisim.duzMetin);
   const close = el('button', 'btn', B.kapat); close.type = 'button'; close.id = 'plainClose';
   put(pl, [close, el('h2', null, D.giris.baslik), el('p', null, D.giris.metin), el('p', 'cue', D.giris.ipucu)]);
-  D.duraklar.forEach((d) => pl.appendChild(put(el('article'), [el('p', 'when', d.zaman), el('h3', null, d.baslik), el('p', null, d.metin),
-    el('p', 'lbl', D.etiket.sorun), el('p', null, d.sorun), el('p', 'lbl', D.etiket.analist), el('p', null, d.analist)])));
+  D.duraklar.forEach((d) => pl.appendChild(put(el('article'), [el('p', 'when', d.zaman), el('h3', null, d.baslik)].concat(d.metin ? [el('p', null, d.metin)] : [],
+    [el('p', 'lbl', D.etiket.sorun), el('p', null, d.sorun), el('p', 'lbl', D.etiket.cozum), el('p', null, d.cozum)]))));
   pl.appendChild(put(el('article'), [el('p', 'when', D.bugun.zaman), el('h3', null, D.bugun.baslik), el('p', null, D.bugun.metin)]));
   put(pl, [el('p', 'close', D.bugun.kapanis), link()]);
 })();
@@ -192,6 +201,12 @@ const ICERIK = {
   'use strict';
   const $ = (s) => document.querySelector(s), B = ICERIK.dugme;
   const stage = $('#stage'), canvas = $('#gl'), plain = $('#plain'), playBtn = $('#playBtn'), endEl = $('#end'), tagEl = $('#tag'), mapEl = $('#map');
+  // the controls that make way for the comet when its head passes beneath them (see frame): where each one sits on the stage
+  const YIELD = [mapEl, playBtn, $('#plainBtn')].map((el) => ({ el: el, r: [0, 0, 0, 0], v: '' }));
+  function measureYield() {
+    const sr = stage.getBoundingClientRect();
+    YIELD.forEach((y) => { const b = y.el.getBoundingClientRect(); y.r = [b.left - sr.left, b.top - sr.top, b.right - sr.left, b.bottom - sr.top]; });
+  }
   const caps = [].slice.call(document.querySelectorAll('.cap')), stops = [].slice.call(document.querySelectorAll('#map button'));
   let playing = false;
   function setPlaying(v) { playing = v; playBtn.textContent = v ? B.duraklat : B.oynat; playBtn.setAttribute('aria-pressed', v ? 'true' : 'false'); }
@@ -446,12 +461,21 @@ const ICERIK = {
   }
 
   // ---------- the film's clock ----------
-  // captions: the opening, then three beats per planet (approach, problem, the analyst's view), today, the close
+  // captions: the opening, then three beats per planet (approach, problem, solution), today, the close.
+  // Each caption stays for as long as its text takes to read (about 20 characters a second, within bounds),
+  // so the sentences in ICERIK can change without retiming the film; every other key follows from these.
+  const read = (s, lo, hi) => clamp(.8 + (s || '').length / 20, lo, hi);
   const CAPT = [[0, 5.0]], ST = [];
   let tt = 6.0;
-  for (let i = 0; i < 4; i++) { const a = tt, p = a + 4.45, s = p + 3.85, e = s + 3.6; ST.push({ a: a, p: p, s: s, e: e }); CAPT.push([a, a + 4.0], [p, p + 3.4], [s, e]); tt = e + 1.3; }
-  const TS = tt, TC = TS + 5.4, TEND = TC + 2.6;
-  CAPT.push([TS, TS + 4.8], [TC, 1e9]);
+  for (let i = 0; i < 4; i++) {
+    const d = ICERIK.duraklar[i];
+    const d1 = read(d.zaman + d.baslik + (d.metin || ''), 3.8, 6.2), d2 = read(d.sorun, 3.2, 7.5), d3 = read(d.cozum, 3.6, 8.5);
+    const a = tt, p = a + d1 + .45, s = p + d2 + .45, e = s + d3;
+    ST.push({ a: a, p: p, s: s, e: e }); CAPT.push([a, a + d1], [p, p + d2], [s, e]); tt = e + 1.3;
+  }
+  const dS = read(ICERIK.bugun.baslik + ICERIK.bugun.metin, 4.8, 7.0);
+  const TS = tt, TC = TS + dS + .6, TEND = TC + 2.6;
+  CAPT.push([TS, TS + dS], [TC, 1e9]);
   // where the stop map and the keys land: just inside each approach caption
   const ANCH = [0, ST[0].a + .6, ST[1].a + .6, ST[2].a + .6, ST[3].a + .6, TS + .6];
   // how far each planet's disorder has been resolved, and the stretch of time in which it moves at all
@@ -469,29 +493,132 @@ const ICERIK = {
   helio.done();
   let last1 = -1, last3 = -1, last4 = -1;
 
+  // ---------- the comet's path, built once in physical time ----------
+  // It falls in from outside the system, swings round the far side of each planet in turn, then round the sun and away.
+  // Orbital plane: u to the right, w away from the viewer; the point (u, w) sits at V(u, 0, -w).
+  // Patched conics: inside a planet's window (three times its closest approach) only that planet pulls, outside only the sun.
+  // A planet pulls mu/r^2 + 2 beta/r^3. With beta = 0 the swing is Kepler's hyperbola with the planet at its focus (the first
+  // planet; the sun likewise). The planets here sit too close together to hand the comet on that way (inside its window a
+  // hyperbola turns it ~109 degrees at most, the zigzag needs up to ~136), so the next three pull a little harder close in:
+  // r = p / (1 + e cos(om nu)), still symmetric about the closest point, straight far out, the planet at its centre.
+  const CW = SYS.map((s) => [s.c.x, -s.c.z]), CRP = [28.6, 37.6, 31, 23], SHELL = 2, MUS = 1e5;
+  const CMU = [55095.55682613, 37063.28978124, 34636.58071081, 40199.43427624], CBE = [0, 1231547.14411, 767348.9707106, 232370.1224781];
+  function pull(x, y, o) {
+    let ax = 0, ay = 0, wsum = 0;
+    for (let k = 0; k < 4; k++) {
+      const dx = x - CW[k][0], dy = y - CW[k][1], r = Math.sqrt(dx * dx + dy * dy), R = 3 * CRP[k];
+      if (r > R) continue;
+      const wk = 1 - sstep(R - 2 * SHELL, R, r), f = (CMU[k] / (r * r) + 2 * CBE[k] / (r * r * r)) / r;
+      ax -= wk * f * dx; ay -= wk * f * dy; wsum += wk;
+    }
+    const r = Math.sqrt(x * x + y * y), f = (1 - wsum) * MUS / (r * r * r);
+    o[0] = ax - f * x; o[1] = ay - f * y;
+  }
+  // samples about .3 units of path apart: position and speed
+  const PU = [], PW = [], PV = [];
+  {
+    // RK4 with a step of about .3 units of path; from where it enters the first planet's window, back to the edge of the
+    // system, then on until it is well past the sun
+    const a1 = [0, 0], a2 = [0, 0], a3 = [0, 0], a4 = [0, 0];
+    function run(x, y, vx, vy, dir, stop) {
+      const out = [];
+      for (let it = 0; it < 20000; it++) {
+        out.push([x, y, Math.sqrt(vx * vx + vy * vy)]);
+        if (stop(x, y)) break;
+        const h = dir * .3 / Math.sqrt(vx * vx + vy * vy);
+        pull(x, y, a1);
+        const x2 = x + h / 2 * vx, y2 = y + h / 2 * vy, u2 = vx + h / 2 * a1[0], v2 = vy + h / 2 * a1[1]; pull(x2, y2, a2);
+        const x3 = x + h / 2 * u2, y3 = y + h / 2 * v2, u3 = vx + h / 2 * a2[0], v3 = vy + h / 2 * a2[1]; pull(x3, y3, a3);
+        const x4 = x + h * u3, y4 = y + h * v3, u4 = vx + h * a3[0], v4 = vy + h * a3[1]; pull(x4, y4, a4);
+        x += h / 6 * (vx + 2 * u2 + 2 * u3 + u4); y += h / 6 * (vy + 2 * v2 + 2 * v3 + v4);
+        vx += h / 6 * (a1[0] + 2 * a2[0] + 2 * a3[0] + a4[0]); vy += h / 6 * (a1[1] + 2 * a2[1] + 2 * a3[1] + a4[1]);
+      }
+      return out;
+    }
+    const ENTRY = [72, -825.8, 21.04551298413, 31.69748912316];
+    const back = run(ENTRY[0], ENTRY[1], ENTRY[2], ENTRY[3], -1, (x, y) => y < -940).reverse();
+    let rmin = 1e9, past = false;
+    const fwd = run(ENTRY[0], ENTRY[1], ENTRY[2], ENTRY[3], 1, (x, y) => { const r = Math.hypot(x, y); if (y > -300) { if (r < rmin) rmin = r; else past = true; } return past && r > 330; });
+    back.concat(fwd.slice(1)).forEach((q) => { PU.push(q[0]); PW.push(q[1]); PV.push(q[2]); });
+  }
+  const NS = PU.length, PS = new Float64Array(NS);
+  for (let i = 1; i < NS; i++) PS[i] = PS[i - 1] + Math.hypot(PU[i] - PU[i - 1], PW[i] - PW[i - 1]);
+  const PATH = PS[NS - 1];
+  // the five encounters (four planets, then the sun): closest point and the window (within three times the closest distance)
+  const ENC = CW.concat([[0, 0]]).map((c) => {
+    let ip = 0, dm = 1e9; for (let i = 0; i < NS; i++) { const d = Math.hypot(PU[i] - c[0], PW[i] - c[1]); if (d < dm) { dm = d; ip = i; } }
+    let i0 = ip, i1 = ip; while (i0 > 0 && Math.hypot(PU[i0] - c[0], PW[i0] - c[1]) < 3 * dm) i0--; while (i1 < NS - 1 && Math.hypot(PU[i1] - c[0], PW[i1] - c[1]) < 3 * dm) i1++;
+    return { c: c, ip: ip, i0: i0, i1: i1, d: dm };
+  });
+  ENC[4].i0 = Math.max(ENC[4].i0, ENC[3].i1);   // the sun's own stretch begins where the last planet lets go
+  const pathPt = (i, out) => out.set(PU[i], 0, -PW[i]);
+
+  // ---------- the comet's clock: film time against physical time ----------
+  // The film plays the physics at a varying rate, and its speed on screen is level * v^2 (v the physical speed): squaring keeps
+  // the order of speeds and makes the swing read. The level peaks at each closest point (with zero slope, so the fastest moment
+  // is the closest one), eases down inside the window to the level of the leg, and holds that along the leg. On the way out
+  // it never drops below the way in, so at equal distance the comet leaves at least as fast as it came. The closest points
+  // fall about half a second into Solution (the order settles as it passes) and 1 s into the sun's caption; each leg's level is solved
+  // so the film keeps that clock, from the caption lengths. The way out is played a tenth faster than the way in: the
+  // planets stand still here, so the gain a real slingshot gives is shown by the playback, the path stays physical.
+  const VPK = [40, 46, 52, 58, 85], GAIN = 1.1;          // film speed at each closest point (world units a second)
+  // (at the blue planet a quarter second sooner, so the swing slips between its drifting lights)
+  const TPK = [ST[0].s + .5, ST[1].s + .5, ST[2].s + .5, ST[3].s + .25, TS + 1];
+  const PF = new Float64Array(NS), PT = new Float64Array(NS);
+  {
+    const sm = (x) => { x = clamp(x, 0, 1); return x * x * (3 - 2 * x); }, lev = new Float64Array(NS);
+    const CL = ENC.map((e, j) => VPK[j] / (PV[e.ip] * PV[e.ip])), LG = [];
+    const fill = (j, L) => {   // the stretch from closest point j - 1 (or the start) to closest point j; returns its film time
+      // (where two windows touch there is no leg: the next approach starts from the level the last exit reached)
+      const e = ENC[j], a = j ? ENC[j - 1].ip : 0, x0 = j ? ENC[j - 1].i1 : 0, leg = PS[e.i0] - PS[x0] > 1e-6;
+      const X = j ? (leg ? Math.max(LG[j - 1], L) : Math.max(LG[j - 1], L / GAIN)) * GAIN : L, L0 = leg ? L : X;
+      if (j) { const p = ENC[j - 1]; for (let i = p.ip; i <= x0; i++) lev[i] = CL[j - 1] + (X - CL[j - 1]) * sm((PS[i] - PS[p.ip]) / (PS[x0] - PS[p.ip])); }
+      if (leg) for (let i = x0; i <= e.i0; i++) lev[i] = X + (L - X) * sm((PS[i] - PS[x0]) / (PS[e.i0] - PS[x0]));
+      for (let i = e.i0; i <= e.ip; i++) lev[i] = L0 + (CL[j] - L0) * sm((PS[i] - PS[e.i0]) / (PS[e.ip] - PS[e.i0]));
+      let T = 0; for (let i = a + 1; i <= e.ip; i++) T += (PS[i] - PS[i - 1]) * (1 / (lev[i - 1] * PV[i - 1] * PV[i - 1]) + 1 / (lev[i] * PV[i] * PV[i])) / 2;
+      return T;
+    };
+    for (let j = 0; j < 5; j++) {
+      const need = TPK[j] - (j ? TPK[j - 1] : 0);
+      let lo = Math.log(CL[j] * 1e-3), hi = Math.log(CL[j] * 3);
+      for (let it = 0; it < 70; it++) { const m = (lo + hi) / 2; if (fill(j, Math.exp(m)) > need) lo = m; else hi = m; }
+      LG[j] = Math.exp((lo + hi) / 2); fill(j, LG[j]);
+    }
+    // past the sun: ease down to the leg level over its window, then on to half of it while it climbs away
+    const e = ENC[4]; for (let i = e.ip; i < NS; i++) lev[i] = CL[4] + (LG[4] * GAIN - CL[4]) * sm((PS[i] - PS[e.ip]) / (PS[e.i1] - PS[e.ip])) - LG[4] * GAIN * .5 * sm((PS[i] - PS[e.i1]) / 80);
+    for (let i = 0; i < NS; i++) PF[i] = lev[i] * PV[i] * PV[i];
+    for (let i = 1; i < NS; i++) PT[i] = PT[i - 1] + (PS[i] - PS[i - 1]) * (1 / PF[i - 1] + 1 / PF[i]) / 2;
+  }
+  // distance along the path at film time t (cubic between samples, with the film speed as the slope: smooth in t)
+  function cometS(t) {
+    if (t <= 0) return 0; if (t >= PT[NS - 1]) return PATH;
+    let lo = 0, hi = NS - 1; while (hi - lo > 1) { const m = (lo + hi) >> 1; if (PT[m] <= t) lo = m; else hi = m; }
+    const h = PT[hi] - PT[lo], u = (t - PT[lo]) / h, u2 = u * u, u3 = u2 * u;
+    return (2 * u3 - 3 * u2 + 1) * PS[lo] + (u3 - 2 * u2 + u) * h * PF[lo] + (-2 * u3 + 3 * u2) * PS[hi] + (u3 - u2) * h * PF[hi];
+  }
+  // where a closest point lies on a moon's orbit, as that orbit's angle (the measured moon and the bridge are timed to it)
+  function encAngle(j, c, pl) { const q = pathPt(ENC[j].ip, V()).sub(c); return Math.atan2(-q.dot(pl.w), q.dot(pl.u)); }
+
   // ===== 1. the ice giant: where its moon goes is uncertain, six possible orbits until it is measured =====
   const S1 = SYS[0], r1 = S1.r;
   const ice = body({ at: S1.c, r: r1, kind: 0, c0: '#C9C6F2', c1: '#D2CFF6', sh: '#6E6AB8', mid: '#A6A2E0' });
   const moon1 = body({ r: r1 * .2, small: true, kind: 4, c0: '#F2E9DC', c1: '#E3D8CE', sh: '#958BB8', mid: '#D2C6CF' });
   const F1 = [1.72, 14, -10];   // the measured orbit: radius (planet radii), tilt, roll
-  const G1 = [[1.42, 2, 12, .26, -.22], [2.3, 24, -22, -.3, .2], [1.6, -8, 20, .05, .46], [2.05, 10, 0, .36, .1], [1.85, 28, -4, -.2, -.36], [2.45, 6, -18, .1, .3]];
+  // six possible orbits, every one of them round the planet: the first is the true one, where the moon is all along; the others are guesses
+  const G1 = [[1.72, 14, -10], [2.3, 18, -22], [1.5, -8, 16], [2.05, 4, 8], [1.9, 20, 4], [2.5, 6, -18]];
   const PF1 = plane(F1[1] * RAD, F1[2] * RAD);
   const lines1 = Lines(G1.map(() => 161), lineMat(LINE, .5, 1, [1.4, .55]), 5);
   const ticks1 = Lines(new Array(24).fill(2), lineMat(LINE, .7, 1), 5);
-  const T1P = ST[0].s + .5, th1 = (t) => 3.95 + (t - T1P) * .3;
+  // the moon is timed so the comet passes just outside it at the closest point, the moment its orbit is measured
+  // (it goes round the way that keeps it in sight from the problem on: it is behind the planet only while the title shows)
+  const T1P = TPK[0], TH1 = encAngle(0, S1.c, PF1), th1 = (t) => TH1 - (t - T1P) * .2;
   function orb1(k, t, res) {
     const g = G1[k], w = 1 - res;
-    return { R: lerp(g[0] + .07 * Math.sin(t * .5 + k * 2.1) * w, F1[0], res) * r1,
-      pl: plane(lerp(g[1] + 4 * Math.sin(t * .37 + k), F1[1], res) * RAD, lerp(g[2] + 5 * Math.sin(t * .29 + k * 1.7), F1[2], res) * RAD),
-      c: S1.c.clone().add(V(g[3] * w * r1, 0, g[4] * w * r1 / SE)) };
+    return { R: lerp(g[0] + .06 * Math.sin(t * .5 + k * 2.1) * w, F1[0], res) * r1,
+      pl: plane(lerp(g[1] + 4 * Math.sin(t * .37 + k), F1[1], res) * RAD, lerp(g[2] + 5 * Math.sin(t * .29 + k * 1.7), F1[2], res) * RAD), c: S1.c };
   }
-  function moon1At(t, out) {
-    const res = RES(0, t);
-    let R = 0, tl = 0, rl = 0, x = 0, z = 0, ws = 0;
-    for (let k = 0; k < 6; k++) { const w = Math.pow(1 + Math.cos(t * .42 - k * 1.05), 3), g = G1[k]; R += g[0] * w; tl += g[1] * w; rl += g[2] * w; x += g[3] * w; z += g[4] * w; ws += w; }
-    const c = S1.c.clone().add(V(x / ws * (1 - res) * r1, 0, z / ws * (1 - res) * r1 / SE));
-    return onCirc(out, c, lerp(R / ws, F1[0], res) * r1, plane(lerp(tl / ws, F1[1], res) * RAD, lerp(rl / ws, F1[2], res) * RAD), th1(t));
-  }
+  // the moon keeps to the first of the lines, exactly as drawn: measuring does not move it, it settles which line is the right one
+  function moon1At(t, out) { const lt = LIVE(0, t), o = orb1(0, lt, RES(0, lt)); return onCirc(out, o.c, o.R, o.pl, th1(t)); }
   function upd1(t) {
     moon1At(t, moon1.mesh.position);
     const lt = LIVE(0, t); if (lt === last1) return; last1 = lt;
@@ -536,7 +663,8 @@ const ICERIK = {
   const edge2 = Lines([241], lineMat(LINE, .72, 1.1, [2.2, .62]), 5), orb2 = Lines([241], lineMat(LINE, .62, 1.1, [.9, .3]), 5);
   edge2.set(0, circ(BUF, 241, S2.c, RE, PL2), 1, true); edge2.done(); orb2.set(0, circ(BUF, 241, S2.c, RM, PL2), 1, true); orb2.done();
   const bridge = Lines([24], lineMat('#FFF4DC', .95, 1.8), 6);
-  const T2P = ST[1].s + .5, th2 = (t) => -0.32 + (t - T2P) * .05, ROSE = C('#D6CAFF'), CREAM = C(LINE);
+  // the moon is timed to be where the comet crosses between ring and moon, so the bridge grows from that spot
+  const T2P = TPK[1], TH2 = encAngle(1, S2.c, PL2), th2 = (t) => TH2 + (t - T2P) * .05, ROSE = C('#D6CAFF'), CREAM = C(LINE);
   function upd2(t) {
     const res = RES(1, t), th = th2(t);
     onCirc(moon2.mesh.position, S2.c, RM, PL2, th);
@@ -558,17 +686,23 @@ const ICERIK = {
   const R3a = [1.36, 1.72, 2.02, 2.42], R3b = [1.42, 1.74, 2.06, 2.38];
   const moons3 = [['#FFF1D9', .1], ['#F2D3B6', .085], ['#F0D6D2', .12], ['#F7E3A9', .095]].map((m) => body({ r: r3 * m[1], small: true, kind: 4, c0: m[0], c1: m[0], sh: '#9A6A72', mid: '#DDB6A6' }));
   const lines3 = Lines([181, 181, 181, 181], lineMat(LINE, .5, 1.1), 5);
-  const P3 = [0.4, 2.2, 3.9, 5.3], W3 = [.62, .21, .44, .12];
-  const chaos3 = (k, t) => P3[k] + W3[k] * t + .55 * Math.sin(t * (.9 + .3 * k) + k * 2.0);
+  // Disorder that is still orbital: each moon keeps its own pace (the nearer, the faster, never backwards) on an orbit that is a
+  // little off-centre and slowly turning. Until order sets in, each one trails the hand by a gap that its own pace just closes,
+  // so the four fall in by going on, not by turning back.
+  // the hand starts level on the left, where the four are furthest apart in the picture and come into it in view, round the front
+  const HAND3 = Math.PI, W3 = [.62, .44, .34, .26], GAP3 = [1.6, 1.15, .9, .7], A3 = [.16, .14, .12, .1], N3 = [1.3, 1.1, .9, .8];
+  const E3 = [.085, .1, .075, .055], PR3 = [.25, -.2, .16, -.12], PH3 = [.6, 2.9, 4.4, 1.7];
+  const chaos3 = (k, t) => { const x = t - ST[2].s; return HAND3 - GAP3[k] + W3[k] * x + A3[k] * Math.sin(N3[k] * x); };
   // order: one hand that moves on in short, even ticks
-  const order3 = (t) => { const u = Math.max(0, t - ST[2].s) / 1.25, f = u - Math.floor(u); return 2.62 + .13 * (Math.floor(u) + sstep(.5, 1, f)); };
-  function th3(k, t, res) { const t0 = ST[2].s, wrap = Math.round((chaos3(k, t0) - 2.62) / TAU) * TAU; return lerp(chaos3(k, t), order3(t) + wrap, res); }
-  function rad3(k, t, res) { const wob = (1 - res) * .065; return (th) => r3 * lerp(R3a[k], R3b[k], res) * (1 + wob * (Math.sin(th * 3 + t * 2.3 + k) + .6 * Math.sin(th * 5 - t * 1.7 + k * 2))); }
+  const order3 = (t) => { const u = Math.max(0, t - ST[2].s) / 1.25, f = u - Math.floor(u); return HAND3 + .13 * (Math.floor(u) + sstep(.5, 1, f)); };
+  const th3 = (k, t, res) => lerp(chaos3(k, t), order3(t), res);
+  // the shape of an orbit: an ellipse with the planet at its focus, its near point turning slowly; a true circle once in order
+  function rad3(k, t, res) { const e = (1 - res) * E3[k], w = PH3[k] + PR3[k] * t, R = r3 * lerp(R3a[k], R3b[k], res) * (1 - e * e); return (th) => R / (1 + e * Math.cos(th - w)); }
   function upd3(t) {
-    const res = RES(2, t);
-    for (let k = 0; k < 4; k++) { const th = th3(k, t, res); onCirc(moons3[k].mesh.position, S3.c, rad3(k, t, res)(th), PL3, th); }
-    const lt = LIVE(2, t); if (lt === last3) return; last3 = lt;
-    const lr = RES(2, lt);
+    const res = RES(2, t), lt = LIVE(2, t), lr = RES(2, lt);
+    // the moons ride the lines exactly as drawn
+    for (let k = 0; k < 4; k++) { const th = th3(k, t, res); onCirc(moons3[k].mesh.position, S3.c, rad3(k, lt, lr)(th), PL3, th); }
+    if (lt === last3) return; last3 = lt;
     for (let k = 0; k < 4; k++) lines3.set(k, circ(BUF, 181, S3.c, 0, PL3, 0, TAU, rad3(k, lt, lr)), 1, true);
     lines3.done(); lines3.u.uOp.value = lerp(.44, .62, lr);
   }
@@ -578,40 +712,60 @@ const ICERIK = {
   const blue = body({ at: S4.c, r: r4, kind: 3, seed: .7, c0: '#6E8FE0', c1: '#F1E8DC', sh: '#4A55A6', mid: '#5E78CC' });
   const moon4 = body({ r: r4 * .24, small: true, kind: 4, c0: '#F6F0E2', c1: '#E6DCCB', sh: '#8E8FB8', mid: '#D6D1D6' });
   const laps = Lines(new Array(NL + 1).fill(121), lineMat(LINE, .58, .9), 5);
-  const LAP = 1.7, L0 = ST[3].a - 9 * LAP;          // the moon has been lapping before the comet arrives
-  const lapG = (k) => ({ r: 1 + (hsh(k + 1) - .5) * .3, x: (hsh(k + 7) - .5) * .34, z: (hsh(k + 3) - .5) * .34, tl: (hsh(k + 5) - .5) * 16, rl: (hsh(k + 9) - .5) * 18 });
-  const BAND = (k) => .9 + .2 * k / NL;
-  function lapPlane(k, res) { const g = lapG(k), w = 1 - res; return { R: R4 * lerp(g.r, BAND(k), res), pl: plane((12 + g.tl * w) * RAD, (-10 + g.rl * w) * RAD),
-    c: S4.c.clone().add(V(g.x * r4 * w, 0, g.z * r4 * w / SE)) }; }
+  // One unbroken trace. The moon's orbit drifts a little from lap to lap (its size, its tilt, its centre) and each lap blends into
+  // the next, so the line it leaves is a single curve with the moon always at its end: no lap starts anywhere but where the last ended.
+  // LAP: seconds a lap; U0: laps done when order sets in; UMIN: laps already there at the start; SLOW: laps a second once in order; DEC: seconds to slow down
+  const LAP = 2.8, U0 = 12.5, UMIN = 6, SLOW = .5 / TAU, DEC = 2.4;
+  const LG = []; for (let k = 0; k <= NL + 2; k++) LG.push({ r: 1 + (hsh(k + 1) - .5) * .26, x: (hsh(k + 7) - .5) * .2, z: (hsh(k + 3) - .5) * .2, tl: (hsh(k + 5) - .5) * 14, rl: (hsh(k + 9) - .5) * 16 });
+  const BAND = (u) => .9 + .2 * u / (NL + 1);
   const lights = Dots(20, 9, '#FFD58F', '#F2B45A');
-  const T4D = ST[3].s, A4 = 3.9 - ((T4D + 1.2 - L0) / LAP % 1) * TAU, th4 = (t) => A4 + (t - L0) / LAP * TAU;
+  const T4D = ST[3].s;
+  // laps done by time t: a steady pace until order sets in, then slowing smoothly to a walk
+  function lapsAt(t) {
+    const x = t - T4D, v0 = 1 / LAP;
+    if (x <= 0) return Math.max(UMIN, U0 + x * v0);
+    const q = Math.min(x / DEC, 1);
+    return U0 + v0 * Math.min(x, DEC) + (SLOW - v0) * DEC * (q * q * q - q * q * q * q / 2) + SLOW * Math.max(0, x - DEC);
+  }
+  const UEND = lapsAt(T4D + DEC), A4 = 3.9 - (UEND % 1) * TAU;   // the trace ends there, with the moon at the front left of the belt
+  // a point of the trace: the orbit as it is after up laps, the moon ua laps round it
+  function lapPt(up, ua, res, out, o) {
+    const k = Math.min(NL + 1, Math.floor(up)), f = up - k, s = f * f * (3 - 2 * f), a = LG[k], b = LG[k + 1], w = 1 - res;
+    const tl = (12 + lerp(a.tl, b.tl, s) * w) * RAD, rl = (-10 + lerp(a.rl, b.rl, s) * w) * RAD, R = R4 * lerp(lerp(a.r, b.r, s), BAND(up), res);
+    const th = A4 + ua * TAU, cs = Math.cos(th) * R, sn = -Math.sin(th) * R, st = Math.sin(tl), cr = Math.cos(rl), sr = Math.sin(rl);
+    out[o] = S4.c.x + lerp(a.x, b.x, s) * r4 * w + cr * cs - st * sr * sn;
+    out[o + 1] = S4.c.y + sr * cs + st * cr * sn;
+    out[o + 2] = S4.c.z + lerp(a.z, b.z, s) * r4 * w + Math.cos(tl) * sn;
+  }
+  const M4 = [0, 0, 0];
+  let lastU4 = -1, lastR4 = -1, lastK4 = -1;
   function upd4(t) {
     const res = RES(3, t), near = NEAR(3, t);
-    // laps finished so far (none are added once the belt is in order)
-    const tl = Math.min(t, T4D + LAP * 1.2), nl = clamp(Math.floor((tl - L0) / LAP), 0, NL);
-    // the moon: on its current lap until the belt settles, then once round the belt's outer edge, slowly
-    const lk = Math.min(nl, NL), lp = lapPlane(lk, res);
-    onCirc(moon4.mesh.position, lp.c, lp.R, lp.pl, th4(Math.min(t, T4D + 1.2)) + Math.max(0, t - T4D - 1.2) * .45);
-    // twenty lights: scattered and drifting, then one even ring that turns together
+    // the moon: at the end of its trace; once the belt has settled it goes on round the outer edge, slowly
+    const um = lapsAt(t), ut = Math.min(um, UEND);
+    lapPt(ut, um, res, M4, 0); moon4.mesh.position.set(M4[0], M4[1], M4[2]);
+    // twenty lights: scattered and drifting, each at its own pace, then one even ring that turns together
     const q = V();
     for (let i = 0; i < 20; i++) {
       const a0 = hsh(i * 3.1) * TAU, rr = r4 * (1.6 + 1.8 * hsh(i * 5.3)), wob = 1 - res;
-      const ca = a0 + t * (.18 + .3 * hsh(i * 2.7)) * (hsh(i) > .5 ? 1 : -1), cr = rr * (1 + .12 * Math.sin(t * (.7 + hsh(i * 1.9)) + i));
+      const ca = a0 + t * (.14 + .34 * hsh(i * 2.7)), cr = rr * (1 + .12 * Math.sin(t * (.7 + hsh(i * 1.9)) + i));
       const oa = i / 20 * TAU + (t - T4D) * .09, ang = lerp(ca, oa + Math.round((ca - oa) / TAU) * TAU, res);
       onCirc(q, S4.c, lerp(cr, r4 * 2.55, res), PL4, ang); q.y += r4 * (hsh(i * 4.4) - .5) * 1.6 * Math.sin(t * .5 + i) * wob;
       q.toArray(lights.pos, i * 3); lights.al[i] = near;
     }
     lights.g.attributes.position.needsUpdate = true; lights.g.attributes.aA.needsUpdate = true;
-    const lt = LIVE(3, t), tlc = Math.min(lt, T4D + LAP * 1.2), key = lt * 1000 + Math.floor((tlc - L0) / LAP * 60);
-    if (key === last4) return; last4 = key;
-    const lr = RES(3, lt), nn = clamp(Math.floor((tlc - L0) / LAP), 0, NL);
-    for (let k = 0; k <= NL; k++) {
-      const p = lapPlane(k, lr);
-      if (k < nn) laps.set(k, circ(BUF, 121, p.c, p.R, p.pl), 1, true);
-      else if (k === nn && tlc > L0) { const f = clamp((tlc - L0) / LAP - nn, 0, 1); laps.set(k, circ(BUF, 121, p.c, p.R, p.pl, A4, A4 + TAU * Math.max(f, .002)), 1, false); }
-      else laps.set(k, circ(BUF, 121, p.c, p.R, p.pl), 0, true);
+    // the trace: whole laps change only while order is setting in; the lap in hand grows with the moon
+    if (ut === lastU4 && res === lastR4) return;
+    const kh = Math.min(NL, Math.floor(ut));
+    if (res !== lastR4 || kh !== lastK4) {
+      for (let k = 0; k <= NL; k++) {
+        if (k < kh) { for (let i = 0; i < 121; i++) { const u = k + i / 120; lapPt(u, u, res, BUF, i * 3); } laps.set(k, BUF, 1, false); }
+        else if (k > kh) laps.set(k, BUF, 0, false);
+      }
     }
-    laps.done();
+    for (let i = 0; i < 121; i++) { const u = kh + (ut - kh) * i / 120; lapPt(u, u, res, BUF, i * 3); }
+    laps.set(kh, BUF, ut - kh > .002 ? 1 : 0, false);
+    laps.done(); lastU4 = ut; lastR4 = res; lastK4 = kh;
   }
 
   // ===== the sun: a flat golden disc, pale concentric rings, thin rays =====
@@ -640,59 +794,26 @@ const ICERIK = {
   const sunMesh = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), sunMat);
   sunMesh.quaternion.copy(camera.quaternion); sunMesh.scale.setScalar(SUN_R * 6.8); sunMesh.renderOrder = 3; scene.add(sunMesh);
 
-  // ---------- the comet's path: from outside the system, past the four planets, round the sun and on ----------
-  // the planets on the left are reached from below, so the comet never comes in under the stop map
-  const CP = [P(26, 474), P(44, 430)];                                                     // 0, 1: from outside the system
-  CP.push(onCirc(V(), S1.c, F1[0] * r1 * 1.36, PF1, th1(T1P) - .06));                    // 2: past the moon of the ice giant
-  CP.push(P(-20, 336));                                                                   // 3: below the ringed giant
-  CP.push(onCirc(V(), S2.c, (RG[1] * 1.01 + RM) / 2 + 1, PL2, th2(T2P) + .12));          // 4: between the ring and the moon
-  CP.push(onCirc(V(), S3.c, r3 * 2.66, PL3, 3.3));                                        // 5: outside the clockwork
-  CP.push(P(-36, 150));                                                                   // 6: below the blue planet
-  CP.push(onCirc(V(), S4.c, r4 * 2.12, PL4, -0.25));                                      // 7: past the blue planet, inside its lights
-  CP.push(P(-14, 64));                                                                    // 8: up towards the sun
-  [-95, -45, 5, 55, 100, 145].forEach((a) => CP.push(Q(SUN, 30 * Math.cos(a * RAD), 30 * Math.sin(a * RAD))));   // 9..14: round the sun
-  [[-58, 2], [-124, -9], [-236, -20], [-370, -28]].forEach((q) => CP.push(Q(SUN, q[0], q[1])));                    // 15..18: onwards
-  // centripetal Catmull-Rom, then even steps along the length
-  const dense = [], cpAt = [];
-  {
-    const ext = [CP[0].clone().multiplyScalar(2).sub(CP[1])].concat(CP, [CP[CP.length - 1].clone().multiplyScalar(2).sub(CP[CP.length - 2])]);
-    const A1 = V(), A2 = V(), A3 = V(), B1 = V(), B2 = V();
-    for (let i = 1; i < ext.length - 2; i++) {
-      const p0 = ext[i - 1], p1 = ext[i], p2 = ext[i + 1], p3 = ext[i + 2];
-      const t0 = 0, t1 = t0 + Math.sqrt(p0.distanceTo(p1)) + 1e-4, t2 = t1 + Math.sqrt(p1.distanceTo(p2)) + 1e-4, t3 = t2 + Math.sqrt(p2.distanceTo(p3)) + 1e-4;
-      cpAt.push(dense.length);
-      for (let k = 0; k < 60; k++) {
-        const t = lerp(t1, t2, k / 60);
-        A1.copy(p0).multiplyScalar((t1 - t) / (t1 - t0)).addScaledVector(p1, (t - t0) / (t1 - t0));
-        A2.copy(p1).multiplyScalar((t2 - t) / (t2 - t1)).addScaledVector(p2, (t - t1) / (t2 - t1));
-        A3.copy(p2).multiplyScalar((t3 - t) / (t3 - t2)).addScaledVector(p3, (t - t2) / (t3 - t2));
-        B1.copy(A1).multiplyScalar((t2 - t) / (t2 - t0)).addScaledVector(A2, (t - t0) / (t2 - t0));
-        B2.copy(A2).multiplyScalar((t3 - t) / (t3 - t1)).addScaledVector(A3, (t - t1) / (t3 - t1));
-        dense.push(B1.multiplyScalar((t2 - t) / (t2 - t1)).addScaledVector(B2, (t - t1) / (t2 - t1)).clone());
-      }
-    }
-    cpAt.push(dense.length); dense.push(CP[CP.length - 1].clone());
-  }
-  const dl = [0]; for (let i = 1; i < dense.length; i++) dl[i] = dl[i - 1] + dense[i].distanceTo(dense[i - 1]);
-  const sCP = cpAt.map((i) => dl[i]);
-  const PATH = dl[dl.length - 1], NP = Math.ceil(PATH / .8), SP = [];
+  // ---------- the comet's trace: behind it (solid) and the way ahead (dashed, only at the end) ----------
+  // the path in even steps along its length, so a distance along it is found at once
+  const NP = Math.ceil(PATH / .5), SP = [];
   for (let i = 0, j = 0; i <= NP; i++) {
-    const d = PATH * i / NP; while (j < dense.length - 2 && dl[j + 1] < d) j++;
-    SP.push(V().lerpVectors(dense[j], dense[j + 1], clamp((d - dl[j]) / Math.max(1e-6, dl[j + 1] - dl[j]), 0, 1)));
+    const d = PATH * i / NP; while (j < NS - 2 && PS[j + 1] < d) j++;
+    const f = clamp((d - PS[j]) / Math.max(1e-9, PS[j + 1] - PS[j]), 0, 1);
+    SP.push(V(lerp(PU[j], PU[j + 1], f), 0, -lerp(PW[j], PW[j + 1], f)));
   }
-  const pathAt = (s, out) => { const f = clamp(s / PATH, 0, 1) * NP, i = Math.min(NP - 1, Math.floor(f)); return out.lerpVectors(SP[i], SP[i + 1], f - i); };
-  // the trace behind the comet (solid) and the way ahead (dashed, only at the end)
+  // a point at distance s along it: a uniform Catmull-Rom through the even steps, so the motion stays smooth between them
+  const pathAt = (s, out) => {
+    const f = clamp(s / PATH, 0, 1) * NP, i = Math.min(NP - 1, Math.floor(f)), u = f - i, u2 = u * u, u3 = u2 * u;
+    const a = SP[Math.max(0, i - 1)], b = SP[i], c = SP[i + 1], d = SP[Math.min(NP, i + 2)];
+    const ka = -.5 * u3 + u2 - .5 * u, kb = 1.5 * u3 - 2.5 * u2 + 1, kc = -1.5 * u3 + 2 * u2 + .5 * u, kd = .5 * u3 - .5 * u2;
+    return out.set(ka * a.x + kb * b.x + kc * c.x + kd * d.x, ka * a.y + kb * b.y + kc * c.y + kd * d.y, ka * a.z + kb * b.z + kc * c.z + kd * d.z);
+  };
   const trail = Lines([NP + 1], lineMat('#FFF4DC', .62, 1.3), 6);
   { const b = new Float32Array((NP + 1) * 3); SP.forEach((p, i) => p.toArray(b, i * 3)); trail.set(0, b, 1, false); trail.done(); }
   const ahead = new THREE.Mesh(trail.g, lineMat('#FFF4DC', .7, 1.3, [3.4, .5])); ahead.frustumCulled = false; ahead.renderOrder = 6; scene.add(ahead);
   const aheadU = ahead.material.uniforms;
-  // when the comet is where: [time, distance along the path]
-  const sAt = (i, f) => lerp(sCP[i], sCP[i + 1], f || 0);
-  const CK = [[0, sAt(0, .08)], [ST[0].a - .4, sAt(1, .22)], [ST[0].p, sAt(1, .7)], [T1P, sCP[2]], [ST[0].e, sAt(2, .4)],
-    [ST[1].a - .4, sAt(3, .1)], [ST[1].p, sAt(3, .62)], [T2P, sCP[4]], [ST[1].e, sAt(4, .32)],
-    [ST[2].a - .4, sAt(4, .52)], [ST[2].p, sAt(4, .8)], [ST[2].s + .5, sCP[5]], [ST[2].e, sAt(5, .4)],
-    [ST[3].a - .4, sAt(6, .1)], [ST[3].p, sAt(6, .62)], [ST[3].s + .5, sCP[7]], [ST[3].e, sAt(7, .42)],
-    [TS, sAt(8, .2)], [TS + 1.3, sCP[10]], [TS + 2.8, sCP[12]], [TS + 4.4, sCP[14]], [TC + 1.0, sAt(15, .45)], [TEND, sAt(15, .78)]];
+  // a smooth curve through [time, value] keys, still at flat stretches, without overshoot
   function monotone(keys) {
     const n = keys.length, x = keys.map((k) => k[0]), y = keys.map((k) => k[1]), d = [], m = [];
     for (let i = 0; i < n - 1; i++) d[i] = (y[i + 1] - y[i]) / (x[i + 1] - x[i]);
@@ -703,7 +824,6 @@ const ICERIK = {
       const h = x[i + 1] - x[i], u = (t - x[i]) / h, u2 = u * u, u3 = u2 * u;
       return (2 * u3 - 3 * u2 + 1) * y[i] + (u3 - 2 * u2 + u) * h * m[i] + (-2 * u3 + 3 * u2) * y[i + 1] + (u3 - u2) * h * m[i + 1]; };
   }
-  const cometS = monotone(CK);
 
   // ---------- the comet: a warm nucleus in a round coma; a curved dust tail and a straight pale ion tail, always away from the sun ----------
   const headMat = mat({ tr: true, dw: false, u: { uCore: { value: C('#FFF8E8') }, uHalo: { value: C('#FFE3B8') }, uGlow: { value: 0 } }, vs: QUAD_VS,
@@ -765,11 +885,11 @@ const ICERIK = {
     [TC - .4, '#A5587A', '#2A1A30'], [TC + .9, '#1C2646', '#0B0D10'], [TEND, '#1C2646', '#0B0D10']].map((k) => [k[0], hx(k[1]), hx(k[2])]);
 
   // ---------- the camera: the same angle throughout; it frames a box round a point inside the free part of the screen ----------
-  const sysF = Q(SUN, 0, -222);
-  // [time, focus point, half width, half height] in picture units
-  const HOLD = [[Q(S1.c, -4, 0), 27, 26], [Q(S2.c, 20, -2), 50, 36], [Q(S3.c, -2, 2), 50, 37], [Q(S4.c, 5, 0), 30, 28], [Q(SUN, 0, 16), 52, 52]];
-  const TRANSIT = [0, [0, 1, 44, 32], [1, 0, 46, 34], [0, 1, 30, 28], [.9, .1, 52, 52]];
-  const CAM = [[0, sysF, 138, 272], [3.0, sysF, 138, 272]];
+  const sysF = Q(SUN, 0, -200), SYSW = 138, SYSH = 290;   // the whole route, from where it enters to past the sun
+  // [focus point, half width, half height] in picture units at each stop: the body, its company and the whole swing round it
+  const HOLD = [[Q(S1.c, 0, -6), 38, 40], [Q(S2.c, -6, -6), 47, 38], [Q(S3.c, -1, -4), 55, 40], [Q(S4.c, 2, -4), 44, 34], [Q(SUN, 16, 12), 54, 56]];
+  const TRANSIT = [0, [0, 1, 46, 38], [1, 0, 52, 40], [0, 1, 46, 36], [.9, .1, 52, 52]];
+  const CAM = [[0, sysF, SYSW, SYSH], [3.0, sysF, SYSW, SYSH]];
   HOLD.forEach((h, i) => {
     const a = i < 4 ? ST[i].a : TS;
     // On the way: [share of the slide, share of the rise, half width, half height] at the midpoint. Leftwards it rises
@@ -779,7 +899,10 @@ const ICERIK = {
       CAM.push([tm, Q(SUN, lerp(ga[0], ha[0], m[0]), lerp(ga[1], ha[1], m[1])), m[2], m[3]]); }
     CAM.push([a + .2, h[0], h[1], h[2]], [i < 4 ? ST[i].e - .5 : TS + 4.4, h[0], h[1], h[2]]);
   });
-  CAM.push([TC + 1.6, sysF, 138, 272], [TEND, sysF, 138, 272]);
+  // the close shows the same route, its top raised to keep the comet's last position (it has climbed past the sun) clear of the buttons
+  const endTop = Math.max(SYSH - 200, scr(pathAt(cometS(TEND), V()))[1] - scr(SUN)[1] + 30), endH = (endTop + 200 + SYSH) / 2;
+  const endF = Q(SUN, 0, endTop - endH);
+  CAM.push([TC + 1.6, endF, SYSW, endH], [TEND, endF, SYSW, endH]);
   // smooth through every key, still at the holds, without overshoot
   const camK = [0, 1, 2, 3].map((j) => monotone(CAM.map((k) => [k[0], j < 2 ? scr(k[1])[j] : Math.log(k[j])])));
   let W = 1, H = 1, aspect = 1, K = 1;
@@ -832,13 +955,20 @@ const ICERIK = {
     else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); prev(); }
   });
 
-  let prCap = 2, adaptive = true, slowN = 0, slowT = 0;
+  let prCap = 2, adaptive = true, slowN = 0, slowT = 0, capR = 0;
   function resize() {
     W = stage.clientWidth || 1; H = stage.clientHeight || 1; aspect = W / H;
     const pr = Math.min(window.devicePixelRatio || 1, prCap); renderer.setPixelRatio(pr); renderer.setSize(W, H, false);
     renderer.getDrawingBufferSize(G.uRes.value); G.uPx.value = G.uRes.value.x / W;
+    // where the widest caption line ends (they are always laid out; only their opacity changes)
+    if (INCE.yatay) { capR = 0; const rg = document.createRange();
+      caps.forEach((c) => c.querySelectorAll('h1, h2, p').forEach((e) => { rg.selectNodeContents(e);
+        [].forEach.call(rg.getClientRects(), (q) => { if (q.width > 0) capR = Math.max(capR, q.right - stage.getBoundingClientRect().left); }); })); }
+    measureYield();
   }
   window.addEventListener('resize', resize); resize();
+  // (once the typeface is in, the captions and the buttons have their final size)
+  if (document.fonts) document.fonts.ready.then(resize);
 
   const UP = V(0, 1, 0), QS = new THREE.Quaternion();
   function spin(b, pl, a) { b.mesh.quaternion.setFromUnitVectors(UP, pl.n).multiply(QS.setFromAxisAngle(UP, a)); }
@@ -889,12 +1019,13 @@ const ICERIK = {
 
     // the comet
     const s = cometS(t); pathAt(s, pos); pathAt(s + 1.5, p2);
-    const hs = Math.max(1.7, 11 / K); head.position.copy(pos); head.scale.setScalar(hs * 2);
+    const hs = Math.max(1.7, (INCE.bas ? lerp(13.5, 11, sstep(480, 700, Math.min(W, H))) : 11) / K); head.position.copy(pos); head.scale.setScalar(hs * 2);
     const glowV = GLOW(t); headMat.uniforms.uGlow.value = glowV; dust.u.uGlow.value = glowV; ion.u.uGlow.value = glowV;
     const sp = scr(pos), ss = scr(SUN); let dx = sp[0] - ss[0], dy = sp[1] - ss[1]; { const l = Math.hypot(dx, dy) || 1; dx /= l; dy /= l; }
     const vv = scr(p2); let vx = vv[0] - sp[0], vy = vv[1] - sp[1]; { const l = Math.hypot(vx, vy) || 1; vx /= l; vy /= l; }
     // the dust tail lags behind the motion: it bends to the side the comet is leaving
-    const cr = vx * dy - vy * dx, sd = cr >= 0 ? 1 : -1, bend = .12 + .2 * Math.min(1, Math.abs(cr) * 1.5);
+    // (it eases through straight when the motion lines up with the sun, so a fast swing never flips it from side to side)
+    const cr = vx * dy - vy * dx, sd = clamp(cr / .12, -1, 1), bend = .12 + .2 * Math.min(1, Math.abs(cr) * 1.5);
     const len = TLEN(t) / K, wd = len * .095 + .5 / K;
     dust.set(pos, [dx, dy], [-dy * -sd, dx * -sd], len, wd, bend);
     ion.set(pos, [dx, dy], [0, 0], len * 1.12, wd * .3, 0);
@@ -904,13 +1035,24 @@ const ICERIK = {
 
     // the '50+' beside the belt
     const tagA = .95 * sstep(.55, 1, RES(3, t)) * (1 - sstep(TS - 1.6, TS - .4, t));
-    if (tagA > .01) { onCirc(tmp, S4.c, R4 * 1.14, PL4, 2.75); tmp.sub(camC); const x = W / 2 + tmp.dot(camRight) * K, y = H / 2 - tmp.dot(camUp) * K;
+    if (tagA > .01) { onCirc(tmp, S4.c, R4 * 1.14, PL4, .12); tmp.sub(camC); const x = W / 2 + tmp.dot(camRight) * K, y = H / 2 - tmp.dot(camUp) * K;
       tagEl.style.transform = 'translate(' + (x - 30).toFixed(1) + 'px,' + (y - 28).toFixed(1) + 'px)'; }
     tagEl.style.opacity = tagA.toFixed(3);
 
+    // the controls make way for the comet: where its head passes beneath the stop map or a button, that control fades back so
+    // the comet stays in sight, and comes back once it has passed (the route is set by the swings, so on a narrow screen it can
+    // enter the picture where the map is)
+    tmp.copy(pos).sub(camC); const hx = W / 2 + tmp.dot(camRight) * K, hy = H / 2 - tmp.dot(camUp) * K;
+    YIELD.forEach((y) => {
+      const q = y.r, o = lerp(.2, 1, sstep(6, 40, Math.hypot(Math.max(q[0] - hx, 0, hx - q[2]), Math.max(q[1] - hy, 0, hy - q[3]))));
+      const v = o < .995 ? o.toFixed(2) : '';
+      if (v !== y.v) { y.v = v; y.el.style.opacity = v; }
+    });
+
     // captions keep a calm ground: the foot of the picture dissolves into the field
     let capAmt = 0; for (let i = 0; i < CAPT.length; i++) capAmt = Math.max(capAmt, sstep(CAPT[i][0] - 1, CAPT[i][0] + .5, t) * (1 - sstep(CAPT[i][1] - .3, CAPT[i][1] + 1, t)));
-    G.uFoot.value.set(lerp(lerp(.41, .42, r.wide), .35, draw), lerp(.2, .1, r.wide), lerp(.55, .92, capAmt), r.wide > .5 ? .36 : 0);
+    // (on wide screens only its left part, as far as the widest caption line reaches)
+    G.uFoot.value.set(lerp(lerp(.41, .42, r.wide), .35, draw), lerp(.2, .1, r.wide), lerp(.55, .92, capAmt), r.wide > .5 ? (INCE.yatay ? Math.max(.36, capR / W - .05) : .36) : 0);
 
     chrome(t);
     renderer.render(scene, camera);
@@ -922,6 +1064,9 @@ const ICERIK = {
 
   // Jump straight to a moment (used for checking frames).
   window.__seek = function (t) { adaptive = false; setPlaying(false); glide = null; hold = 0; T0 = t; frame(performance.now(), true); };
+  // The film's clock, for the same purpose: its length, the four stops (a approach, p problem, s solution, e end), the sun, the close,
+  // the caption windows and the moments the comet passes closest to the four planets and the sun.
+  window.__film = { len: TEND, stops: ST, sun: TS, close: TC, capt: CAPT, swing: TPK };
 })();
 </script>
 </body>

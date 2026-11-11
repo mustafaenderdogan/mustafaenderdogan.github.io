@@ -15,6 +15,8 @@
   --accent: #1D4F91;     /* bağlantı ve vurgu: koyu poliçe mavisi */
   --accent-ink: #163D70;
   --accent-wash: #EAF0F8;
+  --yol: #C44D00;        /* menüde Yolculuk maddesi: turuncu (beyaz zeminde 4,8:1) */
+  --yol-ink: #9C3D00;
   --maxw: 1080px;
   --pad: clamp(20px, 5vw, 48px);
   --label: 180px;        /* ana sayfada bölüm adı sütunu */
@@ -53,6 +55,9 @@ a:hover { color: var(--accent-ink); text-decoration-thickness: 2px; }
 .hd-nav a:hover { color: var(--ink); text-decoration: underline; text-decoration-thickness: 1px; }
 .hd-nav a[aria-current] { color: var(--ink); text-decoration: underline; text-decoration-thickness: 2px; text-decoration-color: var(--accent); }
 .hd-nav .hd-li { color: var(--accent); font-weight: 600; }
+.hd-nav a.hd-yol { color: var(--yol); }
+.hd-nav a.hd-yol:hover { color: var(--yol-ink); }
+.hd-nav a.hd-yol[aria-current] { text-decoration-color: var(--yol); }
 .burger { display: none; width: 44px; height: 44px; border: 1px solid #C3CBD5; border-radius: 6px; background: var(--paper); cursor: pointer; flex-direction: column; align-items: center; justify-content: center; gap: 5px; }
 .burger span { display: block; width: 18px; height: 2px; background: var(--ink); transition: transform .2s ease; }
 .burger[aria-expanded="true"] span:first-child { transform: translateY(3.5px) rotate(45deg); }
@@ -62,6 +67,7 @@ a:hover { color: var(--accent-ink); text-decoration-thickness: 2px; }
 .menu-nav { display: flex; flex-direction: column; }
 .menu-nav a { color: var(--ink); text-decoration: none; font-size: 20px; font-weight: 500; padding: 14px 0; border-bottom: 1px solid var(--rule); }
 .menu-nav a.hd-li { color: var(--accent); }
+.menu-nav a.hd-yol { color: var(--yol); }
 body.menu-open { overflow: hidden; }
 @media (max-width: 880px) {
   .hd-nav { display: none; }

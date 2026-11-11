@@ -8,7 +8,7 @@ Mustafa Ender Doğan — İş Analizi Portfolyosu. Statik site: HTML, CSS ve Jav
 - `css/site.css` ve `js/site.js`: tüm sayfaların (demolar hariç) tek stil ve betik dosyası.
 - `analiz/`: vaka sayfaları. Bankasürans vakası temsilidir; kurum adları ve veriler kurgusaldır.
 - `surec-ve-yontem.html`: Scrum çalışma biçimi; örnekler temsilidir.
-- `yolculuk.html`: kariyerin bir dakikalık görsel anlatımı (yalnız Türkçe). Sahne `yolculuk/sahne.html` içinde; ekrandaki metinler dosyanın başındaki `ICERIK` bloğunda.
+- `yolculuk.html`: kariyerin dört durakta görsel anlatımı (yalnız Türkçe). Sahne `yolculuk/sahne.html` içinde; ekrandaki metinler dosyanın başındaki `ICERIK` bloğunda.
 - `hasarai/`, `buro/`, `isyonetim/`: analizleri sınamak için hazırlanmış demoların derlenmiş kopyaları. Kaynak kodları ayrı projelerde; veriler kurgusaldır.
 - `blog/`: sigorta, yapay zekâ ve vaka yazıları (TR ve EN).
 - `en/`: kısa İngilizce özet.
