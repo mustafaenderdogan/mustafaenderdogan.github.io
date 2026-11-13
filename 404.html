@@ -11,6 +11,7 @@
   (function () {
     var p = location.pathname;
     if (p.indexOf("/isyonetim/") === 0 && p !== "/isyonetim/" && !/\.[a-z0-9]+$/i.test(p)) {
+      window.goatcounter = { no_onload: true }; /* taşınan istek burada sayılmaz, demonun girişinde sayılır */
       location.replace("/isyonetim/?yol=" + encodeURIComponent(p.slice("/isyonetim".length) + location.search) + location.hash);
     }
   })();
@@ -80,5 +81,6 @@
 </footer>
 
 <script src="/js/site.js?v=1" defer></script>
+<script data-goatcounter="https://mustafaenderdogan.goatcounter.com/count" async src="/assets/vendor/goatcounter.count.v5.js"></script>
 </body>
 </html>
